@@ -17,7 +17,7 @@ class LogScreenState extends State<LogScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white70,
       body: Padding(
         padding: const EdgeInsets.fromLTRB(50, 60, 50, 20),
         child: ListView(
@@ -50,10 +50,12 @@ class LogScreenState extends State<LogScreen> {
                     InkWell(
                       onTap: () {},
                       child: const Text(
-                        'Log in',
+                        'Sign in',
                         textAlign: TextAlign.right,
-                        style:
-                            TextStyle(fontFamily: 'RobotoMono', fontSize: 11),
+                        style: TextStyle(
+                            fontFamily: 'RobotoMono',
+                            fontSize: 15,
+                            fontWeight: FontWeight.w900),
                       ),
                     ),
                     const SizedBox(width: 5),
@@ -69,12 +71,12 @@ class LogScreenState extends State<LogScreen> {
                         );
                       },
                       child: const Text(
-                        'Sign up',
+                        ' Sign up',
                         textAlign: TextAlign.right,
                         style: TextStyle(
-                            fontFamily: 'RobotoMono',
-                            fontSize: 11,
-                            fontWeight: FontWeight.w900),
+                          fontFamily: 'RobotoMono',
+                          fontSize: 15,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 2),
@@ -82,13 +84,21 @@ class LogScreenState extends State<LogScreen> {
                 ),
                 InputField(
                   hinttext: "e-mail",
-                  iconl: const Icon(Icons.email_outlined),
+                  iconl: const Icon(
+                    Icons.email_outlined,
+                    color: Colors.black,
+                  ),
                   passw: false,
+                  paddings: const EdgeInsets.fromLTRB(0, 13, 0, 11),
                 ),
                 InputField(
                   hinttext: "password",
-                  iconl: const Icon(Icons.lock),
+                  iconl: const Icon(
+                    Icons.lock,
+                    color: Colors.black,
+                  ),
                   passw: true,
+                  paddings: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -97,6 +107,7 @@ class LogScreenState extends State<LogScreen> {
                       scale: 1.2,
                       child: SizedBox(
                         width: 20,
+                        height: 20,
                         child: Checkbox(
                           activeColor: const Color(0xff00C8E8),
                           splashRadius: 25,
@@ -112,13 +123,21 @@ class LogScreenState extends State<LogScreen> {
                       ),
                     ),
                     const SizedBox(width: 5),
-                    const Text('Remember me')
+                    const Text(
+                      'Remember me',
+                      style: TextStyle(fontFamily: 'RobotoMono', fontSize: 12),
+                    )
                   ],
                 ),
-                const Text('Forgot Password?', textAlign: TextAlign.left),
+                const SizedBox(height: 5),
+                const Text(
+                  'Forgot Password?',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontFamily: 'RobotoMono', fontSize: 12),
+                ),
                 const SizedBox(height: 30),
                 RoundedButton(
-                  title: 'Log In',
+                  title: 'Sign-In',
                   colour: Colors.white,
                   paddings: const EdgeInsets.symmetric(
                       vertical: 16.0, horizontal: 85),
@@ -128,7 +147,9 @@ class LogScreenState extends State<LogScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    const Text('Don\'t have an account yet?',
+                    const Text('Don\'t have an account yet?  ',
+                        style:
+                            TextStyle(fontFamily: 'RobotoMono', fontSize: 12),
                         textAlign: TextAlign.left),
                     InkWell(
                       onTap: () {
@@ -146,7 +167,7 @@ class LogScreenState extends State<LogScreen> {
                         textAlign: TextAlign.right,
                         style: TextStyle(
                             fontFamily: 'RobotoMono',
-                            fontSize: 11,
+                            fontSize: 12,
                             fontWeight: FontWeight.w900),
                       ),
                     ),
@@ -161,7 +182,10 @@ class LogScreenState extends State<LogScreen> {
                         thickness: 1.5,
                       ),
                     ),
-                    Text("        or login        "),
+                    Text(
+                      "      or login      ",
+                      style: TextStyle(fontFamily: 'RobotoMono', fontSize: 15),
+                    ),
                     Expanded(
                       child: Divider(
                         color: Colors.black,
@@ -178,7 +202,7 @@ class LogScreenState extends State<LogScreen> {
                       width: 60,
                       height: 45,
                       child: Material(
-                        elevation: 4.0,
+                        elevation: 3.0,
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -201,7 +225,7 @@ class LogScreenState extends State<LogScreen> {
                       width: 60,
                       height: 45,
                       child: Material(
-                        elevation: 4.0,
+                        elevation: 3.0,
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -226,7 +250,7 @@ class LogScreenState extends State<LogScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const <Widget>[
                       Text(
-                        'With Google',
+                        ' with Google',
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 9),
                       ),
@@ -239,7 +263,7 @@ class LogScreenState extends State<LogScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 35),
+                const SizedBox(height: 11),
                 const Text(
                   '*if you continue anonymously, you won’t be able to continue with other devices later and you won’t be able to write blog',
                   textAlign: TextAlign.left,

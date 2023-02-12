@@ -16,7 +16,7 @@ class RegScreenState extends State<RegScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white70,
       body: Padding(
         padding: const EdgeInsets.fromLTRB(50, 60, 50, 150),
         child: Column(
@@ -46,9 +46,12 @@ class RegScreenState extends State<RegScreen> {
                 InkWell(
                   onTap: () {},
                   child: const Text(
-                    'Log in',
+                    'Sign in',
                     textAlign: TextAlign.right,
-                    style: TextStyle(fontFamily: 'RobotoMono', fontSize: 11),
+                    style: TextStyle(
+                      fontFamily: 'RobotoMono',
+                      fontSize: 15,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 5),
@@ -58,9 +61,10 @@ class RegScreenState extends State<RegScreen> {
                     'Sign up',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'RobotoMono',
-                        fontSize: 11,
-                        fontWeight: FontWeight.w900),
+                      fontFamily: 'RobotoMono',
+                      fontSize: 15,
+                      fontWeight: FontWeight.w900,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 2),
@@ -70,16 +74,19 @@ class RegScreenState extends State<RegScreen> {
               hinttext: "e-mail",
               iconl: const Icon(Icons.email_outlined),
               passw: false,
+              paddings: const EdgeInsets.fromLTRB(0, 0, 0, 11),
             ),
             InputField(
               hinttext: "password",
               iconl: const Icon(Icons.lock),
               passw: true,
+              paddings: const EdgeInsets.fromLTRB(0, 0, 0, 11),
             ),
             InputField(
               hinttext: "confirm password",
               iconl: const Icon(Icons.lock),
               passw: true,
+              paddings: const EdgeInsets.fromLTRB(0, 0, 0, 11),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,

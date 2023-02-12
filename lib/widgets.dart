@@ -2,25 +2,29 @@ import 'package:flutter/material.dart';
 
 class InputField extends StatelessWidget {
   InputField(
-      {required this.hinttext, required this.iconl, required this.passw});
+      {required this.hinttext,
+      required this.iconl,
+      required this.passw,
+      required this.paddings});
 
   final String hinttext;
   final Icon iconl;
   final bool passw;
+  final paddings;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+      padding: paddings,
       child: TextField(
         obscureText: passw,
         style: const TextStyle(
           color: Colors.black,
         ),
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(15),
+          contentPadding: const EdgeInsets.fromLTRB(15, 17, 15, 17),
           filled: true,
-          fillColor: const Color(0xffF0EEED),
+          fillColor: Colors.white,
           prefixIcon: iconl,
           hintText: hinttext,
           hintStyle: const TextStyle(
@@ -30,7 +34,7 @@ class InputField extends StatelessWidget {
             borderRadius: BorderRadius.all(
               Radius.circular(10.0),
             ),
-            borderSide: const BorderSide(color: Colors.black, width: 1),
+            borderSide: const BorderSide(color: Colors.black, width: 2),
           ),
         ),
       ),
@@ -55,7 +59,7 @@ class RoundedButton extends StatelessWidget {
     return Padding(
       padding: paddings,
       child: Material(
-        elevation: 8.0,
+        elevation: 4,
         color: colour,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -70,6 +74,7 @@ class RoundedButton extends StatelessWidget {
           child: Text(
             title,
             style: const TextStyle(
+              fontSize: 19,
               color: Colors.black,
             ),
           ),
