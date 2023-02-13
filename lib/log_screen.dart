@@ -17,7 +17,7 @@ class LogScreenState extends State<LogScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white70,
+      backgroundColor: const Color(0xFFCFE3E3),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(50, 60, 50, 20),
         child: ListView(
@@ -35,12 +35,6 @@ class LogScreenState extends State<LogScreen> {
                 const SizedBox(
                   height: 20.0,
                 ),
-                const Text("Aurora",
-                    style: TextStyle(
-                        fontFamily: 'RobotoMono',
-                        fontSize: 50,
-                        fontWeight: FontWeight.w900),
-                    textAlign: TextAlign.center),
                 const SizedBox(
                   height: 20.0,
                 ),
