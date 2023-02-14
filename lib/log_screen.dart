@@ -20,7 +20,7 @@ class LogScreenState extends State<LogScreen> {
       backgroundColor: const Color(0xFFCFE3E3),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(50, 60, 50, 20),
+          padding: const EdgeInsets.fromLTRB(50, 60, 50, 50),
           child: ListView(
             shrinkWrap: true,
             children: <Widget>[
@@ -34,10 +34,7 @@ class LogScreenState extends State<LogScreen> {
                     'images/logo.png',
                   ),
                   const SizedBox(
-                    height: 20.0,
-                  ),
-                  const SizedBox(
-                    height: 20.0,
+                    height: 40.0,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
