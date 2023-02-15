@@ -139,12 +139,7 @@ class LogScreenState extends State<LogScreen> {
                     colour: Colors.white,
                     paddings: const EdgeInsets.symmetric(
                         vertical: 16.0, horizontal: 85),
-                    onPress: () async {
-                      var user = await FirebaseAuth.instance
-                          .signInWithEmailAndPassword(
-                              email: "a@gmail.com", password: "123456");
-                      print(user);
-                    },
+                    onPress: () {},
                   ),
                   const SizedBox(height: 4),
                   Row(
