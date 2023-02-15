@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "605601028430",
+    "project_id": "aurora-sc",
+    "storage_bucket": "aurora-sc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605601028430:android:b710b57e71057a908ca61f",
+        "android_client_info": {
+          "package_name": "com.example.aurora"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "605601028430-00hl57vedo950aq8mnce3qko3e7kq3fh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDB_zDVz28sncZo8qyE2wOFtco7rUGcK4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "605601028430-00hl57vedo950aq8mnce3qko3e7kq3fh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

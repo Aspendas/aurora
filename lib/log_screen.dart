@@ -2,6 +2,7 @@ import 'package:aurora/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:aurora/widgets.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LogScreen extends StatefulWidget {
   static const String id = 'log_screen';
@@ -138,7 +139,12 @@ class LogScreenState extends State<LogScreen> {
                     colour: Colors.white,
                     paddings: const EdgeInsets.symmetric(
                         vertical: 16.0, horizontal: 85),
-                    onPress: () {},
+                    onPress: () async {
+                      var user = await FirebaseAuth.instance
+                          .signInWithEmailAndPassword(
+                              email: "a@gmail.com", password: "123456");
+                      print(user);
+                    },
                   ),
                   const SizedBox(height: 4),
                   Row(
