@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'log_screen.dart';
 import 'package:aurora/widgets.dart';
@@ -110,7 +111,8 @@ class RegScreenState extends State<RegScreen> {
                         activeColor: const Color(0xff00C8E8),
                         splashRadius: 25,
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
                         value: isChecked,
                         onChanged: (bool? value) {
                           setState(() {
@@ -143,7 +145,12 @@ class RegScreenState extends State<RegScreen> {
                 colour: Colors.white,
                 paddings:
                     const EdgeInsets.symmetric(vertical: 16.0, horizontal: 85),
-                onPress: () {},
+                onPress: () async {
+                  var user = await FirebaseAuth.instance
+                      .createUserWithEmailAndPassword(
+                          email: "a@gmail.com", password: "123456");
+                  print(user);
+                },
               ),
             ],
           ),
