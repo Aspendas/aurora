@@ -1,3 +1,4 @@
+import 'package:aurora/passw_res.dart';
 import 'package:aurora/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -99,7 +100,7 @@ class LogScreenState extends State<LogScreen> {
                       Row(
                         children: [
                           Transform.scale(
-                            scale: 1.2,
+                            scale: 1,
                             child: SizedBox(
                               width: 20,
                               height: 20,
@@ -121,15 +122,27 @@ class LogScreenState extends State<LogScreen> {
                           const Text(
                             'Remember me',
                             style: TextStyle(
-                                fontFamily: 'RobotoMono', fontSize: 12),
+                                fontFamily: 'RobotoMono', fontSize: 13),
                           ),
                         ],
                       ),
-                      const Text(
-                        'Forgot Password?',
-                        textAlign: TextAlign.left,
-                        style:
-                            TextStyle(fontFamily: 'RobotoMono', fontSize: 12),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return PasswrScreen();
+                              },
+                            ),
+                          );
+                        },
+                        child: const Text('Forgot Password?',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontFamily: 'RobotoMono',
+                                fontSize: 13,
+                                fontWeight: FontWeight.w400)),
                       ),
                     ],
                   ),

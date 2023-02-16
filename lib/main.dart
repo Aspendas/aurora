@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'log_screen.dart';
+import 'passw_res.dart';
 import 'register_screen.dart';
 
 void main() async {
@@ -20,6 +21,7 @@ class Aurora extends StatelessWidget {
       routes: {
         LogScreen.id: (context) => LogScreen(),
         RegScreen.id: (context) => RegScreen(),
+        PasswrScreen.id: (context) => PasswrScreen(),
       },
     );
   }
