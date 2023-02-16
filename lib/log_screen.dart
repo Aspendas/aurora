@@ -13,6 +13,23 @@ class LogScreen extends StatefulWidget {
 }
 
 class LogScreenState extends State<LogScreen> {
+  late final TextEditingController _email;
+  late final TextEditingController _password;
+
+  @override
+  void initState() {
+    _email = TextEditingController();
+    _password = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _email.dispose();
+    _password.dispose();
+    super.dispose();
+  }
+
   bool isChecked = false;
 
   @override
@@ -76,23 +93,69 @@ class LogScreenState extends State<LogScreen> {
                       const SizedBox(width: 2),
                     ],
                   ),
-                  InputField(
-                    hinttext: "e-mail",
-                    iconl: const Icon(
-                      Icons.email_outlined,
-                      color: Colors.black,
+                  TextField(
+                    controller: _email,
+                    keyboardType: TextInputType.emailAddress,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    decoration: const InputDecoration(
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 18, horizontal: 4),
+                      hintText: "E-mail",
+                      fillColor: Colors.white,
+                      filled: true,
+                      prefixIcon: Icon(
+                        Icons.email_outlined,
+                        size: 28,
+                        color: Color.fromRGBO(49, 62, 64, 1),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(12.0),
+                        ),
+                        borderSide: BorderSide(width: 1),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(12.0),
+                        ),
+                        borderSide: BorderSide(width: 1, color: Colors.black54),
+                      ),
                     ),
-                    passw: false,
-                    paddings: const EdgeInsets.fromLTRB(0, 13, 0, 11),
                   ),
-                  InputField(
-                    hinttext: "password",
-                    iconl: const Icon(
-                      Icons.lock,
-                      color: Colors.black,
+                  const SizedBox(height: 8),
+                  TextField(
+                    controller: _password,
+                    obscureText: true,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    decoration: const InputDecoration(
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 18, horizontal: 4),
+                      hintText: "Password",
+                      fillColor: Colors.white,
+                      filled: true,
+                      prefixIcon: Icon(
+                        Icons.lock,
+                        size: 28,
+                        color: Color.fromRGBO(49, 62, 64, 1),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(12.0),
+                        ),
+                        borderSide: BorderSide(width: 1),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(12.0),
+                        ),
+                        borderSide: BorderSide(width: 1, color: Colors.black54),
+                      ),
                     ),
-                    passw: true,
-                    paddings: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                  ),
+                  const SizedBox(
+                    height: 8,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
