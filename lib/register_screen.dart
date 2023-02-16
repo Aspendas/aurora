@@ -38,11 +38,10 @@ class RegScreenState extends State<RegScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFFCFE3E3),
-      body: Center(
+      body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(50, 60, 50, 130),
+          padding: const EdgeInsets.fromLTRB(50, 100, 50, 50),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Image.asset(
