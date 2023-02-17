@@ -5,6 +5,8 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:aurora/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'home.dart';
+
 class LogScreen extends StatefulWidget {
   static const String id = 'log_screen';
 
@@ -167,7 +169,8 @@ class LogScreenState extends State<LogScreen> {
                             activeColor: const Color(0xff00C8E8),
                             splashRadius: 25,
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5)),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
                             value: isChecked,
                             onChanged: (bool? value) {
                               setState(() {
@@ -196,12 +199,14 @@ class LogScreenState extends State<LogScreen> {
                         ),
                       );
                     },
-                    child: const Text('Forgot Password?',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                            fontFamily: 'RobotoMono',
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400)),
+                    child: const Text(
+                      'Forgot Password?',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          fontFamily: 'RobotoMono',
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400),
+                    ),
                   ),
                 ],
               ),
@@ -211,7 +216,26 @@ class LogScreenState extends State<LogScreen> {
                 colour: Colors.white,
                 paddings:
                     const EdgeInsets.symmetric(vertical: 16.0, horizontal: 85),
-                onPress: () {},
+                onPress: () async {
+                  try {
+                    final userCredential = await FirebaseAuth.instance
+                        .signInWithEmailAndPassword(
+                            email: _email.text, password: _password.text)
+                        .then(
+                          (value) => Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(builder: (context) {
+                            return const HomePage();
+                          }), (route) => false),
+                        );
+                    print(userCredential);
+                  } on FirebaseAuthException catch (e) {
+                    if (e.code == 'user-not-found') {
+                      print('No user found for that email.');
+                    } else if (e.code == 'wrong-password') {
+                      print('Wrong password provided for that user.');
+                    }
+                  }
+                },
               ),
               const SizedBox(height: 4),
               Row(
