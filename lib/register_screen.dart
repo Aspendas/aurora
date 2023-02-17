@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'home.dart';
 import 'log_screen.dart';
 import 'package:aurora/widgets.dart';
 
@@ -235,10 +236,26 @@ class RegScreenState extends State<RegScreen> {
                 paddings:
                     const EdgeInsets.symmetric(vertical: 16.0, horizontal: 85),
                 onPress: () async {
-                  var user = await FirebaseAuth.instance
-                      .createUserWithEmailAndPassword(
-                          email: "a@gmail.com", password: "123456");
-                  print(user);
+                  try {
+                    final userCredential = await FirebaseAuth.instance
+                        .createUserWithEmailAndPassword(
+                            email: _email.text, password: _password.text)
+                        .then(
+                          (value) => Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(builder: (context) {
+                            return const HomePage();
+                          }), (route) => false),
+                        );
+                    print(userCredential);
+                  } on FirebaseAuthException catch (e) {
+                    if (e.code == 'weak-password') {
+                      print('The password provided is too weak.');
+                    } else if (e.code == 'email-already-in-use') {
+                      print('The account already exists for that email.');
+                    }
+                  } catch (e) {
+                    print(e);
+                  }
                 },
               ),
             ],
