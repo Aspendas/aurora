@@ -16,9 +16,12 @@ class PasswrScreenState extends State<PasswrScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFFCFE3E3),
+      appBar: AppBar(
+        title: const Text("Forget Your Password?"), //need color change
+      ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(50, 60, 50, 300),
+          padding: const EdgeInsets.fromLTRB(50, 60, 50, 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
