@@ -1,8 +1,8 @@
-import 'package:aurora/log_screen.dart';
+import 'package:aurora/screens/auth/log_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../home.dart';
+import '../screens/home.dart';
 
 class AuthService {
   emailRegister(String email, String password, BuildContext context) async {
@@ -12,7 +12,7 @@ class AuthService {
           .then(
             (value) => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) {
-              return const HomePage();
+              return const HomeScreen();
             }), (route) => false),
           );
       print(userCredential);
@@ -34,7 +34,7 @@ class AuthService {
           .then(
             (value) => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) {
-              return const HomePage();
+              return const HomeScreen();
             }), (route) => false),
           );
       print(userCredential);
@@ -53,7 +53,7 @@ class AuthService {
           await FirebaseAuth.instance.signInAnonymously().then(
                 (value) => Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) {
-                  return const HomePage();
+                  return const HomeScreen();
                 }), (route) => false),
               );
       print("Signed in with temporary account.");
