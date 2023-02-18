@@ -1,7 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'log_screen.dart';
 import 'package:aurora/widgets.dart';
+import 'package:aurora/services/auth.dart';
 
 class PasswrScreen extends StatefulWidget {
   static const String id = 'passwr_screen';
@@ -11,6 +11,19 @@ class PasswrScreen extends StatefulWidget {
 }
 
 class PasswrScreenState extends State<PasswrScreen> {
+  late final TextEditingController _email;
+
+  void initState() {
+    _email = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _email.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,14 +50,35 @@ class PasswrScreenState extends State<PasswrScreen> {
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
               ),
-              InputField(
-                hinttext: "e-mail",
-                iconl: const Icon(
-                  Icons.email_outlined,
-                  color: Colors.black,
+              TextField(
+                controller: _email,
+                keyboardType: TextInputType.emailAddress,
+                enableSuggestions: false,
+                autocorrect: false,
+                decoration: const InputDecoration(
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 18, horizontal: 4),
+                  hintText: "E-mail",
+                  fillColor: Colors.white,
+                  filled: true,
+                  prefixIcon: Icon(
+                    Icons.email_outlined,
+                    size: 28,
+                    color: Color.fromRGBO(49, 62, 64, 1),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(12.0),
+                    ),
+                    borderSide: BorderSide(width: 1),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(12.0),
+                    ),
+                    borderSide: BorderSide(width: 1, color: Colors.black54),
+                  ),
                 ),
-                passw: false,
-                paddings: const EdgeInsets.fromLTRB(0, 50, 0, 10),
               ),
               const SizedBox(height: 40),
               RoundedButton(
@@ -53,14 +87,7 @@ class PasswrScreenState extends State<PasswrScreen> {
                 paddings:
                     const EdgeInsets.symmetric(vertical: 16.0, horizontal: 85),
                 onPress: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return MailCheckScreen();
-                      },
-                    ),
-                  );
+                  AuthService().resetPassword(_email.text, context);
                 },
               ),
             ],

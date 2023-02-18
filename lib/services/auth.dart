@@ -1,7 +1,7 @@
 import 'package:aurora/screens/auth/log_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import '../screens/auth/passw_res.dart';
 import '../screens/home.dart';
 
 class AuthService {
@@ -99,5 +99,30 @@ class AuthService {
               builder: (context) => LogScreen(),
             ),
             (route) => false));
+  }
+
+  resetPassword(String email, BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email).then(
+            (value) => Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) {
+              return MailCheckScreen();
+            }), (route) => false),
+          );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('No user found for that email.'),
+          ),
+        );
+      } else if (e.code == 'invalid-email') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('The email address is invalid.'),
+          ),
+        );
+      }
+    }
   }
 }
