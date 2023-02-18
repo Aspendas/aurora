@@ -213,13 +213,14 @@ class LogScreenState extends State<LogScreen> {
               ),
               const SizedBox(height: 8),
               RoundedButton(
-                title: 'Sign-In',
-                colour: Colors.white,
-                paddings:
-                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 85),
-                onPress: AuthService()
-                    .emailSignIn(_email.text, _password.text, context),
-              ),
+                  title: 'Sign-In',
+                  colour: Colors.white,
+                  paddings: const EdgeInsets.symmetric(
+                      vertical: 16.0, horizontal: 85),
+                  onPress: () {
+                    AuthService()
+                        .emailSignIn(_email.text, _password.text, context);
+                  }),
               const SizedBox(height: 4),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -306,13 +307,17 @@ class LogScreenState extends State<LogScreen> {
                         side: const BorderSide(color: Colors.black, width: 1.5),
                       ),
                       child: MaterialButton(
-                          shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(15.0)),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(15.0),
                           ),
-                          onPressed: () {},
-                          height: 50.0,
-                          child: const Icon(MdiIcons.ghost)),
+                        ),
+                        onPressed: () {
+                          AuthService().anonymousSignIn(context);
+                        },
+                        height: 50.0,
+                        child: const Icon(MdiIcons.ghost),
+                      ),
                     ),
                   ),
                 ],
@@ -329,7 +334,7 @@ class LogScreenState extends State<LogScreen> {
                     ),
                     SizedBox(width: 45),
                     Text(
-                      'by anonymously*',
+                      'anonymously*',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 9),
                     ),
