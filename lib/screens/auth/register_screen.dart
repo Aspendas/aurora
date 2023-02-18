@@ -232,13 +232,14 @@ class RegScreenState extends State<RegScreen> {
                 ],
               ),
               RoundedButton(
-                title: 'Sign-up',
-                colour: Colors.white,
-                paddings:
-                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 85),
-                onPress: AuthService()
-                    .emailRegister(_email.text, _password.text, context),
-              ),
+                  title: 'Sign-up',
+                  colour: Colors.white,
+                  paddings: const EdgeInsets.symmetric(
+                      vertical: 16.0, horizontal: 85),
+                  onPress: () {
+                    AuthService()
+                        .emailRegister(_email.text, _password.text, context);
+                  }),
             ],
           ),
         ),
