@@ -1,5 +1,6 @@
 import 'package:aurora/passw_res.dart';
 import 'package:aurora/register_screen.dart';
+import 'package:aurora/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:aurora/widgets.dart';
@@ -216,26 +217,8 @@ class LogScreenState extends State<LogScreen> {
                 colour: Colors.white,
                 paddings:
                     const EdgeInsets.symmetric(vertical: 16.0, horizontal: 85),
-                onPress: () async {
-                  try {
-                    final userCredential = await FirebaseAuth.instance
-                        .signInWithEmailAndPassword(
-                            email: _email.text, password: _password.text)
-                        .then(
-                          (value) => Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(builder: (context) {
-                            return const HomePage();
-                          }), (route) => false),
-                        );
-                    print(userCredential);
-                  } on FirebaseAuthException catch (e) {
-                    if (e.code == 'user-not-found') {
-                      print('No user found for that email.');
-                    } else if (e.code == 'wrong-password') {
-                      print('Wrong password provided for that user.');
-                    }
-                  }
-                },
+                onPress: AuthService()
+                    .emailSignIn(_email.text, _password.text, context),
               ),
               const SizedBox(height: 4),
               Row(
