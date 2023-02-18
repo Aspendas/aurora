@@ -1,3 +1,4 @@
+import 'package:aurora/services/auth.dart';
 import 'package:aurora/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -16,8 +17,10 @@ class HomeScreen extends StatelessWidget {
           child: RoundedButton(
         colour: Colors.amber,
         paddings: EdgeInsets.all(8),
-        onPress: () {},
-        title: "SignOut",
+        onPress: () {
+          AuthService().signOut(context);
+        },
+        title: "Sign Out",
       )),
     );
   }
