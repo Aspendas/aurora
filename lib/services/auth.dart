@@ -46,6 +46,29 @@ class AuthService {
       }
     }
   }
+
+  anonymousSignIn(BuildContext context) async {
+    try {
+      final userCredential =
+          await FirebaseAuth.instance.signInAnonymously().then(
+                (value) => Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) {
+                  return const HomePage();
+                }), (route) => false),
+              );
+      print("Signed in with temporary account.");
+      print(userCredential);
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case "operation-not-allowed":
+          print("Anonymous auth hasn't been enabled for this project.");
+          break;
+        default:
+          print("Unknown error.");
+      }
+    }
+  }
+
   /*
   googleLogin(BuildContext context) async {
     final googleSignIn = GoogleSignIn();
