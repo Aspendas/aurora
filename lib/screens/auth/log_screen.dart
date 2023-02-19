@@ -44,12 +44,12 @@ class LogScreenState extends State<LogScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Image.asset(
-                height: 100,
+                height: 116,
                 width: 100,
                 'images/logo.png',
               ),
               const SizedBox(
-                height: 40.0,
+                height: 91.0,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -65,7 +65,14 @@ class LogScreenState extends State<LogScreen> {
                           fontWeight: FontWeight.w900),
                     ),
                   ),
-                  const SizedBox(width: 5),
+                  const Text(
+                    " |",
+                    style: TextStyle(
+                      fontFamily: 'RobotoMono',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                   InkWell(
                     onTap: () {
                       Navigator.push(
@@ -89,6 +96,7 @@ class LogScreenState extends State<LogScreen> {
                   const SizedBox(width: 2),
                 ],
               ),
+              const SizedBox(height: 4),
               TextField(
                 controller: _email,
                 keyboardType: TextInputType.emailAddress,
@@ -96,7 +104,7 @@ class LogScreenState extends State<LogScreen> {
                 autocorrect: false,
                 decoration: const InputDecoration(
                   contentPadding:
-                      EdgeInsets.symmetric(vertical: 18, horizontal: 4),
+                      EdgeInsets.symmetric(vertical: 13, horizontal: 4),
                   hintText: "E-mail",
                   fillColor: Colors.white,
                   filled: true,
@@ -127,7 +135,7 @@ class LogScreenState extends State<LogScreen> {
                 autocorrect: false,
                 decoration: const InputDecoration(
                   contentPadding:
-                      EdgeInsets.symmetric(vertical: 18, horizontal: 4),
+                      EdgeInsets.symmetric(vertical: 13, horizontal: 4),
                   hintText: "Password",
                   fillColor: Colors.white,
                   filled: true,
@@ -208,7 +216,7 @@ class LogScreenState extends State<LogScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 16),
               PAsyncButton(
                 colour: Colors.black,
                 title: const Text(
@@ -218,15 +226,40 @@ class LogScreenState extends State<LogScreen> {
                     color: Colors.black,
                   ),
                 ),
-                paddings:
-                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 85),
+                paddings: EdgeInsets.zero,
                 onPress: () async {
                   FocusManager.instance.primaryFocus?.unfocus();
                   await AuthService()
                       .emailSignIn(_email.text, _password.text, context);
                 },
               ),
-              const SizedBox(height: 4),
+              /*GestureDetector(
+                onTap: () async {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  await AuthService()
+                      .emailSignIn(_email.text, _password.text, context);
+                },
+                child: Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        width: 1,
+                      ),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 12, horizontal: 50),
+                    child: const Text(
+                      "Sign-In",
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ),
+              ),*/
+              const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[

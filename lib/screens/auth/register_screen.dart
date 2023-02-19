@@ -45,7 +45,7 @@ class RegScreenState extends State<RegScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Image.asset(
-                height: 100,
+                height: 116,
                 width: 100,
                 'images/logo.png',
               ),
@@ -98,7 +98,7 @@ class RegScreenState extends State<RegScreen> {
                 autocorrect: false,
                 decoration: const InputDecoration(
                   contentPadding:
-                      EdgeInsets.symmetric(vertical: 18, horizontal: 4),
+                      EdgeInsets.symmetric(vertical: 13, horizontal: 4),
                   hintText: "E-mail",
                   fillColor: Colors.white,
                   filled: true,
@@ -129,7 +129,7 @@ class RegScreenState extends State<RegScreen> {
                 autocorrect: false,
                 decoration: const InputDecoration(
                   contentPadding:
-                      EdgeInsets.symmetric(vertical: 18, horizontal: 4),
+                      EdgeInsets.symmetric(vertical: 13, horizontal: 4),
                   hintText: "Password",
                   fillColor: Colors.white,
                   filled: true,
@@ -162,7 +162,7 @@ class RegScreenState extends State<RegScreen> {
                 autocorrect: false,
                 decoration: const InputDecoration(
                   contentPadding:
-                      EdgeInsets.symmetric(vertical: 18, horizontal: 4),
+                      EdgeInsets.symmetric(vertical: 13, horizontal: 4),
                   hintText: "Confirm Password",
                   fillColor: Colors.white,
                   filled: true,
