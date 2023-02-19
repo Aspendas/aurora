@@ -128,24 +128,22 @@ class PAsyncButton extends StatelessWidget {
           );
         },
         builder: (context, child, callback, state) {
-          return MaterialButton(
-            padding: EdgeInsets.all(0),
-            minWidth: 0,
-            elevation: 4,
-            color: state.maybeWhen(
-              idle: () => Colors.white,
-              success: () => Colors.purple[100],
-              loading: () => Colors.black,
-              error: (err, stack) => Colors.black,
-              orElse: () => Colors.blue,
+          return GestureDetector(
+            onTap: callback,
+            child: Center(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    width: 1,
+                  ),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 50),
+                child: child,
+              ),
             ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-              side: const BorderSide(color: Colors.black, width: 1.5),
-            ),
-            onPressed: callback,
-            height: 50.0,
-            child: child,
           );
         },
         child: title,
