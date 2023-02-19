@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:async_button_builder/async_button_builder.dart';
 
 class InputField extends StatelessWidget {
   InputField(
@@ -79,6 +80,75 @@ class RoundedButton extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class PAsyncButton extends StatelessWidget {
+  PAsyncButton(
+      {required this.title,
+      required this.colour,
+      required this.onPress,
+      required this.paddings});
+
+  final Color colour;
+  final Text title;
+  final paddings;
+  final onPress;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: paddings,
+      child: AsyncButtonBuilder(
+        onPressed: onPress,
+        loadingWidget: const SizedBox(
+          height: 16.0,
+          width: 16.0,
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+          ),
+        ),
+        successWidget: const Padding(
+          padding: EdgeInsets.all(4.0),
+          child: Icon(
+            Icons.check,
+            color: Colors.black,
+          ),
+        ),
+        loadingSwitchInCurve: Curves.bounceInOut,
+        loadingTransitionBuilder: (child, animation) {
+          return SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(0, 1.0),
+              end: const Offset(0, 0),
+            ).animate(animation),
+            child: child,
+          );
+        },
+        builder: (context, child, callback, state) {
+          return MaterialButton(
+            padding: EdgeInsets.all(0),
+            minWidth: 0,
+            elevation: 4,
+            color: state.maybeWhen(
+              idle: () => Colors.white,
+              success: () => Colors.purple[100],
+              loading: () => Colors.black,
+              error: (err, stack) => Colors.black,
+              orElse: () => Colors.blue,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+              side: const BorderSide(color: Colors.black, width: 1.5),
+            ),
+            onPressed: callback,
+            height: 50.0,
+            child: child,
+          );
+        },
+        child: title,
       ),
     );
   }

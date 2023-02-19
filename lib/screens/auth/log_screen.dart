@@ -4,9 +4,6 @@ import 'package:aurora/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:aurora/widgets.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
-import '../home.dart';
 
 class LogScreen extends StatefulWidget {
   static const String id = 'log_screen';
@@ -212,15 +209,23 @@ class LogScreenState extends State<LogScreen> {
                 ],
               ),
               const SizedBox(height: 8),
-              RoundedButton(
-                  title: 'Sign-In',
-                  colour: Colors.white,
-                  paddings: const EdgeInsets.symmetric(
-                      vertical: 16.0, horizontal: 85),
-                  onPress: () {
-                    AuthService()
-                        .emailSignIn(_email.text, _password.text, context);
-                  }),
+              PAsyncButton(
+                colour: Colors.black,
+                title: const Text(
+                  'Sign-In',
+                  style: TextStyle(
+                    fontSize: 19,
+                    color: Colors.black,
+                  ),
+                ),
+                paddings:
+                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 85),
+                onPress: () async {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  await AuthService()
+                      .emailSignIn(_email.text, _password.text, context);
+                },
+              ),
               const SizedBox(height: 4),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

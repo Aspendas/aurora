@@ -17,11 +17,27 @@ class AuthService {
           );
       print(userCredential);
     } on FirebaseAuthException catch (e) {
+      print(e.code);
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('The password provided is too weak.'),
+          ),
+        );
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('The account already exists for that email.'),
+          ),
+        );
+      } else if (e.code == 'invalid-email') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Invalid email.'),
+          ),
+        );
       }
+      return Future.error(e);
     } catch (e) {
       print(e);
     }
@@ -39,11 +55,34 @@ class AuthService {
           );
       print(userCredential);
     } on FirebaseAuthException catch (e) {
+      print(e.code);
       if (e.code == 'user-not-found') {
-        print('No user found for that email.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('No user found for that email.'),
+          ),
+        );
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Wrong password provided for that user.'),
+          ),
+        );
+      } else if (e.code == 'too-many-requests') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+                'You have entered the wrong password too many times; please wait a while and try again.'),
+          ),
+        );
+      } else if (e.code == 'invalid-email') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Invalid email.'),
+          ),
+        );
       }
+      return Future.error(e);
     }
   }
 
@@ -123,6 +162,7 @@ class AuthService {
           ),
         );
       }
+      return Future.error(e);
     }
   }
 }

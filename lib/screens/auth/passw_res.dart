@@ -81,13 +81,20 @@ class PasswrScreenState extends State<PasswrScreen> {
                 ),
               ),
               const SizedBox(height: 40),
-              RoundedButton(
-                title: 'Send E-mail',
-                colour: Colors.white,
+              PAsyncButton(
+                colour: Colors.black,
+                title: const Text(
+                  'Send E-mail',
+                  style: TextStyle(
+                    fontSize: 19,
+                    color: Colors.black,
+                  ),
+                ),
                 paddings:
                     const EdgeInsets.symmetric(vertical: 16.0, horizontal: 85),
-                onPress: () {
-                  AuthService().resetPassword(_email.text, context);
+                onPress: () async {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  await AuthService().resetPassword(_email.text, context);
                 },
               ),
             ],

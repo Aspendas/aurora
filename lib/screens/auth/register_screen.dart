@@ -1,7 +1,5 @@
 import 'package:aurora/services/auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../home.dart';
 import 'log_screen.dart';
 import 'package:aurora/widgets.dart';
 
@@ -231,15 +229,23 @@ class RegScreenState extends State<RegScreen> {
                   ),
                 ],
               ),
-              RoundedButton(
-                  title: 'Sign-up',
-                  colour: Colors.white,
-                  paddings: const EdgeInsets.symmetric(
-                      vertical: 16.0, horizontal: 85),
-                  onPress: () {
-                    AuthService()
-                        .emailRegister(_email.text, _password.text, context);
-                  }),
+              PAsyncButton(
+                colour: Colors.black,
+                title: const Text(
+                  'Sign-up',
+                  style: TextStyle(
+                    fontSize: 19,
+                    color: Colors.black,
+                  ),
+                ),
+                paddings:
+                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 85),
+                onPress: () async {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  await AuthService()
+                      .emailRegister(_email.text, _password.text, context);
+                },
+              ),
             ],
           ),
         ),
