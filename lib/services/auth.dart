@@ -1,6 +1,7 @@
 import 'package:aurora/screens/auth/log_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import '../screens/auth/passw_res.dart';
 import '../screens/home.dart';
 
@@ -108,7 +109,6 @@ class AuthService {
     }
   }
 
-  /*
   googleLogin(BuildContext context) async {
     final googleSignIn = GoogleSignIn();
 
@@ -123,12 +123,10 @@ class AuthService {
     await FirebaseAuth.instance.signInWithCredential(credential).then(
           (value) => Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) {
-            return const HomePage();
+            return const HomeScreen();
           }), (route) => false),
         );
-    ;
   }
-  */
 
   signOut(BuildContext context) async {
     await FirebaseAuth.instance

@@ -325,9 +325,13 @@ class LogScreenState extends State<LogScreen> {
                       ),
                       child: MaterialButton(
                         shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(15.0),
+                          ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          AuthService().googleLogin(context);
+                        },
                         height: 50.0,
                         child: Image.asset('images/google logo.png'),
                       ),
