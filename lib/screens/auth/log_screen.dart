@@ -278,7 +278,7 @@ class LogScreenState extends State<LogScreen> {
                       );
                     },
                     child: const Text(
-                      'Sign up now ',
+                      'Sign up now ➔',
                       textAlign: TextAlign.right,
                       style: TextStyle(
                           fontFamily: 'RobotoMono',

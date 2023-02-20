@@ -100,8 +100,7 @@ class PasswrScreenState extends State<PasswrScreen> {
                       color: Colors.black,
                     ),
                   ),
-                  paddings: const EdgeInsets.symmetric(
-                      vertical: 16.0, horizontal: 85),
+                  paddings: EdgeInsets.zero,
                   onPress: () async {
                     FocusManager.instance.primaryFocus?.unfocus();
                     await AuthService().resetPassword(_email.text, context);

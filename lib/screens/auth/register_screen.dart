@@ -50,7 +50,7 @@ class RegScreenState extends State<RegScreen> {
                 'images/logo.png',
               ),
               const SizedBox(
-                height: 40.0,
+                height: 91.0,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -75,11 +75,18 @@ class RegScreenState extends State<RegScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 5),
+                  const Text(
+                    " |",
+                    style: TextStyle(
+                      fontFamily: 'RobotoMono',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                   InkWell(
                     onTap: () {},
                     child: const Text(
-                      'Sign up',
+                      ' Sign up',
                       textAlign: TextAlign.right,
                       style: TextStyle(
                         fontFamily: 'RobotoMono',
@@ -91,6 +98,7 @@ class RegScreenState extends State<RegScreen> {
                   const SizedBox(width: 2),
                 ],
               ),
+              const SizedBox(height: 4),
               TextField(
                 controller: _email,
                 keyboardType: TextInputType.emailAddress,
@@ -192,7 +200,7 @@ class RegScreenState extends State<RegScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Transform.scale(
-                    scale: 1.2,
+                    scale: 1,
                     child: SizedBox(
                       width: 20,
                       height: 20,
@@ -229,6 +237,7 @@ class RegScreenState extends State<RegScreen> {
                   ),
                 ],
               ),
+              const SizedBox(height: 30),
               PAsyncButton(
                 colour: Colors.black,
                 title: const Text(
@@ -238,8 +247,7 @@ class RegScreenState extends State<RegScreen> {
                     color: Colors.black,
                   ),
                 ),
-                paddings:
-                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 85),
+                paddings: EdgeInsets.zero,
                 onPress: () async {
                   FocusManager.instance.primaryFocus?.unfocus();
                   await AuthService()
