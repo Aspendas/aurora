@@ -1,3 +1,4 @@
+import 'package:aurora/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -17,7 +18,7 @@ class Aurora extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: LogScreen.id,
+      home: const HomeScreen(),
       routes: {
         LogScreen.id: (context) => LogScreen(),
         RegScreen.id: (context) => RegScreen(),
