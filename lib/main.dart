@@ -1,4 +1,5 @@
 import 'package:aurora/screens/auth/terms_and_conditions.dart';
+import 'package:aurora/screens/auth/wrapper.dart';
 import 'package:aurora/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,7 +22,7 @@ class Aurora extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const HomeScreen(),
+      home: const Wrapper(),
       routes: {
         LoginScreen.id: (context) => const LoginScreen(),
         RegisterScreen.id: (context) => const RegisterScreen(),
