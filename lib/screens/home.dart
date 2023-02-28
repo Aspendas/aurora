@@ -4,8 +4,8 @@ import 'package:aurora/screens/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:lottie/lottie.dart';
+import 'package:circle_nav_bar/circle_nav_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late AnimationController _homeController;
   late AnimationController _healthController;
   late AnimationController _chatController;
-
+  int _currentIndex = 1;
   int maxCount = 3;
 
   /// widget list
@@ -50,7 +50,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         AnimationController(vsync: this, duration: const Duration(seconds: 2));
     animationList = [];
     animationList.addAll([_chatController, _homeController, _healthController]);
-    animationList[0].animateTo(0.5);
+    animationList[0].animateTo(0.55);
     animationList[1].forward();
     animationList[2].forward();
   }
@@ -60,62 +60,79 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return Scaffold(
       body: PageView(
         controller: _pageController,
-        physics: const NeverScrollableScrollPhysics(),
+        onPageChanged: (newIndex) {
+          setState(() {
+            _currentIndex = newIndex;
+          });
+        },
         children: List.generate(
             bottomBarPages.length, (index) => bottomBarPages[index]),
       ),
       extendBody: true,
-      bottomNavigationBar: AnimatedNotchBottomBar(
-        pageController: _pageController,
-        color: Colors.white,
-        showLabel: false,
-        notchColor: Colors.white,
-        bottomBarItems: [
-          BottomBarItem(
-            inActiveItem: Lottie.asset(
-              'images/blog_inactive.json',
-              controller: animationList[0],
-            ),
-            activeItem: Lottie.asset(
-              'images/blog_active.json',
-              controller: animationList[0],
-            ),
-            itemLabel: 'Chat Page',
+      bottomNavigationBar: CircleNavBar(
+        activeIcons: [
+          Lottie.asset(
+            'images/blog_active.json',
+            controller: animationList[0],
           ),
-          BottomBarItem(
-            inActiveItem: Lottie.asset(
-              'images/home_inactive.json',
-              controller: animationList[1],
-            ),
-            activeItem: Lottie.asset(
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Lottie.asset(
               'images/home_active.json',
               controller: animationList[1],
+              width: 20,
+              height: 20,
             ),
-            itemLabel: 'Home Page',
           ),
-          BottomBarItem(
-            inActiveItem: Lottie.asset(
-              'images/activity_inactive.json',
-              controller: animationList[2],
-            ),
-            activeItem: Lottie.asset(
-              'images/activity_active.json',
-              controller: animationList[2],
-            ),
-            itemLabel: 'Health Page',
+          Lottie.asset(
+            'images/activity_active.json',
+            controller: animationList[2],
           ),
         ],
-        onTap: (index) async {
+        inactiveIcons: [
+          Lottie.asset(
+            'images/blog_inactive.json',
+            controller: animationList[0],
+          ),
+          Lottie.asset(
+            'images/home_inactive.json',
+            controller: animationList[1],
+            width: 40,
+            height: 40,
+          ),
+          Lottie.asset(
+            'images/activity_inactive.json',
+            controller: animationList[2],
+            width: 200,
+            height: 200,
+          ),
+        ],
+        color: Colors.white,
+        circleColor: Colors.white,
+        height: 70,
+        circleWidth: 70,
+        activeIndex: _currentIndex,
+        onTap: (newIndex) async {
           await _pageController.animateToPage(
-            index,
+            newIndex,
             duration: const Duration(milliseconds: 400),
             curve: Curves.easeIn,
           );
-          animationList[index].reset();
-          index == 0
-              ? animationList[index].animateTo(0.5)
-              : animationList[index].forward();
+          animationList[newIndex].reset();
+          newIndex == 0
+              ? animationList[newIndex].animateTo(0.55)
+              : animationList[newIndex].forward();
         },
+        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 20),
+        cornerRadius: const BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+          bottomRight: Radius.circular(24),
+          bottomLeft: Radius.circular(24),
+        ),
+        shadowColor: Colors.deepPurple,
+        circleShadowColor: Colors.deepPurple,
+        elevation: 20,
       ),
     );
   }
