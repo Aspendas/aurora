@@ -1,8 +1,8 @@
-import 'package:aurora/screens/auth/log_screen.dart';
+import 'package:aurora/screens/auth/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import '../screens/auth/passw_res.dart';
+import '../screens/auth/forgot_password_screen.dart';
 import '../screens/home.dart';
 
 class AuthService {
@@ -133,7 +133,7 @@ class AuthService {
         .signOut()
         .then((value) => Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
-              builder: (context) => LogScreen(),
+              builder: (context) => LoginScreen(),
             ),
             (route) => false));
   }

@@ -1,16 +1,18 @@
 import 'package:aurora/services/auth.dart';
 import 'package:flutter/material.dart';
-import 'log_screen.dart';
+import 'login_screen.dart';
 import 'package:aurora/widgets.dart';
 
-class RegScreen extends StatefulWidget {
-  static const String id = 'reg_screen';
+class RegisterScreen extends StatefulWidget {
+  static const String id = 'register_screen';
+
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  RegScreenState createState() => RegScreenState();
+  RegisterScreenState createState() => RegisterScreenState();
 }
 
-class RegScreenState extends State<RegScreen> {
+class RegisterScreenState extends State<RegisterScreen> {
   late final TextEditingController _email;
   late final TextEditingController _password;
   late final TextEditingController _confirmPassword;
@@ -61,7 +63,7 @@ class RegScreenState extends State<RegScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return LogScreen();
+                            return const LoginScreen();
                           },
                         ),
                       );

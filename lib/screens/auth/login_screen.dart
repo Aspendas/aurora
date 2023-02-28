@@ -1,18 +1,20 @@
-import 'package:aurora/screens/auth/passw_res.dart';
+import 'package:aurora/screens/auth/forgot_password_screen.dart';
 import 'package:aurora/screens/auth/register_screen.dart';
 import 'package:aurora/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:aurora/widgets.dart';
 
-class LogScreen extends StatefulWidget {
-  static const String id = 'log_screen';
+class LoginScreen extends StatefulWidget {
+  static const String id = 'login_screen';
+
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  LogScreenState createState() => LogScreenState();
+  LoginScreenState createState() => LoginScreenState();
 }
 
-class LogScreenState extends State<LogScreen> {
+class LoginScreenState extends State<LoginScreen> {
   late final TextEditingController _email;
   late final TextEditingController _password;
 
@@ -79,7 +81,7 @@ class LogScreenState extends State<LogScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return RegScreen();
+                            return const RegisterScreen();
                           },
                         ),
                       );
@@ -200,7 +202,7 @@ class LogScreenState extends State<LogScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return PasswrScreen();
+                            return const ForgotPasswordScreen();
                           },
                         ),
                       );
@@ -272,7 +274,7 @@ class LogScreenState extends State<LogScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return RegScreen();
+                            return const RegisterScreen();
                           },
                         ),
                       );

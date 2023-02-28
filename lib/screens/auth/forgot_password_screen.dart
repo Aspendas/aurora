@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
-import 'log_screen.dart';
+import 'login_screen.dart';
 import 'package:aurora/widgets.dart';
 import 'package:aurora/services/auth.dart';
 
-class PasswrScreen extends StatefulWidget {
-  static const String id = 'passwr_screen';
+class ForgotPasswordScreen extends StatefulWidget {
+  static const String id = 'forgot_password_screen';
+
+  const ForgotPasswordScreen({Key? key}) : super(key: key);
 
   @override
-  PasswrScreenState createState() => PasswrScreenState();
+  ForgotPasswordScreenState createState() => ForgotPasswordScreenState();
 }
 
-class PasswrScreenState extends State<PasswrScreen> {
+class ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   late final TextEditingController _email;
 
+  @override
   void initState() {
     _email = TextEditingController();
     super.initState();
@@ -169,7 +172,7 @@ class MailCheckScreenState extends State<MailCheckScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return LogScreen();
+                        return LoginScreen();
                       },
                     ),
                   );
