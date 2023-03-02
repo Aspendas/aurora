@@ -1,8 +1,4 @@
-import 'package:aurora/services/auth.dart';
-import 'package:aurora/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -10,18 +6,41 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Blog Page"),
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 24,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      child: const Icon(
+                        Icons.calendar_month,
+                        size: 32,
+                      ),
+                    ),
+                    const Text(
+                      "AURORA",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    GestureDetector(
+                      child: const Icon(
+                        Icons.person,
+                        size: 32,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
-      body: Center(
-          child: RoundedButton(
-        colour: Colors.amber,
-        paddings: EdgeInsets.all(8),
-        onPress: () {
-          AuthService().signOut(context);
-        },
-        title: "Sign Out",
-      )),
     );
   }
 }
