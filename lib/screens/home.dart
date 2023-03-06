@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  final _pageController = PageController(initialPage: 2);
+  final _pageController = PageController(initialPage: 1);
   late List<AnimationController> animationList;
   late AnimationController _homeController;
   late AnimationController _healthController;
@@ -64,6 +64,10 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           setState(() {
             _currentIndex = newIndex;
           });
+          animationList[newIndex].reset();
+          newIndex == 0
+              ? animationList[newIndex].animateTo(0.55)
+              : animationList[newIndex].forward();
         },
         children: List.generate(
             bottomBarPages.length, (index) => bottomBarPages[index]),

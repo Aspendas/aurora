@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:aurora/screens/profile.dart';
+import 'package:flutter/cupertino.dart';
 
 class MainAppBar extends StatelessWidget {
   const MainAppBar({
@@ -29,8 +31,18 @@ class MainAppBar extends StatelessWidget {
             ],
           ),
           GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) {
+                    return const ProfileScreen();
+                  },
+                ),
+              );
+            },
             child: const Icon(
-              Icons.person,
+              Icons.account_circle_rounded,
               size: 32,
             ),
           ),

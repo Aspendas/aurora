@@ -163,7 +163,13 @@ class MailCheckScreenState extends State<MailCheckScreen> {
               ),
               const SizedBox(height: 40),
               RoundedButton(
-                title: 'Return',
+                title: const Text(
+                  'Return',
+                  style: TextStyle(
+                    fontSize: 19,
+                    color: Colors.black,
+                  ),
+                ),
                 colour: Colors.white,
                 paddings:
                     const EdgeInsets.symmetric(vertical: 16.0, horizontal: 85),
@@ -172,7 +178,7 @@ class MailCheckScreenState extends State<MailCheckScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return LoginScreen();
+                        return const LoginScreen();
                       },
                     ),
                   );

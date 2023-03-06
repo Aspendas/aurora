@@ -1,6 +1,5 @@
-import 'package:aurora/screens/auth/terms_and_conditions.dart';
 import 'package:aurora/screens/auth/wrapper.dart';
-import 'package:aurora/screens/home.dart';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';

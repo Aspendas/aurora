@@ -14,14 +14,21 @@ class HealthScreen extends StatelessWidget {
         title: const Text("Health Page"),
       ),
       body: Center(
-          child: RoundedButton(
-        colour: Colors.amber,
-        paddings: EdgeInsets.all(8),
-        onPress: () {
-          AuthService().signOut(context);
-        },
-        title: "Sign Out",
-      )),
+        child: RoundedButton(
+          colour: Colors.amber,
+          paddings: EdgeInsets.all(8),
+          onPress: () {
+            AuthService().signOut(context);
+          },
+          title: const Text(
+            "Sign Out",
+            style: TextStyle(
+              fontSize: 19,
+              color: Colors.black,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
