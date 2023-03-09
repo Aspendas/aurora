@@ -16,9 +16,6 @@ class ChatScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 24,
-              ),
               const MainAppBar(),
               const SizedBox(
                 height: 60,

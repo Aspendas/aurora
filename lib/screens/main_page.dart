@@ -16,9 +16,6 @@ class MainScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 24,
-              ),
               const MainAppBar(),
               const SizedBox(
                 height: 350,
@@ -26,7 +23,7 @@ class MainScreen extends StatelessWidget {
               Center(
                 child: RoundedButton(
                   colour: Colors.amber,
-                  paddings: EdgeInsets.all(8),
+                  paddings: const EdgeInsets.all(8),
                   onPress: () {
                     AuthService().signOut(context);
                   },
