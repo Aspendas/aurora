@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 import 'package:aurora/screens/profile.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -10,7 +11,9 @@ class MainAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 24.0, right: 24.0),
+      padding: Platform.isIOS
+          ? const EdgeInsets.only(top: 0, left: 24.0, right: 24.0)
+          : const EdgeInsets.only(top: 24, left: 24.0, right: 24.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -26,7 +29,7 @@ class MainAppBar extends StatelessWidget {
               Image.asset(
                 "./images/logo_aurora.png",
                 fit: BoxFit.fitHeight,
-                height: 65,
+                height: 40,
               ),
             ],
           ),
