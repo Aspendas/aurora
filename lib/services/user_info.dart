@@ -9,4 +9,24 @@ class UserService {
     var userBase = await _userdata.doc(user?.uid).get();
     return userBase;
   }
+
+  checkUserExist() async {
+    var check = _userdata.doc(user?.uid);
+    bool? exist;
+
+    await check.get().then(
+          (doc) => {exist = doc.exists},
+        );
+    return exist;
+  }
+
+  setUserInfo(addiction, gender, age, name) async {
+    await _userdata.doc(user?.uid).set({
+      "addiction": addiction,
+      'gender': gender,
+      'age': age,
+      'challengeStartDates': null,
+      'name': name
+    });
+  }
 }

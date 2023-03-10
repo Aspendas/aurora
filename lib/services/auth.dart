@@ -1,9 +1,11 @@
 import 'package:aurora/screens/auth/login_screen.dart';
+import 'package:aurora/screens/user_init_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../screens/auth/forgot_password_screen.dart';
 import '../screens/home.dart';
+import 'package:aurora/services/user_info.dart';
 
 class AuthService {
   emailRegister(String email, String password, BuildContext context) async {
@@ -13,7 +15,19 @@ class AuthService {
           .then(
             (value) => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) {
-              return const HomeScreen();
+              return FutureBuilder(
+                  future: UserService().checkUserExist(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapshot.data == false) {
+                      return const userInitScreen();
+                    } else {
+                      return const HomeScreen();
+                    }
+                  });
             }), (route) => false),
           );
       print(userCredential);
@@ -51,7 +65,19 @@ class AuthService {
           .then(
             (value) => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) {
-              return const HomeScreen();
+              return FutureBuilder(
+                  future: UserService().checkUserExist(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapshot.data == false) {
+                      return const userInitScreen();
+                    } else {
+                      return const HomeScreen();
+                    }
+                  });
             }), (route) => false),
           );
       print(userCredential);
@@ -89,13 +115,26 @@ class AuthService {
 
   anonymousSignIn(BuildContext context) async {
     try {
-      final userCredential =
-          await FirebaseAuth.instance.signInAnonymously().then(
-                (value) => Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) {
-                  return const HomeScreen();
-                }), (route) => false),
-              );
+      final userCredential = await FirebaseAuth.instance
+          .signInAnonymously()
+          .then(
+            (value) => Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) {
+              return FutureBuilder(
+                  future: UserService().checkUserExist(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapshot.data == false) {
+                      return const userInitScreen();
+                    } else {
+                      return const HomeScreen();
+                    }
+                  });
+            }), (route) => false),
+          );
       print("Signed in with temporary account.");
       print(userCredential);
     } on FirebaseAuthException catch (e) {
@@ -123,7 +162,19 @@ class AuthService {
     await FirebaseAuth.instance.signInWithCredential(credential).then(
           (value) => Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) {
-            return const HomeScreen();
+            return FutureBuilder(
+                future: UserService().checkUserExist(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.data == false) {
+                    return const userInitScreen();
+                  } else {
+                    return const HomeScreen();
+                  }
+                });
           }), (route) => false),
         );
   }
@@ -133,7 +184,7 @@ class AuthService {
         .signOut()
         .then((value) => Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
-              builder: (context) => LoginScreen(),
+              builder: (context) => const LoginScreen(),
             ),
             (route) => false));
   }

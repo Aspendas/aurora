@@ -205,7 +205,7 @@ class _PDropDownState extends State<PDropDown> {
                             color: Colors.black,
                             fontSize: 18,
                             fontFamily: "Robotomono",
-                            fontWeight: FontWeight.w600),
+                            fontWeight: FontWeight.w400),
                         onChanged: (String? value) {
                           // This is called when the user selects an item.
                           setState(() {
@@ -397,7 +397,7 @@ class _BottomSheetResetState extends State<BottomSheetReset> {
 
   Future<DateTime?> pickDate() => showDatePicker(
       context: context,
-      initialDate: widget.currentdate,
+      initialDate: DateTime.now(),
       firstDate: DateTime(1950),
       lastDate: DateTime(2100));
 }

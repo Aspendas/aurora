@@ -32,15 +32,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.white,
+            ),
           );
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
-          DateTime dt =
-              (snapshot.data['challengeStartDates'] as Timestamp).toDate();
+          var dt = snapshot.data['challengeStartDates'] != null
+              ? (snapshot.data['challengeStartDates'] as Timestamp).toDate()
+              : null;
 
-          final String formattedStartDate = formatter.format(dt);
+          final String formattedStartDate = dt != null
+              ? formatter.format(dt)
+              : 'You have not started a challenge yet. You can start it on main screen ';
+
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
@@ -78,7 +84,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           'BBB',
                           style: TextStyle(
                               fontSize: 50,
-                              fontWeight: FontWeight.w900,
+                              fontWeight: FontWeight.w600,
                               fontFamily: 'RobotoMono'),
                         ), //Text
                       ),
@@ -87,7 +93,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         snapshot.data['name'],
                         style: const TextStyle(
                             fontSize: 10,
-                            fontWeight: FontWeight.w900,
+                            fontWeight: FontWeight.w600,
                             fontFamily: 'RobotoMono'),
                       ),
                       Text(
@@ -145,7 +151,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         title: Text(
                           "${snapshot.data['age']}",
                           style: const TextStyle(
-                              fontSize: 18, fontFamily: "Robotomono"),
+                              fontSize: 18,
+                              fontFamily: "Robotomono",
+                              fontWeight: FontWeight.w600),
                         ),
                         editstatus: false,
                       ),
@@ -157,7 +165,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         title: Text(
                           snapshot.data['gender'],
                           style: const TextStyle(
-                              fontSize: 18, fontFamily: "Robotomono"),
+                              fontSize: 18,
+                              fontFamily: "Robotomono",
+                              fontWeight: FontWeight.w600),
                         ),
                         editstatus: false,
                       ),
@@ -169,7 +179,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         title: Text(
                           snapshot.data['addiction'],
                           style: const TextStyle(
-                              fontSize: 18, fontFamily: "Robotomono"),
+                              fontSize: 18,
+                              fontFamily: "Robotomono",
+                              fontWeight: FontWeight.w600),
                         ),
                         editstatus: false,
                       ),
@@ -181,7 +193,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         title: Text(
                           formattedStartDate,
                           style: const TextStyle(
-                              fontSize: 18, fontFamily: "Robotomono"),
+                              fontSize: 18,
+                              fontFamily: "Robotomono",
+                              fontWeight: FontWeight.w600),
                         ),
                         editstatus: false,
                       ),
@@ -224,7 +238,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       text: "  about",
                                       style: TextStyle(
                                           fontSize: 18,
-                                          fontFamily: "Robotomono"),
+                                          fontFamily: "Robotomono",
+                                          fontWeight: FontWeight.w500),
                                     ),
                                   ],
                                 ),
@@ -280,17 +295,20 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   @override
   Widget build(BuildContext context) {
     final genderList = <String>[
-      'Man',
-      'woman HAHAHAHA ',
-      'attack helicopter',
-      'ERRRRRRRRKEK'
+      'Male',
+      'Female',
     ];
-    final ageList = <String>['18', '17', '16'];
-    final addList = <String>[
-      'Alcohol',
-      'League of legends',
-      'kibritten yaptigim'
-    ];
+    final ageList = List<Widget>.generate(
+        111,
+        (int index) => Center(
+              child: Text(
+                "${index + 15}",
+                style: TextStyle(fontWeight: FontWeight.w400),
+              ),
+            ),
+        growable: true);
+
+    final addList = <String>['Alcohol', 'Smoking', 'kibritten yaptigim'];
 
     return FutureBuilder(
       future: UserService().getUserInfo(),
@@ -302,11 +320,14 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
-          DateTime dt =
-              (snapshot.data['challengeStartDates'] as Timestamp).toDate();
+          var dt = snapshot.data['challengeStartDates'] != null
+              ? (snapshot.data['challengeStartDates'] as Timestamp).toDate()
+              : null;
 
-          formattedStartDate = formatter.format(dt);
-
+          var formattedStartDate = dt != null
+              ? formatter.format(dt)
+              : 'You have not started a challenge yet. You can start it on main screen ';
+          int age = snapshot.data['age'];
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
@@ -329,7 +350,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           'BBB',
                           style: TextStyle(
                               fontSize: 50,
-                              fontWeight: FontWeight.w900,
+                              fontWeight: FontWeight.w400,
                               fontFamily: 'RobotoMono'),
                         ), //Text
                       ),
@@ -347,12 +368,62 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         ),
                       ),
                       const SizedBox(height: 62),
-                      PDropDown(
-                        uptext: 'Age',
-                        editstatus: true,
-                        kitemnumber: 32.0,
-                        ilist: ageList,
-                        initialval: "${snapshot.data['age']}",
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
+                            child: Text(
+                              'Age',
+                              style: TextStyle(fontSize: 12),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              showCupertinoModalPopup(
+                                context: context,
+                                builder: (_) => SizedBox(
+                                  width: double.infinity,
+                                  height: 250,
+                                  child: CupertinoPicker(
+                                      backgroundColor: Colors.white,
+                                      itemExtent: 40,
+                                      scrollController:
+                                          FixedExtentScrollController(),
+                                      onSelectedItemChanged: (index) {
+                                        setState(() {
+                                          age = index + 15;
+                                        });
+                                      },
+                                      children: ageList),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  width: 1,
+                                ),
+                              ),
+                              height: 45,
+                              width: double.infinity,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 12.0, horizontal: 15),
+                                child: Text(
+                                  '$age',
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontFamily: "Robotomono",
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 9),
                       PDropDown(
@@ -383,24 +454,27 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () async {
-                              await showModalBottomSheet(
-                                context: context,
-                                builder: (context) => StatefulBuilder(
-                                  builder: (context, setState) =>
-                                      BottomSheetReset(
-                                    currentdate: dt,
-                                    formattedDate: formattedStartDate,
-                                    formatter: formatter,
-                                  ),
-                                ),
-                              ).then((value) {
-                                dt = value;
-                              });
-                              setState(() {
-                                formattedStartDate = formatter.format(dt);
-                              });
-                            },
+                            onTap: dt != null
+                                ? () async {
+                                    await showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) => StatefulBuilder(
+                                        builder: (context, setState) =>
+                                            BottomSheetReset(
+                                          currentdate: dt ?? DateTime.now(),
+                                          formattedDate: formattedStartDate,
+                                          formatter: formatter,
+                                        ),
+                                      ),
+                                    ).then((value) {
+                                      dt = value;
+                                    });
+                                    setState(() {
+                                      formattedStartDate =
+                                          formatter.format(dt as DateTime);
+                                    });
+                                  }
+                                : () {},
                             child: Container(
                               decoration: BoxDecoration(
                                 color: Colors.white,
@@ -414,13 +488,16 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 8.0, horizontal: 15),
-                                child: Text(
-                                  formattedStartDate,
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontFamily: "Robotomono",
-                                      fontWeight: FontWeight.w600),
-                                ),
+                                child: Text(formattedStartDate,
+                                    style: dt != null
+                                        ? const TextStyle(
+                                            fontSize: 18,
+                                            fontFamily: "Robotomono",
+                                            fontWeight: FontWeight.w400)
+                                        : const TextStyle(
+                                            fontSize: 18,
+                                            fontFamily: "Robotomono",
+                                            color: Colors.grey)),
                               ),
                             ),
                           ),
