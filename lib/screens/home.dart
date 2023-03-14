@@ -1,4 +1,4 @@
-import 'package:aurora/screens/chat.dart';
+import 'package:aurora/screens/chat/chat.dart';
 import 'package:aurora/screens/health.dart';
 import 'package:aurora/screens/main_page.dart';
 import 'package:flutter/material.dart';
