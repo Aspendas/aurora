@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 class Comment extends StatelessWidget {
   const Comment({
     Key? key,
+    @required this.data,
   }) : super(key: key);
+
+  final data;
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +30,21 @@ class Comment extends StatelessWidget {
                       topLeft: Radius.circular(16),
                     ),
                     child: Image.network(
-                      "https://firebasestorage.googleapis.com/v0/b/aurora-sc.appspot.com/o/Avatars%2Fwoman_avatar.jpeg?alt=media&token=73ecb86c-faf9-415d-9d5e-a3abccf3f5c9",
-                      fit: BoxFit.fitHeight,
+                      data.imageUrl,fit: BoxFit.fitHeight,
                       height: 120,
                       width: 90,
                     ),
                   ),
-                  const Text("Day 33"),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  const Text(
+                    "Day 33",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  )
                 ],
               ),
               Flexible(
@@ -47,6 +58,9 @@ class Comment extends StatelessWidget {
             ],
           ),
         ),
+        const SizedBox(
+          height: 12,
+        )
       ],
     );
   }
