@@ -1,3 +1,4 @@
+import 'package:aurora/services/comments.dart';
 import 'package:flutter/material.dart';
 
 class Comment extends StatelessWidget {
@@ -28,11 +29,30 @@ class Comment extends StatelessWidget {
                   ClipRRect(
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(16),
+                      bottomRight: Radius.circular(16),
                     ),
-                    child: Image.network(
-                      data.imageUrl,fit: BoxFit.fitHeight,
-                      height: 120,
-                      width: 90,
+                    child: FutureBuilder(
+                      future: CommentsService()
+                          .getProfilePictureURL("SA0ERu24VeRjIb23I888oHM9lqW2"),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(16),
+                            ),
+                            child: Image.network(
+                              snapshot.data!.toString(),
+                              fit: BoxFit.fitHeight,
+                              height: 110,
+                              width: 90,
+                            ),
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text('${snapshot.error}');
+                        } else {
+                          return CircularProgressIndicator();
+                        }
+                      },
                     ),
                   ),
                   const SizedBox(
