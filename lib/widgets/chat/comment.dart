@@ -50,7 +50,11 @@ class Comment extends StatelessWidget {
                         } else if (snapshot.hasError) {
                           return Text('${snapshot.error}');
                         } else {
-                          return CircularProgressIndicator();
+                          return const SizedBox(
+                            height: 110,
+                            width: 90,
+                            child: CircularProgressIndicator(),
+                          );
                         }
                       },
                     ),
@@ -58,9 +62,10 @@ class Comment extends StatelessWidget {
                   const SizedBox(
                     height: 4,
                   ),
-                  const Text(
-                    "Day 33",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  Text(
+                    "Day ${data['nthDay']}",
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 8,
@@ -71,7 +76,7 @@ class Comment extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "45. günümdeyim. İyiye gittiğimi hissediyorum. Ailem ve arkadaşlarımdan daha fazla destek görüyorum...",
+                    data["message"],
                   ),
                 ),
               ),
