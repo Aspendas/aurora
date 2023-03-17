@@ -334,7 +334,8 @@ class _userInitScreenState extends State<userInitScreen> {
                       onPress: () async {
                         if (bioGender != null &&
                             age != null &&
-                            _name.text != "") {
+                            _name.text != "" &&
+                            addictionType != null) {
                           UserService().setUserInfo(
                               addictionType, bioGender, age, _name.text);
                           Navigator.of(context).pushAndRemoveUntil(
