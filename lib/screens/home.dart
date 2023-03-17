@@ -134,9 +134,9 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           bottomRight: Radius.circular(24),
           bottomLeft: Radius.circular(24),
         ),
-        shadowColor: Colors.deepPurple,
-        circleShadowColor: Colors.deepPurple,
-        elevation: 20,
+        shadowColor: Colors.orange.shade900,
+        circleShadowColor: Colors.orange.shade800,
+        elevation: 5,
       ),
     );
   }
