@@ -48,7 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           final String formattedStartDate = dt != null
               ? formatter.format(dt)
               : 'You have not started a challenge yet. You can start it on main screen ';
-          String imageUrl = snapshot.data['imageURL'];
+          var imageUrl = snapshot.data['imageURL'];
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,

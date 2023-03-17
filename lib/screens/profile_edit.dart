@@ -69,7 +69,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
           int age = snapshot.data['age'];
           String gender = snapshot.data['gender'];
           String addiction = snapshot.data['addiction'];
-          String imageUrl = snapshot.data['imageURL'];
+          var imageUrl = snapshot.data['imageURL'];
 
           return Scaffold(
             appBar: AppBar(
@@ -314,7 +314,7 @@ class _AvatarChangeScreenState extends State<AvatarChangeScreen> {
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else {
-            String imageUrl = snapshot.data['imageURL'];
+            var imageUrl = snapshot.data['imageURL'];
             return Scaffold(
               appBar: AppBar(
                 centerTitle: true,
