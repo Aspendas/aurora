@@ -28,26 +28,64 @@ class _ChatScreenState extends State<ChatScreen> {
               const SizedBox(
                 height: 60,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(
-                  children: const [
-                    Text(
-                      "Comments",
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Text(
-                      " - ",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                    ),
-                    Text(
-                      "Stories",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                    ),
-                  ],
-                ),
+              SizedBox(
+                child: chatScreenToggle
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  chatScreenToggle = !chatScreenToggle;
+                                });
+                              },
+                              child: const Text(
+                                "Comments",
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            ),
+                            const Text(
+                              " - ",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 18),
+                            ),
+                            const Text(
+                              "Stories",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 18),
+                            ),
+                          ],
+                        ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Row(
+                          children: [
+                            const Text(
+                              "Comments",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 18),
+                            ),
+                            const Text(
+                              " - ",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 18),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  chatScreenToggle = !chatScreenToggle;
+                                });
+                              },
+                              child: const Text(
+                                "Stories",
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
               ),
               const SizedBox(
                 height: 20,
@@ -67,9 +105,9 @@ class ChatWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (toggle == true) {
-      return Stories();
+      return const Stories();
     } else {
-      return Comments();
+      return const Comments();
     }
   }
 }

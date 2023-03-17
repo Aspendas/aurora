@@ -17,7 +17,7 @@ class Comment extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 16.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16.0),
-            color: const Color.fromRGBO(247, 218, 200, 0.7),
+            color: const Color.fromRGBO(230, 222, 222, 1),
           ),
           width: double.infinity,
           child: Row(
