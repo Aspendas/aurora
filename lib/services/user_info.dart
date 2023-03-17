@@ -26,7 +26,20 @@ class UserService {
       'gender': gender,
       'age': age,
       'challengeStartDates': null,
-      'name': name
+      'name': name,
+      'imageURL': null,
     });
   }
+
+  userAvatarChange() async {}
+
+  String getInitials(String name) => name.isNotEmpty
+      ? name
+          .trim()
+          .split(RegExp(' +'))
+          .map((s) => s[0])
+          .take(3)
+          .join()
+          .toUpperCase()
+      : '';
 }
