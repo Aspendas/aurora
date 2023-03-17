@@ -50,23 +50,26 @@ class Activity extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(),
+                      const SizedBox(),
                     ],
                   ),
                 ),
               ],
             ),
           ),
-          ClipRRect(
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(10),
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-            ),
-            child: Image.network(
-              data['imageURL'].toString(),
-              fit: BoxFit.fitHeight,
+          SizedBox(
+            height: 150,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(10),
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(20),
+                bottomRight: Radius.circular(20),
+              ),
+              child: Image.network(
+                data['imageURL'].toString(),
+                fit: BoxFit.fitHeight,
+              ),
             ),
           ),
         ],

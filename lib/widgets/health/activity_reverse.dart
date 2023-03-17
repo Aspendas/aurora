@@ -21,16 +21,19 @@ class ActivityReverse extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(10),
-              bottomRight: Radius.circular(10),
-            ),
-            child: Image.network(
-              data['imageURL'].toString(),
-              fit: BoxFit.fitHeight,
+          SizedBox(
+            height: 150,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(20),
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(10),
+                bottomRight: Radius.circular(10),
+              ),
+              child: Image.network(
+                data['imageURL'].toString(),
+                fit: BoxFit.fitHeight,
+              ),
             ),
           ),
           Flexible(
