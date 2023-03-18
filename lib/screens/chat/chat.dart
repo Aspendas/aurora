@@ -61,28 +61,42 @@ class _ChatScreenState extends State<ChatScreen> {
                     : Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              "Comments",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
+                            Row(
+                              children: [
+                                const Text(
+                                  "Comments",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                                const Text(
+                                  " - ",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      chatScreenToggle = !chatScreenToggle;
+                                    });
+                                  },
+                                  child: const Text(
+                                    "Stories",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                              ],
                             ),
-                            const Text(
-                              " - ",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  chatScreenToggle = !chatScreenToggle;
-                                });
-                              },
-                              child: const Text(
-                                "Stories",
-                                style: TextStyle(fontSize: 18),
-                              ),
-                            ),
+                            FloatingActionButton(
+                              mini: true,
+                              backgroundColor: Color.fromRGBO(222, 222, 222, 1),
+                              foregroundColor: Colors.black,
+                              onPressed: () {},
+                              child: const Icon(Icons.add),
+                            )
                           ],
                         ),
                       ),
