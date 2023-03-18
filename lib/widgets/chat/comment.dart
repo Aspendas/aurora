@@ -11,6 +11,7 @@ class Comment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(data);
     return Column(
       children: [
         Container(
@@ -33,7 +34,7 @@ class Comment extends StatelessWidget {
                     ),
                     child: FutureBuilder(
                       future: CommentsService()
-                          .getProfilePictureURL("SA0ERu24VeRjIb23I888oHM9lqW2"),
+                          .getProfilePictureURL(data["userId"]),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return ClipRRect(
