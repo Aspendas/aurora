@@ -1,4 +1,3 @@
-import 'package:aurora/services/auth.dart';
 import 'package:aurora/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,14 +8,16 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:aurora/services/user_info.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:aurora/widgets/avatar.dart';
+
+import 'home.dart';
 
 final user = FirebaseAuth.instance.currentUser;
 final DateFormat formatter = DateFormat('dd-MM-yyyy HH:mm');
-final _userdata = FirebaseFirestore.instance.collection("users").doc(user!.uid);
 
 class ProfileEditScreen extends StatefulWidget {
-  const ProfileEditScreen({Key? key}) : super(key: key);
+  final userData;
+
+  const ProfileEditScreen({Key? key, required this.userData}) : super(key: key);
 
   @override
   State<ProfileEditScreen> createState() => _ProfileEditScreenState();
@@ -25,12 +26,19 @@ class ProfileEditScreen extends StatefulWidget {
 class _ProfileEditScreenState extends State<ProfileEditScreen> {
   late String formattedStartDate;
   late Future UserInfo;
-  late var gender;
+  late String gender;
+  final TextEditingController _name = TextEditingController();
+
+  late int age = widget.userData.data['age'];
+  late String addiction = widget.userData.data['addiction'];
 
   @override
   void initState() {
     super.initState();
-    gender = "female";
+    gender = widget.userData.data['gender'];
+    age = widget.userData.data['age'];
+    addiction = widget.userData.data['addiction'];
+    _name.text = widget.userData.data['name'];
     UserInfo = UserService().getUserInfo();
     formattedStartDate = ''; // set initial value
   }
@@ -47,7 +55,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         (int index) => Center(
               child: Text(
                 "${index + 15}",
-                style: TextStyle(fontWeight: FontWeight.w400),
+                style: const TextStyle(fontWeight: FontWeight.w400),
               ),
             ),
         growable: true);
@@ -64,19 +72,19 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
-          var dt = snapshot.data['challengeStartDates'] != null
-              ? (snapshot.data['challengeStartDates'] as Timestamp).toDate()
+          var dt = widget.userData.data['challengeStartDates'] != null
+              ? (widget.userData.data['challengeStartDates'] as Timestamp)
+                  .toDate()
               : null;
 
           var formattedStartDate = dt != null
               ? formatter.format(dt)
               : 'You have not started a challenge yet. You can start it on main screen ';
-          int age = snapshot.data['age'];
-          gender = snapshot.data['gender'];
-          String addiction = snapshot.data['addiction'];
-          var imageUrl = snapshot.data['imageURL'];
+
+          var imageUrl = widget.userData.data['imageURL'];
 
           return Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(
               centerTitle: true,
               title: const Text(
@@ -91,33 +99,48 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                   child: Column(
                     children: [
                       const SizedBox(height: 50),
-                      CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 75,
-                        child: snapshot.data['imageURL'] != null
-                            ? Image.network(
-                                imageUrl,
-                                fit: BoxFit.fitHeight,
-                                height: 120,
-                                width: 90,
-                              )
-                            : Text(
-                                UserService()
-                                    .getInitials(snapshot.data['name']),
-                                style: const TextStyle(
-                                    fontSize: 50,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'RobotoMono'),
-                              ), //Text
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 1.5,
+                          ),
+                        ),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: 75,
+                          child: widget.userData.data['imageURL'] != null
+                              ? Image.network(
+                                  imageUrl,
+                                  fit: BoxFit.fitHeight,
+                                  height: 120,
+                                  width: 90,
+                                )
+                              : Text(
+                                  UserService().getInitials(
+                                      widget.userData.data['name']),
+                                  style: const TextStyle(
+                                      fontSize: 50,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'RobotoMono'),
+                                ), //Text
+                        ),
                       ),
                       const SizedBox(height: 11),
                       InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
+                        onTap: () async {
+                          var navigator = Navigator.of(context);
+                          final avatarURLs = await FirebaseFirestore.instance
+                              .collection("Profile")
+                              .doc('Avatars')
+                              .get();
+                          navigator.push(
                             CupertinoPageRoute(
                               builder: (context) {
-                                return const AvatarChangeScreen();
+                                return AvatarChangeScreen(
+                                    userData: widget.userData,
+                                    avatarURLs: avatarURLs);
                               },
                             ),
                           );
@@ -133,6 +156,55 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         ),
                       ),
                       const SizedBox(height: 62),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
+                            child: Text(
+                              'Name and Surname',
+                              style: TextStyle(fontSize: 12),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                          TextField(
+                            controller: _name,
+                            keyboardType: TextInputType.name,
+                            enableSuggestions: false,
+                            autocorrect: false,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontFamily: "Robotomono",
+                                fontWeight: FontWeight.w400),
+                            decoration: const InputDecoration(
+                              hintStyle: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: "Robotomono",
+                                  fontSize: 18.0),
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 8, horizontal: 15),
+                              hintText: "Name Surname",
+                              fillColor: Colors.white,
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10.0),
+                                ),
+                                borderSide: BorderSide(width: 1),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10.0),
+                                ),
+                                borderSide:
+                                    BorderSide(width: 1, color: Colors.black),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 9),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -191,62 +263,18 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         ],
                       ),
                       const SizedBox(height: 9),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
-                            child: Text(
-                              'Biological Gender',
-                              style: TextStyle(fontSize: 12),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                width: 1,
-                              ),
-                            ),
-                            height: 40,
-                            width: double.infinity,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 15),
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButton<String>(
-                                  borderRadius: BorderRadius.circular(10),
-                                  value: gender,
-                                  icon: const Icon(Icons.arrow_downward),
-                                  elevation: 16,
-                                  style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontFamily: "Robotomono",
-                                      fontWeight: FontWeight.w400),
-                                  onChanged: (String? value) {
-                                    // This is called when the user selects an item.
-                                    setState(
-                                      () {
-                                        gender = "$value";
-                                      },
-                                    );
-                                  },
-                                  items: genderList
-                                      .map<DropdownMenuItem<String>>(
-                                          (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                      PDropDown(
+                        uptext: 'Biological Gender',
+                        editstatus: true,
+                        kitemnumber: 32.0,
+                        ilist: genderList,
+                        initialval: gender,
+                        onChanged: (String? value) {
+                          // This is called when the user selects an item.
+                          setState(() {
+                            gender = "$value";
+                          });
+                        },
                       ),
                       const SizedBox(height: 9),
                       PDropDown(
@@ -331,7 +359,12 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         colour: Colors.white,
                         paddings: const EdgeInsets.all(8),
                         onPress: () {
-                          print('${snapshot.data['addiction']}');
+                          UserService().updateUserInfo(
+                              addiction, gender, age, _name.text);
+                          Navigator.of(context).pushAndRemoveUntil(
+                              CupertinoPageRoute(builder: (context) {
+                            return const HomeScreen();
+                          }), (route) => false);
                         },
                         title: const Text(
                           'Save Changes',
@@ -354,7 +387,12 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 }
 
 class AvatarChangeScreen extends StatefulWidget {
-  const AvatarChangeScreen({Key? key}) : super(key: key);
+  final userData;
+  final avatarURLs;
+
+  const AvatarChangeScreen(
+      {Key? key, required this.userData, required this.avatarURLs})
+      : super(key: key);
 
   @override
   State<AvatarChangeScreen> createState() => _AvatarChangeScreenState();
@@ -362,9 +400,10 @@ class AvatarChangeScreen extends StatefulWidget {
 
 class _AvatarChangeScreenState extends State<AvatarChangeScreen> {
   final storageRef = FirebaseStorage.instance.ref();
-  late var selectedAvatar;
+  late var selectedAvatar = widget.userData.data['imageURL'];
   late Future userData;
   late Future avatars;
+  late final List urlList;
 
   @override
   void initState() {
@@ -372,144 +411,136 @@ class _AvatarChangeScreenState extends State<AvatarChangeScreen> {
     avatars =
         FirebaseFirestore.instance.collection("Profile").doc('Avatars').get();
     // initial load
-    selectedAvatar = null;
+    selectedAvatar = widget.userData.data['imageURL'];
+    urlList = widget.avatarURLs['URLs'];
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: UserService().getUserInfo(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          } else {
-            var imageUrl = snapshot.data['imageURL'];
-            selectedAvatar = snapshot.data['imageURL'];
-            return Scaffold(
-              appBar: AppBar(
-                centerTitle: true,
-                title: const Text(
-                  "Profile",
-                ),
-              ),
-              body: SafeArea(
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 35,
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          "Profile",
+        ),
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 35,
+            ),
+            Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 1.5,
                     ),
-                    Column(
-                      children: [
-                        CircleAvatar(
-                          backgroundColor: Colors.white,
-                          radius: 50,
-                          child: selectedAvatar != null
-                              ? Image.network(
-                                  selectedAvatar,
-                                  fit: BoxFit.fitHeight,
-                                  height: 120,
-                                  width: 90,
-                                )
-                              : Text(
-                                  UserService()
-                                      .getInitials(snapshot.data['name']),
-                                  style: const TextStyle(
-                                      fontSize: 50,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: 'RobotoMono'),
-                                ),
-                        ),
-                        SizedBox(height: 50),
-                        FutureBuilder(
-                            future: FirebaseFirestore.instance
-                                .collection("Profile")
-                                .doc('Avatars')
-                                .get(),
-                            builder:
-                                (BuildContext context, AsyncSnapshot snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const Center(
-                                  child: CircularProgressIndicator(
-                                    backgroundColor: Colors.white,
+                  ),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 50,
+                    child: selectedAvatar != null
+                        ? Image.network(
+                            selectedAvatar,
+                            fit: BoxFit.fitHeight,
+                            height: 120,
+                            width: 90,
+                          )
+                        : Text(
+                            UserService()
+                                .getInitials(widget.userData.data['name']),
+                            style: const TextStyle(
+                                fontSize: 50,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'RobotoMono'),
+                          ),
+                  ),
+                ),
+                SizedBox(height: 50),
+                Center(
+                  child: SizedBox(
+                    height: 350,
+                    width: 350,
+                    child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3),
+                      itemBuilder: (context, index) {
+                        final item = urlList[index];
+                        return GridTile(
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(8, 7.5, 8, 7.5),
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  selectedAvatar = item;
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: selectedAvatar == item
+                                        ? Colors.blue
+                                        : Colors.black,
+                                    width: 1.5,
                                   ),
-                                );
-                              } else if (snapshot.hasError) {
-                                return Text('Error: ${snapshot.error}');
-                              } else {
-                                List urlList = snapshot.data['URLs'];
-                                return Center(
-                                  child: SizedBox(
-                                    height: 350,
-                                    width: 350,
-                                    child: GridView.builder(
-                                      gridDelegate:
-                                          const SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 3),
-                                      itemBuilder: (context, index) {
-                                        final item = urlList[index];
-                                        return GridTile(
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                selectedAvatar = item;
-                                              });
-                                              print(selectedAvatar);
-                                            },
-                                            child: Center(
-                                              child: CircleAvatar(
-                                                backgroundColor: Colors.white,
-                                                radius: 75,
-                                                child: Image.network(
-                                                  item,
-                                                  fit: BoxFit.fitHeight,
-                                                  height: 120,
-                                                  width: 90,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      itemCount: 9,
-                                      scrollDirection: Axis.vertical,
-                                      physics: const ScrollPhysics(),
+                                ),
+                                child: Center(
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    radius: 75,
+                                    child: Image.network(
+                                      item,
+                                      fit: BoxFit.fitHeight,
+                                      height: 120,
+                                      width: 90,
                                     ),
                                   ),
-                                );
-                              }
-                            }),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        RoundedButton(
-                          colour: Colors.white,
-                          paddings: const EdgeInsets.all(8),
-                          onPress: () {
-                            print(selectedAvatar);
-                            UserService().userAvatarChange(selectedAvatar);
-                          },
-                          title: const Text(
-                            'Save Changes',
-                            style: TextStyle(
-                              fontSize: 19,
-                              color: Colors.black,
+                                ),
+                              ),
                             ),
                           ),
-                        )
-                      ],
+                        );
+                      },
+                      itemCount: 9,
+                      scrollDirection: Axis.vertical,
+                      physics: const ScrollPhysics(),
                     ),
-                    //Text
-                  ],
+                  ),
                 ),
-              ),
-            );
-          }
-        });
+                const SizedBox(
+                  height: 30,
+                ),
+                RoundedButton(
+                  colour: Colors.white,
+                  paddings: const EdgeInsets.all(8),
+                  onPress: () {
+                    UserService().userAvatarChange(selectedAvatar);
+                    Navigator.of(context).pushAndRemoveUntil(
+                        CupertinoPageRoute(builder: (context) {
+                      return const HomeScreen();
+                    }), (route) => false);
+                  },
+                  title: const Text(
+                    'Save Changes',
+                    style: TextStyle(
+                      fontSize: 19,
+                      color: Colors.black,
+                    ),
+                  ),
+                )
+              ],
+            ), //Text
+          ],
+        ),
+      ),
+    );
   }
 }

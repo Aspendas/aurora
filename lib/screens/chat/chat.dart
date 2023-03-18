@@ -1,13 +1,14 @@
 import 'package:aurora/screens/chat/comments.dart';
-import 'package:aurora/services/stories.dart';
+
 import 'package:flutter/material.dart';
 
 import '../../widgets/main_app_bar.dart';
-import '../../widgets/chat/story.dart';
+
 import 'stories.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+  final AsyncSnapshot userData;
+  const ChatScreen({Key? key, required this.userData}) : super(key: key);
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -24,7 +25,7 @@ class _ChatScreenState extends State<ChatScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const MainAppBar(),
+              MainAppBar(userData: widget.userData),
               const SizedBox(
                 height: 60,
               ),
@@ -55,6 +56,17 @@ class _ChatScreenState extends State<ChatScreen> {
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 18),
                             ),
+                            Opacity(
+                              opacity: 0,
+                              child: FloatingActionButton(
+                                mini: true,
+                                backgroundColor:
+                                    const Color.fromRGBO(222, 222, 222, 1),
+                                foregroundColor: Colors.black,
+                                onPressed: () {},
+                                child: const Icon(Icons.add),
+                              ),
+                            )
                           ],
                         ),
                       )
@@ -92,7 +104,8 @@ class _ChatScreenState extends State<ChatScreen> {
                             ),
                             FloatingActionButton(
                               mini: true,
-                              backgroundColor: Color.fromRGBO(222, 222, 222, 1),
+                              backgroundColor:
+                                  const Color.fromRGBO(222, 222, 222, 1),
                               foregroundColor: Colors.black,
                               onPressed: () {},
                               child: const Icon(Icons.add),

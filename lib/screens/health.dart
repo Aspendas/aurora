@@ -1,6 +1,5 @@
 import 'package:aurora/services/activities.dart';
-import 'package:aurora/services/auth.dart';
-import 'package:aurora/widgets.dart';
+
 import 'package:aurora/widgets/health/activity_reverse.dart';
 import 'package:aurora/widgets/main_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import '../widgets/health/activity.dart';
 
 class HealthScreen extends StatelessWidget {
-  const HealthScreen({Key? key}) : super(key: key);
+  final AsyncSnapshot userData;
+  const HealthScreen({Key? key, required this.userData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class HealthScreen extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
-              const MainAppBar(),
+              MainAppBar(userData: userData),
               SizedBox(
                 height: 60,
                 child: ArchedLine(),

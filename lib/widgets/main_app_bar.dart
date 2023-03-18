@@ -5,8 +5,14 @@ import 'package:flutter/cupertino.dart';
 
 import '../screens/info/info.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+
+final user = FirebaseAuth.instance.currentUser;
+
 class MainAppBar extends StatelessWidget {
+  final AsyncSnapshot userData;
   const MainAppBar({
+    required this.userData,
     Key? key,
   }) : super(key: key);
 
@@ -51,7 +57,7 @@ class MainAppBar extends StatelessWidget {
                 context,
                 CupertinoPageRoute(
                   builder: (context) {
-                    return const ProfileScreen();
+                    return ProfileScreen(userData: userData);
                   },
                 ),
               );

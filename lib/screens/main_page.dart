@@ -6,7 +6,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import '../widgets/main_app_bar.dart';
 
 class MainScreen extends StatelessWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  final AsyncSnapshot userData;
+  MainScreen({Key? key, required this.userData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class MainScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const MainAppBar(),
+              MainAppBar(userData: userData),
               const SizedBox(
                 height: 350,
               ),

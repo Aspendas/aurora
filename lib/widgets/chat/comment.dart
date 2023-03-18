@@ -11,7 +11,6 @@ class Comment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(data);
     return Column(
       children: [
         Container(

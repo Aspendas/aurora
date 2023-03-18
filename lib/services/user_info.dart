@@ -31,6 +31,16 @@ class UserService {
     });
   }
 
+  updateUserInfo(addiction, gender, age, name) async {
+    await _userdata.doc(user?.uid).update({
+      "addiction": addiction,
+      'gender': gender,
+      'age': age,
+      'challengeStartDates': null,
+      'name': name,
+    });
+  }
+
   userAvatarChange(url) async {
     await _userdata.doc(user?.uid).update({
       'imageURL': url,
