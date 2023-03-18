@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:aurora/screens/profile.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../screens/info/info.dart';
+
 class MainAppBar extends StatelessWidget {
   const MainAppBar({
     Key? key,
@@ -19,9 +21,19 @@ class MainAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) {
+                    return const InfoScreen();
+                  },
+                ),
+              );
+            },
             child: const Icon(
-              Icons.calendar_month,
-              size: 32,
+              Icons.info_outline,
+              size: 36,
             ),
           ),
           Column(
@@ -46,7 +58,7 @@ class MainAppBar extends StatelessWidget {
             },
             child: const Icon(
               Icons.account_circle_rounded,
-              size: 32,
+              size: 36,
             ),
           ),
         ],
