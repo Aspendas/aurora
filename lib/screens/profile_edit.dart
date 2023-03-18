@@ -24,10 +24,14 @@ class ProfileEditScreen extends StatefulWidget {
 
 class _ProfileEditScreenState extends State<ProfileEditScreen> {
   late String formattedStartDate;
+  late Future UserInfo;
+  late var gender;
 
   @override
   void initState() {
     super.initState();
+    gender = "female";
+    UserInfo = UserService().getUserInfo();
     formattedStartDate = ''; // set initial value
   }
 
@@ -37,6 +41,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       'Male',
       'Female',
     ];
+
     final ageList = List<Widget>.generate(
         111,
         (int index) => Center(
@@ -50,7 +55,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     final addList = <String>['Alcohol', 'Smoking', 'kibritten yaptigim'];
 
     return FutureBuilder(
-      future: UserService().getUserInfo(),
+      future: UserInfo,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
@@ -67,7 +72,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
               ? formatter.format(dt)
               : 'You have not started a challenge yet. You can start it on main screen ';
           int age = snapshot.data['age'];
-          String gender = snapshot.data['gender'];
+          gender = snapshot.data['gender'];
           String addiction = snapshot.data['addiction'];
           var imageUrl = snapshot.data['imageURL'];
 
@@ -186,12 +191,62 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         ],
                       ),
                       const SizedBox(height: 9),
-                      PDropDown(
-                        uptext: 'Biological Gender',
-                        editstatus: true,
-                        kitemnumber: 32.0,
-                        ilist: genderList,
-                        initialval: gender,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
+                            child: Text(
+                              'Biological Gender',
+                              style: TextStyle(fontSize: 12),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                width: 1,
+                              ),
+                            ),
+                            height: 40,
+                            width: double.infinity,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 15),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  borderRadius: BorderRadius.circular(10),
+                                  value: gender,
+                                  icon: const Icon(Icons.arrow_downward),
+                                  elevation: 16,
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                      fontFamily: "Robotomono",
+                                      fontWeight: FontWeight.w400),
+                                  onChanged: (String? value) {
+                                    // This is called when the user selects an item.
+                                    setState(
+                                      () {
+                                        gender = "$value";
+                                      },
+                                    );
+                                  },
+                                  items: genderList
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 9),
                       PDropDown(
@@ -200,6 +255,12 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         kitemnumber: 32.0,
                         ilist: addList,
                         initialval: addiction,
+                        onChanged: (String? value) {
+                          // This is called when the user selects an item.
+                          setState(() {
+                            addiction = "$value";
+                          });
+                        },
                       ),
                       const SizedBox(height: 9),
                       Column(
@@ -301,6 +362,19 @@ class AvatarChangeScreen extends StatefulWidget {
 
 class _AvatarChangeScreenState extends State<AvatarChangeScreen> {
   final storageRef = FirebaseStorage.instance.ref();
+  late var selectedAvatar;
+  late Future userData;
+  late Future avatars;
+
+  @override
+  void initState() {
+    userData = UserService().getUserInfo();
+    avatars =
+        FirebaseFirestore.instance.collection("Profile").doc('Avatars').get();
+    // initial load
+    selectedAvatar = null;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -315,6 +389,7 @@ class _AvatarChangeScreenState extends State<AvatarChangeScreen> {
             return Text('Error: ${snapshot.error}');
           } else {
             var imageUrl = snapshot.data['imageURL'];
+            selectedAvatar = snapshot.data['imageURL'];
             return Scaffold(
               appBar: AppBar(
                 centerTitle: true,
@@ -325,7 +400,7 @@ class _AvatarChangeScreenState extends State<AvatarChangeScreen> {
               body: SafeArea(
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 35,
                     ),
                     Column(
@@ -333,9 +408,9 @@ class _AvatarChangeScreenState extends State<AvatarChangeScreen> {
                         CircleAvatar(
                           backgroundColor: Colors.white,
                           radius: 50,
-                          child: snapshot.data['imageURL'] != null
+                          child: selectedAvatar != null
                               ? Image.network(
-                                  imageUrl,
+                                  selectedAvatar,
                                   fit: BoxFit.fitHeight,
                                   height: 120,
                                   width: 90,
@@ -369,40 +444,39 @@ class _AvatarChangeScreenState extends State<AvatarChangeScreen> {
                               } else {
                                 List urlList = snapshot.data['URLs'];
                                 return Center(
-                                  child: Container(
+                                  child: SizedBox(
                                     height: 350,
                                     width: 350,
-                                    child: ListView.separated(
-                                      shrinkWrap: true,
-                                      separatorBuilder: (context, int) {
-                                        return Divider(
-                                          color: Colors.black,
-                                        );
-                                      },
-                                      itemCount: 5,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return GridView.count(
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          shrinkWrap: true,
-                                          crossAxisCount: 3,
-                                          children: List.generate(3, (index) {
-                                            return Center(
+                                    child: GridView.builder(
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 3),
+                                      itemBuilder: (context, index) {
+                                        final item = urlList[index];
+                                        return GridTile(
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                selectedAvatar = item;
+                                              });
+                                              print(selectedAvatar);
+                                            },
+                                            child: Center(
                                               child: CircleAvatar(
                                                 backgroundColor: Colors.white,
                                                 radius: 75,
                                                 child: Image.network(
-                                                  urlList[0],
+                                                  item,
                                                   fit: BoxFit.fitHeight,
                                                   height: 120,
                                                   width: 90,
                                                 ),
                                               ),
-                                            );
-                                          }),
+                                            ),
+                                          ),
                                         );
                                       },
+                                      itemCount: 9,
                                       scrollDirection: Axis.vertical,
                                       physics: const ScrollPhysics(),
                                     ),
@@ -410,14 +484,15 @@ class _AvatarChangeScreenState extends State<AvatarChangeScreen> {
                                 );
                               }
                             }),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         RoundedButton(
                           colour: Colors.white,
                           paddings: const EdgeInsets.all(8),
                           onPress: () {
-                            print('${snapshot.data['addiction']}');
+                            print(selectedAvatar);
+                            UserService().userAvatarChange(selectedAvatar);
                           },
                           title: const Text(
                             'Save Changes',

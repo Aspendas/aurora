@@ -15,7 +15,6 @@ class userInitScreen extends StatefulWidget {
 class _userInitScreenState extends State<userInitScreen> {
   late String dropdownValue;
   List listItem = ["1", "2", "3"];
-  DateTime? birthDay;
   String? bioGender;
   String? addictionType;
   int age = 15;

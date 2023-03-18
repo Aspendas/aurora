@@ -153,6 +153,7 @@ class PDropDown extends StatefulWidget {
   final bool editstatus;
   var initialval;
   final String uptext;
+  final Function(String?)? onChanged;
 
   PDropDown(
       {Key? key,
@@ -161,7 +162,8 @@ class PDropDown extends StatefulWidget {
       required this.editstatus,
       this.ilist,
       this.initialval,
-      required this.uptext})
+      required this.uptext,
+      this.onChanged})
       : super(key: key);
 
   @override
@@ -206,12 +208,7 @@ class _PDropDownState extends State<PDropDown> {
                             fontSize: 18,
                             fontFamily: "Robotomono",
                             fontWeight: FontWeight.w400),
-                        onChanged: (String? value) {
-                          // This is called when the user selects an item.
-                          setState(() {
-                            widget.initialval = "$value";
-                          });
-                        },
+                        onChanged: widget.onChanged,
                         items: widget.ilist
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(

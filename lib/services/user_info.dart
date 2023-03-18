@@ -31,7 +31,11 @@ class UserService {
     });
   }
 
-  userAvatarChange() async {}
+  userAvatarChange(url) async {
+    await _userdata.doc(user?.uid).update({
+      'imageURL': url,
+    });
+  }
 
   String getInitials(String name) => name.isNotEmpty
       ? name
