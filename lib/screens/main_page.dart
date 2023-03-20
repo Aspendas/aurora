@@ -1,5 +1,6 @@
 import 'package:aurora/services/auth.dart';
 import 'package:aurora/widgets.dart';
+import 'package:aurora/widgets/main/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -15,28 +16,10 @@ class MainScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               MainAppBar(userData: userData),
-              const SizedBox(
-                height: 350,
-              ),
-              Center(
-                child: RoundedButton(
-                  colour: Colors.amber,
-                  paddings: const EdgeInsets.all(8),
-                  onPress: () {
-                    AuthService().signOut(context);
-                  },
-                  title: const Text(
-                    'Sign Out',
-                    style: TextStyle(
-                      fontSize: 19,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ),
+              SizedBox(height: 30),
+              Center(child: ProgressBar()),
             ],
           ),
         ),
