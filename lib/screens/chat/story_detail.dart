@@ -1,4 +1,5 @@
 import 'package:aurora/widgets/chat/story_detail/story_detail_first.dart';
+import 'package:aurora/widgets/chat/story_detail/story_detail_normal.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -35,27 +36,7 @@ class StoryDetail extends StatelessWidget {
             StoryDetailFirst(
               data: storyData,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0, bottom: 16),
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: story.length - 1,
-                itemBuilder: (context, index) {
-                  if (story.length == 1) {
-                    return const SizedBox();
-                  } else {
-                    return Column(
-                      children: [
-                        Text("   ${story[index + 1]}"),
-                        const SizedBox(
-                          height: 4,
-                        )
-                      ],
-                    );
-                  }
-                },
-              ),
-            ),
+            StoryDetailNormal(story: story),
           ],
         ),
       ),
