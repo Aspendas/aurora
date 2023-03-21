@@ -115,9 +115,12 @@ class _ChatScreenState extends State<ChatScreen> {
                       ),
               ),
               const SizedBox(
-                height: 20,
+                height: 16,
               ),
-              ChatWrapper(toggle: chatScreenToggle),
+              ChatWrapper(
+                toggle: chatScreenToggle,
+                userData: widget.userData,
+              ),
             ],
           ),
         ),
@@ -127,12 +130,16 @@ class _ChatScreenState extends State<ChatScreen> {
 }
 
 class ChatWrapper extends StatelessWidget {
-  const ChatWrapper({Key? key, required this.toggle}) : super(key: key);
+  const ChatWrapper({Key? key, required this.toggle, required this.userData})
+      : super(key: key);
+  final AsyncSnapshot userData;
   final bool toggle;
   @override
   Widget build(BuildContext context) {
     if (toggle == true) {
-      return const Stories();
+      return Stories(
+        userData: userData,
+      );
     } else {
       return const Comments();
     }

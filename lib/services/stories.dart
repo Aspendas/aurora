@@ -4,13 +4,19 @@ class StoryService {
   CollectionReference stories =
       FirebaseFirestore.instance.collection('stories');
 
-  Future getCelebrity() {
-    var celebrityStories = stories.where('isCelebrity', isEqualTo: true).get();
+  Future getCelebrity(String addiction) {
+    var celebrityStories = stories
+        .where('isCelebrity', isEqualTo: true)
+        .where('addictionType', isEqualTo: addiction)
+        .get();
     return celebrityStories;
   }
 
-  Future getNormal() {
-    var celebrityStories = stories.where('isCelebrity', isEqualTo: false).get();
+  Future getNormal(String addiction) {
+    var celebrityStories = stories
+        .where('isCelebrity', isEqualTo: false)
+        .where('addictionType', isEqualTo: addiction)
+        .get();
     return celebrityStories;
   }
 }

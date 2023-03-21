@@ -19,7 +19,7 @@ class MainScreen extends StatelessWidget {
             children: [
               MainAppBar(userData: userData),
               SizedBox(height: 30),
-              Center(child: ProgressBar()),
+              //Center(child: ProgressBar()),
             ],
           ),
         ),

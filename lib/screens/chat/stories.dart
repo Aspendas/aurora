@@ -6,14 +6,18 @@ import '../../widgets/chat/story.dart';
 class Stories extends StatelessWidget {
   const Stories({
     Key? key,
+    required AsyncSnapshot this.userData,
   }) : super(key: key);
+
+  final userData;
 
   @override
   Widget build(BuildContext context) {
+    print(userData.data['addiction']);
     return Column(
       children: [
         FutureBuilder(
-          future: StoryService().getCelebrity(),
+          future: StoryService().getCelebrity(userData.data['addiction']),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -37,7 +41,7 @@ class Stories extends StatelessWidget {
           height: 16,
         ),
         FutureBuilder(
-          future: StoryService().getNormal(),
+          future: StoryService().getNormal(userData.data['addiction']),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(

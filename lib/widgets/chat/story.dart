@@ -1,3 +1,4 @@
+import 'package:aurora/screens/chat/story_detail.dart';
 import 'package:flutter/material.dart';
 
 class Story extends StatelessWidget {
@@ -57,6 +58,16 @@ class Story extends StatelessWidget {
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return StoryDetail();
+                                },
+                              ),
+                            );
+                          },
                           child: const Icon(Icons.arrow_forward_ios_rounded),
                         ),
                       ],
