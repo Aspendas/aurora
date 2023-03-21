@@ -4,12 +4,17 @@ import '../../services/comments.dart';
 import '../../widgets/chat/comment.dart';
 
 class Comments extends StatelessWidget {
-  const Comments({Key? key}) : super(key: key);
+  const Comments({
+    Key? key,
+    required AsyncSnapshot this.userData,
+  }) : super(key: key);
+
+  final userData;
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: CommentsService().getComments(),
+      future: CommentsService().getComments(userData.data["addiction"]),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(

@@ -4,8 +4,9 @@ class CommentsService {
   CollectionReference comments =
       FirebaseFirestore.instance.collection('comments');
 
-  Future getComments() {
-    var allComments = comments.get();
+  Future getComments(addictionType) {
+    var allComments =
+        comments.where('addiction', isEqualTo: addictionType).get();
     return allComments;
   }
 

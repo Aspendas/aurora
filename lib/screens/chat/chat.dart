@@ -141,7 +141,9 @@ class ChatWrapper extends StatelessWidget {
         userData: userData,
       );
     } else {
-      return const Comments();
+      return Comments(
+        userData: userData,
+      );
     }
   }
 }
