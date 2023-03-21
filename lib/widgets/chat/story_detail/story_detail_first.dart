@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class StoryDetailFirst extends StatelessWidget {
-  const StoryDetailFirst({Key? key}) : super(key: key);
+  const StoryDetailFirst({Key? key, this.data}) : super(key: key);
+  final data;
 
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
       children: [
         Flexible(
@@ -18,17 +20,20 @@ class StoryDetailFirst extends StatelessWidget {
               bottomRight: Radius.circular(8),
             ),
             child: Image.network(
-              "https://e00-marca.uecdn.es/assets/multimedia/imagenes/2023/01/12/16735402991293.jpg",
+              data["imageURL"],
               fit: BoxFit.fitHeight,
               height: 120,
               width: 90,
             ),
           ),
         ),
+        const SizedBox(width: 4),
         Flexible(
           flex: 3,
-          child: Text("    " +
-              "In 1987, Downey Jr. gave a stellar performance as a wealthy, troubled youth in the film Less Than Zero, followed by an unexpected triumph as Charlie Chaplin in Richard Attenborough’s biopic Chaplin in 1992 that earned him an Oscar nomination."),
+          child: Text(
+            "     ${data["story"][0]}",
+            style: const TextStyle(fontSize: 14),
+          ),
         ),
       ],
     );

@@ -13,7 +13,6 @@ class Stories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(userData.data['addiction']);
     return Column(
       children: [
         FutureBuilder(

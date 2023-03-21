@@ -63,7 +63,7 @@ class Story extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return StoryDetail();
+                                  return StoryDetail(storyData: data);
                                 },
                               ),
                             );
