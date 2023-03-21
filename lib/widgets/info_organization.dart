@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -65,22 +66,26 @@ class Organization extends StatelessWidget {
                   const SizedBox(height: 10),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Container(
-                      child: Row(
+                    child: RichText(
+                      text: TextSpan(
                         children: [
-                          InkWell(
-                            onTap: () {
-                              launchUrl(url);
-                            },
-                            child: const Text(
-                              'Click here ',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(fontWeight: FontWeight.w600),
+                          TextSpan(
+                            text: 'Click here',
+                            style: const TextStyle(
+                              decoration: TextDecoration.underline,
+                              color: Colors.blue,
                             ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                launchUrl(url);
+                              },
                           ),
-                          const Text(
-                            "to get more information about organization.",
-                            textAlign: TextAlign.left,
+                          const TextSpan(
+                            text:
+                                ' to get more information about organization.',
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
                           ),
                         ],
                       ),

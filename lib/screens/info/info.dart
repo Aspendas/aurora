@@ -104,59 +104,63 @@ class _InfoScreenState extends State<InfoScreen> with TickerProviderStateMixin {
                 ),
               ),
               Expanded(
-                child: Container(
-                  child: selectedCountry == 'Please Select'
-                      ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Lottie.asset(
-                              'images/world.json',
-                              controller: _worldController,
-                              width: 600,
-                              height: 600,
-                            ),
-                          ],
-                        )
-                      : Column(
-                          children: [
-                            FutureBuilder(
-                              future:
-                                  _organizationdata.doc(selectedCountry).get(),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                } else if (snapshot.hasError) {
-                                  return Text('Error: ${snapshot.error}');
-                                } else {
-                                  return ListView.builder(
-                                    physics: const ScrollPhysics(),
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: snapshot.data['name'].length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 12.0),
-                                        child: Organization(
-                                          title: snapshot.data['name'][index],
-                                          body: snapshot.data['body'][index],
-                                          url: Uri.parse(
-                                              snapshot.data['URLs'][index]),
-                                        ),
-                                      );
-                                    },
-                                  );
-                                }
-                              },
-                            ),
-                            const SizedBox(height: 32),
-                          ],
-                        ),
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Container(
+                    child: selectedCountry == 'Please Select'
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Lottie.asset(
+                                'images/world.json',
+                                controller: _worldController,
+                                width: 600,
+                                height: 600,
+                              ),
+                            ],
+                          )
+                        : Column(
+                            children: [
+                              FutureBuilder(
+                                future: _organizationdata
+                                    .doc(selectedCountry)
+                                    .get(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  } else if (snapshot.hasError) {
+                                    return Text('Error: ${snapshot.error}');
+                                  } else {
+                                    return ListView.builder(
+                                      physics: const ScrollPhysics(),
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: snapshot.data['name'].length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 12.0),
+                                          child: Organization(
+                                            title: snapshot.data['name'][index],
+                                            body: snapshot.data['body'][index],
+                                            url: Uri.parse(
+                                                snapshot.data['URLs'][index]),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
+                                },
+                              ),
+                              const SizedBox(height: 32),
+                            ],
+                          ),
+                  ),
                 ),
               )
             ],
