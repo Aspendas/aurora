@@ -55,7 +55,9 @@ class _MainScreenState extends State<MainScreen> {
       if (milestones.asMap().containsValue(daynumber)) {
         milestone = true;
       }
-      if (daynumber == 1) {
+      if (daynumber == 1 &&
+          widget.userData.data['wquotes'] == null &&
+          widget.userData.data['motivations'] == null) {
         selectedmotivation = 'select';
         quoteday = true;
         selectedquote = 'select';
