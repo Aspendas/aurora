@@ -29,6 +29,11 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     var userData = widget.userData;
+    var date = userData.data["challengeStartDates"].toDate();
+    int nthDay = 0;
+    if (date != null) {
+      nthDay = DateTime.now().difference(date).inDays;
+    }
     return Scaffold(
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -189,37 +194,39 @@ class _ChatScreenState extends State<ChatScreen> {
                                                       width: 8,
                                                     ),
                                                     ElevatedButton(
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                          primary:
-                                                              Colors.lightBlue,
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .symmetric(
-                                                            horizontal: 20,
-                                                            vertical: 12,
-                                                          ),
-                                                          textStyle:
-                                                              const TextStyle(
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        primary:
+                                                            Colors.lightBlue,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                          horizontal: 20,
+                                                          vertical: 12,
                                                         ),
-                                                        child:
-                                                            const Text("Send"),
-                                                        onPressed: () {
-                                                          CommentsService()
-                                                              .addComment(
-                                                            userData.data[
-                                                                'addiction'],
-                                                            _commentController
-                                                                .text,
-                                                            45, // must change
-                                                            DateTime.now(),
-                                                            userId,
-                                                          );
-                                                        }),
+                                                        textStyle:
+                                                            const TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                      child: const Text("Send"),
+                                                      onPressed: () {
+                                                        CommentsService()
+                                                            .addComment(
+                                                          userData.data[
+                                                              'addiction'],
+                                                          _commentController
+                                                              .text,
+                                                          nthDay, // must change
+                                                          DateTime.now(),
+                                                          userId,
+                                                        );
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                    ),
                                                   ],
                                                 )
                                               ],
