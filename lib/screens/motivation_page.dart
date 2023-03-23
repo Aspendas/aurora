@@ -162,7 +162,7 @@ class _MotivationScreenState extends State<MotivationScreen>
                                     height: 30,
                                   ),
                                   Text(
-                                    'You have not started a challenge yet',
+                                    'You have no past motivation phrases or quotes right now',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
