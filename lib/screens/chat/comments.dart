@@ -17,6 +17,7 @@ class Comments extends StatelessWidget {
     final Stream<QuerySnapshot> _commentsStream = FirebaseFirestore.instance
         .collection('comments')
         .orderBy("postDate", descending: true)
+        .limit(20)
         .snapshots();
     return StreamBuilder<QuerySnapshot>(
       stream: _commentsStream,
