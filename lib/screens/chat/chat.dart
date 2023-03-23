@@ -1,6 +1,7 @@
-import 'package:aurora/screens/chat/comments.dart';
-
 import 'package:flutter/material.dart';
+import 'package:aurora/screens/chat/comments.dart';
+import 'package:aurora/services/comments.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../widgets/main_app_bar.dart';
 
@@ -15,9 +16,19 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  String userId = FirebaseAuth.instance.currentUser!.uid;
+  final TextEditingController _commentController = TextEditingController();
+
+  @override
+  void dispose() {
+    _commentController.dispose();
+    super.dispose();
+  }
+
   bool chatScreenToggle = false;
   @override
   Widget build(BuildContext context) {
+    var userData = widget.userData;
     return Scaffold(
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -107,7 +118,117 @@ class _ChatScreenState extends State<ChatScreen> {
                               backgroundColor:
                                   const Color.fromRGBO(222, 222, 222, 1),
                               foregroundColor: Colors.black,
-                              onPressed: () {},
+                              onPressed: () {
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) {
+                                      return Container(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              "Write Your Comment",
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            const SizedBox(
+                                              height: 8,
+                                            ),
+                                            TextField(
+                                              controller: _commentController,
+                                              decoration: const InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 8,
+                                                        vertical: 8),
+                                              ),
+                                              maxLength: 260,
+                                              minLines: 1,
+                                              maxLines: 8,
+                                            ),
+                                            const SizedBox(
+                                              height: 8,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                const SizedBox(),
+                                                Row(
+                                                  children: [
+                                                    ElevatedButton(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        primary: Colors.grey,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                          horizontal: 20,
+                                                          vertical: 12,
+                                                        ),
+                                                        textStyle:
+                                                            const TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                      child:
+                                                          const Text("Cancel"),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 8,
+                                                    ),
+                                                    ElevatedButton(
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          primary:
+                                                              Colors.lightBlue,
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                            horizontal: 20,
+                                                            vertical: 12,
+                                                          ),
+                                                          textStyle:
+                                                              const TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        child:
+                                                            const Text("Send"),
+                                                        onPressed: () {
+                                                          CommentsService()
+                                                              .addComment(
+                                                            userData.data[
+                                                                'addiction'],
+                                                            _commentController
+                                                                .text,
+                                                            45, // must change
+                                                            DateTime.now(),
+                                                            userId,
+                                                          );
+                                                        }),
+                                                  ],
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    });
+                              },
                               child: const Icon(Icons.add),
                             )
                           ],

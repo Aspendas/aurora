@@ -10,6 +10,22 @@ class CommentsService {
     return allComments;
   }
 
+  addComment(
+    String addiction,
+    String message,
+    int nthDay,
+    var postDate,
+    String userId,
+  ) {
+    comments.add({
+      "addiction": addiction,
+      "message": message,
+      "nthDay": nthDay,
+      "postDate": postDate,
+      "userId": userId,
+    });
+  }
+
   Future getProfilePictureURL(String uid) async {
     String defaultURL =
         "https://firebasestorage.googleapis.com/v0/b/aurora-sc.appspot.com/o/Avatars%2F2.png?alt=media&token=da6ab49a-02f7-4fa5-bae7-c1ea698eef04";
