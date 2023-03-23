@@ -2,7 +2,7 @@ import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../widgets/info_organization.dart';
+import 'info_organization.dart';
 
 class InfoScreen extends StatefulWidget {
   const InfoScreen({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class _InfoScreenState extends State<InfoScreen> with TickerProviderStateMixin {
   final _organizationdata =
       FirebaseFirestore.instance.collection("organizations");
   late final AnimationController _worldController =
-      AnimationController(vsync: this, duration: const Duration(seconds: 10));
+      AnimationController(vsync: this, duration: const Duration(seconds: 9));
 
   final countryList = <String>[
     'Please Select',
@@ -35,8 +35,7 @@ class _InfoScreenState extends State<InfoScreen> with TickerProviderStateMixin {
     super.initState();
     selectedCountry = 'Please Select';
     // set initial value
-    _worldController.reset();
-    _worldController.forward();
+    _worldController.forward(from: 0.4);
     _worldController.addListener(() {
       if (_worldController.isCompleted) {
         _worldController.repeat();

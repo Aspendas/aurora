@@ -1,3 +1,4 @@
+import 'package:aurora/screens/motivation_page.dart';
 import 'package:aurora/services/auth.dart';
 import 'package:aurora/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,7 +10,6 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:aurora/services/user_info.dart';
 import 'package:intl/intl.dart';
 import 'package:aurora/screens/profile_edit.dart';
-import 'package:aurora/screens/notification.dart';
 
 final DateFormat formatter = DateFormat('dd-MM-yyyy HH:mm');
 
@@ -51,7 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 context,
                 CupertinoPageRoute(
                   builder: (context) {
-                    return const NotificationScreen();
+                    return MotivationScreen(userData: widget.userData);
                   },
                 ),
               );
@@ -206,7 +206,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ? const TextStyle(
                             fontSize: 18,
                             fontFamily: "Robotomono",
-                            fontWeight: FontWeight.w400)
+                            fontWeight: FontWeight.w600)
                         : const TextStyle(
                             fontSize: 18,
                             fontFamily: "Robotomono",

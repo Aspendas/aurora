@@ -37,9 +37,10 @@ class MainAppBar extends StatelessWidget {
                 ),
               );
             },
-            child: const Icon(
-              Icons.info_outline,
-              size: 36,
+            child: Image.asset(
+              './images/care.png',
+              fit: BoxFit.fitHeight,
+              height: 30,
             ),
           ),
           Column(

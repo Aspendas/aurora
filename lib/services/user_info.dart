@@ -28,6 +28,11 @@ class UserService {
       'challengeStartDates': null,
       'name': name,
       'imageURL': null,
+      'motivations': null,
+      'motivationsdate': null,
+      'wquotes': null,
+      'wquotesday': null,
+      'wquotenames': null,
     });
   }
 
@@ -38,6 +43,49 @@ class UserService {
       'age': age,
       'challengeStartDates': null,
       'name': name,
+    });
+  }
+
+  resetChallenge(date) async {
+    await _userdata.doc(user?.uid).update({
+      "challengeStartDates": date,
+      "motivations": null,
+      "motivationsdate": null,
+      "wquotes": null,
+      "wquotesday": null,
+      "wquotenames": null,
+    });
+  }
+
+  endChallenge() async {
+    await _userdata.doc(user?.uid).update({
+      "challengeStartDates": null,
+      'motivations': null,
+      'motivationsdate': null,
+      'wquotes': null,
+      'wquotesday': null,
+      'wquotenames': null,
+    });
+  }
+
+  updateUserQuote(quote, date, name) async {
+    await _userdata.doc(user?.uid).update({
+      "wquotes": quote,
+      "wquotesday": date,
+      "wquotenames": name,
+    });
+  }
+
+  updateUserMotivation(motivations, date) async {
+    await _userdata.doc(user?.uid).update({
+      "motivations": motivations,
+      "motivationsdate": date,
+    });
+  }
+
+  startChallenge(date) async {
+    await _userdata.doc(user?.uid).update({
+      "challengeStartDates": date,
     });
   }
 

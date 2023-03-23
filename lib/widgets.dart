@@ -1,3 +1,7 @@
+import 'package:aurora/screens/home.dart';
+import 'package:aurora/services/user_info.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:async_button_builder/async_button_builder.dart';
 import 'package:intl/intl.dart';
@@ -242,8 +246,11 @@ class BottomSheetReset extends StatefulWidget {
 }
 
 class _BottomSheetResetState extends State<BottomSheetReset> {
+  var currentdate;
+  var currenttime;
   @override
   Widget build(BuildContext context) {
+    currentdate = widget.currentdate;
     return Container(
       color: Color(0xff757575),
       child: SingleChildScrollView(
@@ -259,13 +266,13 @@ class _BottomSheetResetState extends State<BottomSheetReset> {
               padding: const EdgeInsets.fromLTRB(34, 30, 34, 75),
               child: Column(children: [
                 const Text(
-                  'Reset Challenge Start Date',
+                  'Edit Challenge Start Date',
                   style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w900,
                       fontFamily: 'RobotoMono'),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Padding(
@@ -273,6 +280,86 @@ class _BottomSheetResetState extends State<BottomSheetReset> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                width: 0.5,
+                              ),
+                            ),
+                            child: IconButton(
+                              iconSize: 50,
+                              icon: const Icon(
+                                Icons.cancel,
+                              ),
+                              tooltip: 'Reset challenge start time',
+                              onPressed: () => showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20.0))),
+                                  title: const Text(
+                                      'Are you sure you want to end the challenge?',
+                                      style: TextStyle(
+                                          fontFamily: 'RobotoMono',
+                                          fontWeight: FontWeight.w800,
+                                          color: Colors.black,
+                                          fontSize: 17)),
+                                  content: RichText(
+                                    text: const TextSpan(
+                                      children: [
+                                        TextSpan(
+                                            text:
+                                                '“Every worthy act is difficult. Ascent is always difficult. Descent is easy and often slippery.”\n\n',
+                                            style: TextStyle(
+                                                fontStyle: FontStyle.italic,
+                                                color: Colors.black)),
+                                        TextSpan(
+                                            text: '– Mahatma Gandhi',
+                                            style: TextStyle(
+                                                fontFamily: 'RobotoMono',
+                                                color: Colors.black)),
+                                      ],
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'Cancel'),
+                                      child: const Text('Cancel'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () async {
+                                        var navigator = Navigator.of(context);
+                                        await UserService().endChallenge();
+                                        navigator.push(
+                                          CupertinoPageRoute(
+                                            builder: (context) {
+                                              return const HomeScreen();
+                                            },
+                                          ),
+                                        );
+                                      },
+                                      child: const Text('Yes'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          const Text(
+                            'End Challenge',
+                            style: TextStyle(fontSize: 10),
+                          ),
+                        ],
+                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -285,22 +372,43 @@ class _BottomSheetResetState extends State<BottomSheetReset> {
                               ),
                             ),
                             child: IconButton(
-                                iconSize: 100,
-                                icon: Icon(
+                                iconSize: 50,
+                                icon: const Icon(
                                   Icons.calendar_month,
                                 ),
                                 tooltip: 'Reset challenge start time',
                                 onPressed: () async {
+                                  var navigator = Navigator.of(context);
                                   final date = await pickDate();
                                   if (date == null) return;
+
+                                  final time = await showTimePicker(
+                                      context: context,
+                                      initialTime: TimeOfDay(
+                                          hour: DateTime.now().hour,
+                                          minute: DateTime.now().minute));
+
+                                  if (time == null) return;
+
                                   setState(() {
-                                    widget.currentdate = date;
-                                    widget.formattedDate =
-                                        widget.formatter.format(date);
+                                    currentdate = date;
+                                    currenttime = time;
                                   });
-                                  print(date);
-                                  print(widget.formattedDate);
-                                  Navigator.pop(context, date);
+                                  var resettime = DateTime(
+                                      currentdate.year,
+                                      currentdate.month,
+                                      currentdate.day,
+                                      currenttime.hour,
+                                      currenttime.minute);
+                                  await UserService().resetChallenge(
+                                      Timestamp.fromDate(resettime));
+                                  navigator.push(
+                                    CupertinoPageRoute(
+                                      builder: (context) {
+                                        return const HomeScreen();
+                                      },
+                                    ),
+                                  );
                                 }),
                           ),
                           SizedBox(
@@ -321,15 +429,15 @@ class _BottomSheetResetState extends State<BottomSheetReset> {
                               ),
                             ),
                             child: IconButton(
-                              iconSize: 100,
-                              icon: Icon(
+                              iconSize: 50,
+                              icon: const Icon(
                                 Icons.rotate_left_sharp,
                               ),
                               tooltip: 'Reset challenge start time',
                               onPressed: () => showDialog<String>(
                                 context: context,
                                 builder: (BuildContext context) => AlertDialog(
-                                  shape: RoundedRectangleBorder(
+                                  shape: const RoundedRectangleBorder(
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(20.0))),
                                   title: const Text(
@@ -363,8 +471,18 @@ class _BottomSheetResetState extends State<BottomSheetReset> {
                                       child: const Text('Cancel'),
                                     ),
                                     TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(context, 'Yes'),
+                                      onPressed: () async {
+                                        var navigator = Navigator.of(context);
+                                        await UserService()
+                                            .resetChallenge(DateTime.now());
+                                        navigator.push(
+                                          CupertinoPageRoute(
+                                            builder: (context) {
+                                              return const HomeScreen();
+                                            },
+                                          ),
+                                        );
+                                      },
                                       child: const Text('Yes'),
                                     ),
                                   ],

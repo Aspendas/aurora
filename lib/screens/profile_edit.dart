@@ -62,326 +62,310 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 
     final addList = <String>['Alcohol', 'Smoking', 'kibritten yaptigim'];
 
-    return FutureBuilder(
-      future: UserInfo,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else {
-          var dt = widget.userData.data['challengeStartDates'] != null
-              ? (widget.userData.data['challengeStartDates'] as Timestamp)
-                  .toDate()
-              : null;
+    var dt = widget.userData.data['challengeStartDates'] != null
+        ? (widget.userData.data['challengeStartDates'] as Timestamp).toDate()
+        : null;
 
-          var formattedStartDate = dt != null
-              ? formatter.format(dt)
-              : 'You have not started a challenge yet. You can start it on main screen ';
+    var formattedStartDate = dt != null
+        ? formatter.format(dt)
+        : 'You have not started a challenge yet. You can start it on main screen ';
 
-          var imageUrl = widget.userData.data['imageURL'];
+    var imageUrl = widget.userData.data['imageURL'];
 
-          return Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: AppBar(
-              centerTitle: true,
-              title: const Text(
-                " Edit Profile",
-              ),
-            ),
-            body: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 34),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 50),
-                      Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 1.5,
-                          ),
-                        ),
-                        child: CircleAvatar(
-                          backgroundColor: Colors.white,
-                          radius: 75,
-                          child: widget.userData.data['imageURL'] != null
-                              ? Image.network(
-                                  imageUrl,
-                                  fit: BoxFit.fitHeight,
-                                  height: 120,
-                                  width: 90,
-                                )
-                              : Text(
-                                  UserService().getInitials(
-                                      widget.userData.data['name']),
-                                  style: const TextStyle(
-                                      fontSize: 50,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: 'RobotoMono'),
-                                ), //Text
-                        ),
-                      ),
-                      const SizedBox(height: 11),
-                      InkWell(
-                        onTap: () async {
-                          var navigator = Navigator.of(context);
-                          final avatarURLs = await FirebaseFirestore.instance
-                              .collection("Profile")
-                              .doc('Avatars')
-                              .get();
-                          navigator.push(
-                            CupertinoPageRoute(
-                              builder: (context) {
-                                return AvatarChangeScreen(
-                                    userData: widget.userData,
-                                    avatarURLs: avatarURLs);
-                              },
-                            ),
-                          );
-                        },
-                        child: const Text(
-                          'Change the avatar',
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                              fontFamily: 'RobotoMono',
-                              fontSize: 20,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xFF0057FF)),
-                        ),
-                      ),
-                      const SizedBox(height: 62),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
-                            child: Text(
-                              'Name and Surname',
-                              style: TextStyle(fontSize: 12),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                          TextField(
-                            controller: _name,
-                            keyboardType: TextInputType.name,
-                            enableSuggestions: false,
-                            autocorrect: false,
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          " Edit Profile",
+        ),
+      ),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 34),
+            child: Column(
+              children: [
+                const SizedBox(height: 50),
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 1.5,
+                    ),
+                  ),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 75,
+                    child: widget.userData.data['imageURL'] != null
+                        ? Image.network(
+                            imageUrl,
+                            fit: BoxFit.fitHeight,
+                            height: 120,
+                            width: 90,
+                          )
+                        : Text(
+                            UserService()
+                                .getInitials(widget.userData.data['name']),
                             style: const TextStyle(
-                                color: Colors.black,
+                                fontSize: 50,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'RobotoMono'),
+                          ), //Text
+                  ),
+                ),
+                const SizedBox(height: 11),
+                InkWell(
+                  onTap: () async {
+                    var navigator = Navigator.of(context);
+                    final avatarURLs = await FirebaseFirestore.instance
+                        .collection("Profile")
+                        .doc('Avatars')
+                        .get();
+                    navigator.push(
+                      CupertinoPageRoute(
+                        builder: (context) {
+                          return AvatarChangeScreen(
+                              userData: widget.userData,
+                              avatarURLs: avatarURLs);
+                        },
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    'Change the avatar',
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                        fontFamily: 'RobotoMono',
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF0057FF)),
+                  ),
+                ),
+                const SizedBox(height: 62),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
+                      child: Text(
+                        'Name and Surname',
+                        style: TextStyle(fontSize: 12),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    TextField(
+                      controller: _name,
+                      keyboardType: TextInputType.name,
+                      enableSuggestions: false,
+                      autocorrect: false,
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontFamily: "Robotomono",
+                          fontWeight: FontWeight.w400),
+                      decoration: const InputDecoration(
+                        hintStyle: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontFamily: "Robotomono",
+                            fontSize: 18.0),
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                        hintText: "Name Surname",
+                        fillColor: Colors.white,
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10.0),
+                          ),
+                          borderSide: BorderSide(width: 1),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10.0),
+                          ),
+                          borderSide: BorderSide(width: 1, color: Colors.black),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 9),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
+                      child: Text(
+                        'Age',
+                        style: TextStyle(fontSize: 12),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () async {
+                        showCupertinoModalPopup(
+                          context: context,
+                          builder: (_) => SizedBox(
+                            width: double.infinity,
+                            height: 250,
+                            child: CupertinoPicker(
+                                backgroundColor: Colors.white,
+                                itemExtent: 40,
+                                scrollController: FixedExtentScrollController(),
+                                onSelectedItemChanged: (index) {
+                                  setState(() {
+                                    age = index + 15;
+                                  });
+                                },
+                                children: ageList),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            width: 1,
+                          ),
+                        ),
+                        height: 45,
+                        width: double.infinity,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 12.0, horizontal: 15),
+                          child: Text(
+                            '$age',
+                            style: const TextStyle(
                                 fontSize: 18,
                                 fontFamily: "Robotomono",
                                 fontWeight: FontWeight.w400),
-                            decoration: const InputDecoration(
-                              hintStyle: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: "Robotomono",
-                                  fontSize: 18.0),
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 15),
-                              hintText: "Name Surname",
-                              fillColor: Colors.white,
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10.0),
-                                ),
-                                borderSide: BorderSide(width: 1),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10.0),
-                                ),
-                                borderSide:
-                                    BorderSide(width: 1, color: Colors.black),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 9),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
-                            child: Text(
-                              'Age',
-                              style: TextStyle(fontSize: 12),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () async {
-                              showCupertinoModalPopup(
-                                context: context,
-                                builder: (_) => SizedBox(
-                                  width: double.infinity,
-                                  height: 250,
-                                  child: CupertinoPicker(
-                                      backgroundColor: Colors.white,
-                                      itemExtent: 40,
-                                      scrollController:
-                                          FixedExtentScrollController(),
-                                      onSelectedItemChanged: (index) {
-                                        setState(() {
-                                          age = index + 15;
-                                        });
-                                      },
-                                      children: ageList),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  width: 1,
-                                ),
-                              ),
-                              height: 45,
-                              width: double.infinity,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 12.0, horizontal: 15),
-                                child: Text(
-                                  '$age',
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontFamily: "Robotomono",
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 9),
-                      PDropDown(
-                        uptext: 'Biological Gender',
-                        editstatus: true,
-                        kitemnumber: 32.0,
-                        ilist: genderList,
-                        initialval: gender,
-                        onChanged: (String? value) {
-                          // This is called when the user selects an item.
-                          setState(() {
-                            gender = "$value";
-                          });
-                        },
-                      ),
-                      const SizedBox(height: 9),
-                      PDropDown(
-                        uptext: 'Addiction',
-                        editstatus: true,
-                        kitemnumber: 32.0,
-                        ilist: addList,
-                        initialval: addiction,
-                        onChanged: (String? value) {
-                          // This is called when the user selects an item.
-                          setState(() {
-                            addiction = "$value";
-                          });
-                        },
-                      ),
-                      const SizedBox(height: 9),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
-                            child: Text(
-                              'Starting Date',
-                              style: TextStyle(fontSize: 12),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: dt != null
-                                ? () async {
-                                    await showModalBottomSheet(
-                                      context: context,
-                                      builder: (context) => StatefulBuilder(
-                                        builder: (context, setState) =>
-                                            BottomSheetReset(
-                                          currentdate: dt ?? DateTime.now(),
-                                          formattedDate: formattedStartDate,
-                                          formatter: formatter,
-                                        ),
-                                      ),
-                                    ).then((value) {
-                                      dt = value;
-                                    });
-                                    setState(() {
-                                      formattedStartDate =
-                                          formatter.format(dt as DateTime);
-                                    });
-                                  }
-                                : () {},
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  width: 1,
-                                ),
-                              ),
-                              height: 40,
-                              width: double.infinity,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 8.0, horizontal: 15),
-                                child: Text(formattedStartDate,
-                                    style: dt != null
-                                        ? const TextStyle(
-                                            fontSize: 18,
-                                            fontFamily: "Robotomono",
-                                            fontWeight: FontWeight.w400)
-                                        : const TextStyle(
-                                            fontSize: 18,
-                                            fontFamily: "Robotomono",
-                                            color: Colors.grey)),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      RoundedButton(
-                        colour: Colors.white,
-                        paddings: const EdgeInsets.all(8),
-                        onPress: () {
-                          UserService().updateUserInfo(
-                              addiction, gender, age, _name.text);
-                          Navigator.of(context).pushAndRemoveUntil(
-                              CupertinoPageRoute(builder: (context) {
-                            return const HomeScreen();
-                          }), (route) => false);
-                        },
-                        title: const Text(
-                          'Save Changes',
-                          style: TextStyle(
-                            fontSize: 19,
-                            color: Colors.black,
                           ),
                         ),
-                      )
-                    ],
-                  ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
+                const SizedBox(height: 9),
+                PDropDown(
+                  uptext: 'Biological Gender',
+                  editstatus: true,
+                  kitemnumber: 32.0,
+                  ilist: genderList,
+                  initialval: gender,
+                  onChanged: (String? value) {
+                    // This is called when the user selects an item.
+                    setState(() {
+                      gender = "$value";
+                    });
+                  },
+                ),
+                const SizedBox(height: 9),
+                PDropDown(
+                  uptext: 'Addiction',
+                  editstatus: true,
+                  kitemnumber: 32.0,
+                  ilist: addList,
+                  initialval: addiction,
+                  onChanged: (String? value) {
+                    // This is called when the user selects an item.
+                    setState(() {
+                      addiction = "$value";
+                    });
+                  },
+                ),
+                const SizedBox(height: 9),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
+                      child: Text(
+                        'Starting Date',
+                        style: TextStyle(fontSize: 12),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: dt != null
+                          ? () async {
+                              await showModalBottomSheet(
+                                context: context,
+                                builder: (context) => StatefulBuilder(
+                                  builder: (context, setState) =>
+                                      BottomSheetReset(
+                                    currentdate: dt ?? DateTime.now(),
+                                    formattedDate: formattedStartDate,
+                                    formatter: formatter,
+                                  ),
+                                ),
+                              ).then((value) {
+                                dt = value;
+                              });
+                              setState(() {
+                                formattedStartDate =
+                                    formatter.format(dt as DateTime);
+                              });
+                            }
+                          : () {},
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            width: 1,
+                          ),
+                        ),
+                        height: 40,
+                        width: double.infinity,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 15),
+                          child: Text(formattedStartDate,
+                              style: dt != null
+                                  ? const TextStyle(
+                                      fontSize: 18,
+                                      fontFamily: "Robotomono",
+                                      fontWeight: FontWeight.w400)
+                                  : const TextStyle(
+                                      fontSize: 18,
+                                      fontFamily: "Robotomono",
+                                      color: Colors.grey)),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                RoundedButton(
+                  colour: Colors.white,
+                  paddings: const EdgeInsets.all(8),
+                  onPress: () {
+                    UserService()
+                        .updateUserInfo(addiction, gender, age, _name.text);
+                    Navigator.of(context).pushAndRemoveUntil(
+                        CupertinoPageRoute(builder: (context) {
+                      return const HomeScreen();
+                    }), (route) => false);
+                  },
+                  title: const Text(
+                    'Save Changes',
+                    style: TextStyle(
+                      fontSize: 19,
+                      color: Colors.black,
+                    ),
+                  ),
+                )
+              ],
             ),
-          );
-        }
-      },
+          ),
+        ),
+      ),
     );
   }
 }
