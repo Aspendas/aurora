@@ -29,7 +29,8 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     var userData = widget.userData;
-    var date = userData.data["challengeStartDates"].toDate();
+    var date = userData.data["challengeStartDates"]?.toDate();
+
     int nthDay = 0;
     if (date != null) {
       nthDay = DateTime.now().difference(date).inDays;
@@ -74,15 +75,17 @@ class _ChatScreenState extends State<ChatScreen> {
                             ),
                             Opacity(
                               opacity: 0,
-                              child: FloatingActionButton(
-                                mini: true,
-                                backgroundColor:
-                                    const Color.fromRGBO(222, 222, 222, 1),
-                                foregroundColor: Colors.black,
-                                onPressed: () {},
-                                child: const Icon(Icons.add),
-                              ),
-                            )
+                              child: date != null
+                                  ? FloatingActionButton(
+                                      mini: true,
+                                      backgroundColor:
+                                          Color.fromARGB(255, 6, 5, 5),
+                                      foregroundColor: Colors.black,
+                                      onPressed: () {},
+                                      child: const Icon(Icons.add),
+                                    )
+                                  : const SizedBox(),
+                            ),
                           ],
                         ),
                       )
@@ -118,126 +121,139 @@ class _ChatScreenState extends State<ChatScreen> {
                                 ),
                               ],
                             ),
-                            FloatingActionButton(
-                              mini: true,
-                              backgroundColor:
-                                  const Color.fromRGBO(222, 222, 222, 1),
-                              foregroundColor: Colors.black,
-                              onPressed: () {
-                                showModalBottomSheet(
-                                    context: context,
-                                    builder: (context) {
-                                      return Container(
-                                        padding: const EdgeInsets.all(16.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            const Text(
-                                              "Write Your Comment",
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            const SizedBox(
-                                              height: 8,
-                                            ),
-                                            TextField(
-                                              controller: _commentController,
-                                              decoration: const InputDecoration(
-                                                border: OutlineInputBorder(),
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                        horizontal: 8,
-                                                        vertical: 8),
-                                              ),
-                                              maxLength: 260,
-                                              minLines: 1,
-                                              maxLines: 8,
-                                            ),
-                                            const SizedBox(
-                                              height: 8,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                            date != null
+                                ? FloatingActionButton(
+                                    mini: true,
+                                    backgroundColor:
+                                        const Color.fromRGBO(222, 222, 222, 1),
+                                    foregroundColor: Colors.black,
+                                    onPressed: () {
+                                      showModalBottomSheet(
+                                        context: context,
+                                        builder: (context) {
+                                          return Container(
+                                            padding: const EdgeInsets.all(16.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                const SizedBox(),
+                                                const Text(
+                                                  "Write Your Comment",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                const SizedBox(
+                                                  height: 8,
+                                                ),
+                                                TextField(
+                                                  controller:
+                                                      _commentController,
+                                                  decoration:
+                                                      const InputDecoration(
+                                                    border:
+                                                        OutlineInputBorder(),
+                                                    contentPadding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 8,
+                                                            vertical: 8),
+                                                  ),
+                                                  maxLength: 260,
+                                                  minLines: 1,
+                                                  maxLines: 8,
+                                                ),
+                                                const SizedBox(
+                                                  height: 8,
+                                                ),
                                                 Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
                                                   children: [
-                                                    ElevatedButton(
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        primary: Colors.grey,
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                          horizontal: 20,
-                                                          vertical: 12,
+                                                    const SizedBox(),
+                                                    Row(
+                                                      children: [
+                                                        ElevatedButton(
+                                                          style: ElevatedButton
+                                                              .styleFrom(
+                                                            primary:
+                                                                Colors.grey,
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .symmetric(
+                                                              horizontal: 20,
+                                                              vertical: 12,
+                                                            ),
+                                                            textStyle:
+                                                                const TextStyle(
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                          ),
+                                                          child: const Text(
+                                                              "Cancel"),
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
                                                         ),
-                                                        textStyle:
-                                                            const TextStyle(
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.bold,
+                                                        const SizedBox(
+                                                          width: 8,
                                                         ),
-                                                      ),
-                                                      child:
-                                                          const Text("Cancel"),
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 8,
-                                                    ),
-                                                    ElevatedButton(
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        primary:
-                                                            Colors.lightBlue,
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                          horizontal: 20,
-                                                          vertical: 12,
+                                                        ElevatedButton(
+                                                          style: ElevatedButton
+                                                              .styleFrom(
+                                                            primary: Colors
+                                                                .lightBlue,
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .symmetric(
+                                                              horizontal: 20,
+                                                              vertical: 12,
+                                                            ),
+                                                            textStyle:
+                                                                const TextStyle(
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                          ),
+                                                          child: const Text(
+                                                              "Send"),
+                                                          onPressed: () {
+                                                            CommentsService()
+                                                                .addComment(
+                                                              userData.data[
+                                                                  'addiction'],
+                                                              _commentController
+                                                                  .text,
+                                                              nthDay, // must change
+                                                              DateTime.now(),
+                                                              userId,
+                                                            );
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
                                                         ),
-                                                        textStyle:
-                                                            const TextStyle(
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                      child: const Text("Send"),
-                                                      onPressed: () {
-                                                        CommentsService()
-                                                            .addComment(
-                                                          userData.data[
-                                                              'addiction'],
-                                                          _commentController
-                                                              .text,
-                                                          nthDay, // must change
-                                                          DateTime.now(),
-                                                          userId,
-                                                        );
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
-                                                    ),
+                                                      ],
+                                                    )
                                                   ],
                                                 )
                                               ],
-                                            )
-                                          ],
-                                        ),
+                                            ),
+                                          );
+                                        },
                                       );
-                                    });
-                              },
-                              child: const Icon(Icons.add),
-                            )
+                                    },
+                                    child: const Icon(Icons.add),
+                                  )
+                                : const SizedBox(),
                           ],
                         ),
                       ),
