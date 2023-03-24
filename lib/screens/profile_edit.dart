@@ -60,7 +60,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             ),
         growable: true);
 
-    final addList = <String>['Alcohol', 'Smoking', 'kibritten yaptigim'];
+    final addList = <String>['Alcohol', 'Tobacco', 'Substance'];
 
     var dt = widget.userData.data['challengeStartDates'] != null
         ? (widget.userData.data['challengeStartDates'] as Timestamp).toDate()
@@ -324,16 +324,19 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: 8.0, horizontal: 15),
-                          child: Text(formattedStartDate,
-                              style: dt != null
-                                  ? const TextStyle(
-                                      fontSize: 18,
-                                      fontFamily: "Robotomono",
-                                      fontWeight: FontWeight.w400)
-                                  : const TextStyle(
-                                      fontSize: 18,
-                                      fontFamily: "Robotomono",
-                                      color: Colors.grey)),
+                          child: Text(
+                            formattedStartDate,
+                            style: dt != null
+                                ? const TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: "Robotomono",
+                                    fontWeight: FontWeight.w400)
+                                : const TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: "Robotomono",
+                                    color: Colors.grey,
+                                  ),
+                          ),
                         ),
                       ),
                     ),
