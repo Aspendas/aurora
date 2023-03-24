@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import '../widgets.dart';
+import '../widgets/main/progress_bar.dart';
 import '../widgets/main_app_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../widgets/motivation.dart';
@@ -23,6 +24,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  late var data = widget.userData.data;
   final _motivationdata = FirebaseFirestore.instance.collection("motivation");
 
   final date = DateTime.now();
@@ -47,6 +49,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var challengeStartDate = data["challengeStartDates"]?.toDate();
     if (widget.userData.data['challengeStartDates'] != null) {
       final dt =
           (widget.userData.data['challengeStartDates'] as Timestamp).toDate();
@@ -93,9 +96,14 @@ class _MainScreenState extends State<MainScreen> {
           child: Column(
             children: [
               MainAppBar(userData: widget.userData),
-              SizedBox(height: 30),
-
-              //Center(child: ProgressBar()),
+              const SizedBox(height: 30),
+              Center(
+                child: challengeStartDate != null
+                    ? ProgressBar(
+                        challengeDate: challengeStartDate,
+                      )
+                    : const SizedBox(),
+              ),
               widget.userData.data['challengeStartDates'] == null
                   ? RoundedButton(
                       colour: Colors.white,
@@ -113,7 +121,6 @@ class _MainScreenState extends State<MainScreen> {
                       title: const Text('Start Challenge'),
                     )
                   : Container(),
-
               RoundedButton(
                 colour: Colors.white,
                 onPress: () {

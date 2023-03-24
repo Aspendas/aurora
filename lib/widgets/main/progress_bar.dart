@@ -3,31 +3,65 @@ import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 import 'dart:async';
 
 class ProgressBar extends StatefulWidget {
-  const ProgressBar({Key? key}) : super(key: key);
+  const ProgressBar({Key? key, required this.challengeDate}) : super(key: key);
+  final DateTime challengeDate;
 
   @override
   State<ProgressBar> createState() => _ProgressWidgetState();
 }
 
 class _ProgressWidgetState extends State<ProgressBar> {
-  final DateTime _now = DateTime.now();
-  late double second = _now.second.toDouble();
+  late final DateTime _now = DateTime.now();
+  late final DateTime _challengeDate = widget.challengeDate;
+  late final _difference = _now.difference(_challengeDate);
+  late final int _secondsDifference = _difference.inSeconds;
+  late final int _minutesDifference = _difference.inMinutes;
+
+  late double second = _difference.inSeconds.toDouble() % 60;
+  late double minute = _difference.inMinutes.toDouble() % 60;
+  late double hour = _difference.inHours.toDouble() % 24;
+  late double day = _difference.inDays.toDouble();
   late ValueNotifier<double> valueNotifier;
+  late ValueNotifier<double> secondNotifier;
+  late ValueNotifier<double> minuteNotifier;
+  late ValueNotifier<double> hoursNotifier;
+  late ValueNotifier<double> daysNotifier;
   @override
   void initState() {
     super.initState();
     valueNotifier = ValueNotifier(second);
+    secondNotifier = ValueNotifier(second);
+    minuteNotifier = ValueNotifier(minute);
+    hoursNotifier = ValueNotifier(hour);
+    daysNotifier = ValueNotifier(day);
     Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
-        second++;
-        valueNotifier.value++;
+        if (secondNotifier.value < 59) {
+          secondNotifier.value = secondNotifier.value + 1;
+        } else if (secondNotifier.value == 59) {
+          secondNotifier.value = 0;
+          if (minuteNotifier.value < 59) {
+            minuteNotifier.value++;
+          } else {
+            minuteNotifier.value = 0;
+            if (hoursNotifier.value < 23) {
+              hoursNotifier.value++;
+            } else {
+              hoursNotifier.value = 0;
+              daysNotifier.value++;
+            }
+          }
+        }
       });
     });
   }
 
   @override
   void dispose() {
-    valueNotifier.dispose();
+    secondNotifier.dispose();
+    minuteNotifier.dispose();
+    hoursNotifier.dispose();
+    daysNotifier.dispose();
     super.dispose();
   }
 
@@ -54,7 +88,7 @@ class _ProgressWidgetState extends State<ProgressBar> {
                 ),
               ),
               child: SimpleCircularProgressBar(
-                valueNotifier: valueNotifier,
+                valueNotifier: daysNotifier,
                 maxValue: 60,
                 progressStrokeWidth: 4,
                 backStrokeWidth: 4,
@@ -105,8 +139,8 @@ class _ProgressWidgetState extends State<ProgressBar> {
                 ),
               ),
               child: SimpleCircularProgressBar(
-                valueNotifier: valueNotifier,
-                maxValue: 60,
+                valueNotifier: hoursNotifier,
+                maxValue: 24,
                 progressStrokeWidth: 4,
                 backStrokeWidth: 4,
                 progressColors: const [
@@ -156,7 +190,7 @@ class _ProgressWidgetState extends State<ProgressBar> {
                 ),
               ),
               child: SimpleCircularProgressBar(
-                valueNotifier: valueNotifier,
+                valueNotifier: minuteNotifier,
                 maxValue: 60,
                 progressStrokeWidth: 4,
                 backStrokeWidth: 4,
@@ -207,7 +241,7 @@ class _ProgressWidgetState extends State<ProgressBar> {
                 ),
               ),
               child: SimpleCircularProgressBar(
-                valueNotifier: valueNotifier,
+                valueNotifier: secondNotifier,
                 maxValue: 60,
                 progressStrokeWidth: 4.5,
                 backStrokeWidth: 3,
