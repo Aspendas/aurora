@@ -68,7 +68,9 @@ class Story extends StatelessWidget {
                               ),
                             );
                           },
-                          child: const Icon(Icons.notifications_none),
+                          child: const Icon(
+                            Icons.arrow_forward_ios_rounded,
+                          ),
                         ),
                       ],
                     ),
