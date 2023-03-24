@@ -6,47 +6,76 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-import '../widgets/health/activity.dart';
+import '../../widgets/health/activity.dart';
 
-class HealthScreen extends StatelessWidget {
+class HealthScreen extends StatefulWidget {
   final AsyncSnapshot userData;
   const HealthScreen({Key? key, required this.userData}) : super(key: key);
 
   @override
+  State<HealthScreen> createState() => _HealthScreenState();
+}
+
+class _HealthScreenState extends State<HealthScreen> {
+  bool healthScreenToggle = true;
+
+  @override
   Widget build(BuildContext context) {
     var activities = ActivityService().getActivities();
-    print(activities);
     return Scaffold(
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: SafeArea(
           child: Column(
             children: [
-              MainAppBar(userData: userData),
+              MainAppBar(userData: widget.userData),
               SizedBox(
                 height: 60,
                 child: ArchedLine(),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 28.0),
-                child: Row(
-                  children: const [
-                    Text(
-                      "Mahmut",
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Text(
-                      " - ",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                    ),
-                    Text(
-                      "Activities",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                    ),
-                  ],
-                ),
+                child: healthScreenToggle == true
+                    ? Row(
+                        children: [
+                          const Text(
+                            "Activities -",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18),
+                          ),
+                          GestureDetector(
+                            child: const Text(
+                              " Test",
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            onTap: () {
+                              setState(() {
+                                healthScreenToggle = false;
+                              });
+                            },
+                          ),
+                        ],
+                      )
+                    : Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                healthScreenToggle = true;
+                              });
+                            },
+                            child: const Text(
+                              "Activities ",
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                          const Text(
+                            "- Test",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18),
+                          ),
+                        ],
+                      ),
               ),
               const SizedBox(
                 height: 4.0,
