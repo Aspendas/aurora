@@ -30,14 +30,14 @@ class Stories extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: snapshot.data.docs.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Story(data: snapshot.data.docs[index].data());
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 12.0),
+                    child: Story(data: snapshot.data.docs[index].data()),
+                  );
                 },
               );
             }
           },
-        ),
-        const SizedBox(
-          height: 16,
         ),
         FutureBuilder(
           future: StoryService().getNormal(userData.data['addiction']),
