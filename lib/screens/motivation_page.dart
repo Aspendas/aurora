@@ -85,7 +85,7 @@ class _MotivationScreenState extends State<MotivationScreen>
                                     padding:
                                         EdgeInsets.fromLTRB(20, 30, 20, 30),
                                     child: Text(
-                                      "You can see past motivation phrases and weekly quotes",
+                                      "Your past motivation phrases and weekly quotes",
                                       style: TextStyle(fontSize: 18),
                                       textAlign: TextAlign.center,
                                     ),

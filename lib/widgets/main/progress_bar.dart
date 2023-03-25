@@ -3,8 +3,15 @@ import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 import 'dart:async';
 
 class ProgressBar extends StatefulWidget {
-  const ProgressBar({Key? key, required this.challengeDate}) : super(key: key);
+  const ProgressBar(
+      {Key? key,
+      required this.challengeDate,
+      required this.width,
+      required this.height})
+      : super(key: key);
   final DateTime challengeDate;
+  final double width;
+  final double height;
 
   @override
   State<ProgressBar> createState() => _ProgressWidgetState();
@@ -75,8 +82,8 @@ class _ProgressWidgetState extends State<ProgressBar> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 55,
-              height: 55,
+              width: widget.width,
+              height: widget.height,
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
@@ -126,8 +133,8 @@ class _ProgressWidgetState extends State<ProgressBar> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 55,
-              height: 55,
+              width: widget.width,
+              height: widget.height,
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
@@ -177,8 +184,8 @@ class _ProgressWidgetState extends State<ProgressBar> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 55,
-              height: 55,
+              width: widget.width,
+              height: widget.height,
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
@@ -228,8 +235,8 @@ class _ProgressWidgetState extends State<ProgressBar> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 55,
-              height: 55,
+              width: widget.width,
+              height: widget.height,
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: RadialGradient(

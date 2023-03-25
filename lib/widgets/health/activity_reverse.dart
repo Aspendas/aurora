@@ -40,7 +40,7 @@ class ActivityReverse extends StatelessWidget {
           topLeft: Radius.circular(20),
           bottomRight: Radius.circular(20),
         ),
-        color: Color.fromRGBO(247, 218, 200, 0.7),
+        color: Color.fromRGBO(247, 218, 200, 1),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

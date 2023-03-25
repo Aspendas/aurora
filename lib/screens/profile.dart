@@ -56,7 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               );
             },
-            icon: const Icon(Icons.circle_notifications),
+            icon: const Icon(Icons.view_timeline_outlined),
           ),
         ],
       ),

@@ -33,6 +33,13 @@ class UserService {
       'wquotes': null,
       'wquotesday': null,
       'wquotenames': null,
+      'dailyemotiondate': null,
+    });
+  }
+
+  updateUserEmotion(date) async {
+    await _userdata.doc(user?.uid).update({
+      'dailyemotiondate': date,
     });
   }
 

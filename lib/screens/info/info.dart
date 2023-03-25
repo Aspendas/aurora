@@ -22,6 +22,9 @@ class _InfoScreenState extends State<InfoScreen> with TickerProviderStateMixin {
     'Please Select',
     'US',
     'Turkey',
+    'Spain',
+    'Europe',
+    'China'
   ];
 
   void dispose() {

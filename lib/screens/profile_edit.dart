@@ -60,7 +60,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             ),
         growable: true);
 
-    final addList = <String>['Alcohol', 'Tobacco', 'Substance'];
+    final addList = <String>['Alcohol', 'Smoking', 'Substance'];
 
     var dt = widget.userData.data['challengeStartDates'] != null
         ? (widget.userData.data['challengeStartDates'] as Timestamp).toDate()
