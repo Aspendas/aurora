@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ActivityReverse extends StatelessWidget {
   const ActivityReverse({Key? key, this.data}) : super(key: key);
@@ -6,6 +7,29 @@ class ActivityReverse extends StatelessWidget {
   final data;
   @override
   Widget build(BuildContext context) {
+    _launchActivity() async {
+      var activityUrl = data['activityURL'].toString();
+      final Uri activityUri = Uri.parse(activityUrl);
+
+      try {
+        await launchUrl(activityUri);
+      } catch (e) {
+        print(e);
+      }
+    }
+
+    Map<String, Widget> icon = {
+      "food": const SizedBox(
+        child: Icon(Icons.fastfood),
+      ),
+      "visit": const SizedBox(
+        child: Icon(Icons.location_on_outlined),
+      ),
+      "fun": const SizedBox(
+        child: Icon(Icons.travel_explore),
+      ),
+    };
+
     return Container(
       margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
       height: 150,
@@ -21,8 +45,11 @@ class ActivityReverse extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
+          Container(
             height: 150,
+            constraints: const BoxConstraints(
+              maxWidth: 120,
+            ),
             child: ClipRRect(
               borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(20),
@@ -41,31 +68,43 @@ class ActivityReverse extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0, left: 8),
+                  padding: const EdgeInsets.only(top: 16.0, left: 8),
                   child: Text(
-                    "BAĞIMLILIĞI BIRAKIRKEN YEMEK YEMEK ÇOK ÖNEMLİ. UNUTMAAAA, AL SANA BASIC TARİF",
+                    data["description"].toString(),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Row(
-                        children: [
-                          Icon(Icons.fastfood),
-                          SizedBox(
-                            width: 8,
+                      icon[data["category"]]!,
+                      GestureDetector(
+                        onTap: () {
+                          _launchActivity();
+                        },
+                        child: GestureDetector(
+                          onTap: () {
+                            _launchActivity();
+                          },
+                          child: Row(
+                            children: const [
+                              SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                "Go to Activity",
+                              ),
+                              Icon(
+                                Icons.play_arrow,
+                                size: 28,
+                              ),
+                            ],
                           ),
-                          Text("See The Video"),
-                          Icon(
-                            Icons.play_arrow,
-                            size: 28,
-                          ),
-                        ],
+                        ),
                       ),
-                      SizedBox(),
+                      const SizedBox(),
                     ],
                   ),
                 ),
