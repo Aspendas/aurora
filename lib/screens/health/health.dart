@@ -1,3 +1,5 @@
+import 'package:aurora/screens/health/activities.dart';
+import 'package:aurora/screens/health/test.dart';
 import 'package:aurora/services/activities.dart';
 
 import 'package:aurora/widgets/health/activity_reverse.dart';
@@ -80,35 +82,10 @@ class _HealthScreenState extends State<HealthScreen> {
               const SizedBox(
                 height: 4.0,
               ),
-              FutureBuilder(
-                future: activities,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  } else {
-                    return ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: snapshot.data.docs.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        if (index % 2 == 0) {
-                          return Activity(
-                            data: snapshot.data.docs[index].data(),
-                          );
-                        } else {
-                          return ActivityReverse(
-                            data: snapshot.data.docs[index].data(),
-                          );
-                        }
-                      },
-                    );
-                  }
-                },
-              ),
+              HealthWrapper(
+                  activities: activities,
+                  userData: widget.userData,
+                  toggle: healthScreenToggle),
               const SizedBox(
                 height: 40,
               ),
@@ -148,5 +125,31 @@ class _ArchedLinePainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return false;
+  }
+}
+
+class HealthWrapper extends StatelessWidget {
+  const HealthWrapper(
+      {Key? key,
+      required this.userData,
+      required this.toggle,
+      required this.activities})
+      : super(key: key);
+  final AsyncSnapshot userData;
+  final bool toggle;
+  final activities;
+
+  @override
+  Widget build(BuildContext context) {
+    if (toggle == true) {
+      return ActivitiesScreen(
+        activities: activities,
+        userData: userData,
+      );
+    } else {
+      return TestScreen(
+        userData: userData,
+      );
+    }
   }
 }
