@@ -33,6 +33,7 @@ class _ProgressWidgetState extends State<ProgressBar> {
   late ValueNotifier<double> minuteNotifier;
   late ValueNotifier<double> hoursNotifier;
   late ValueNotifier<double> daysNotifier;
+  var timer;
   @override
   void initState() {
     super.initState();
@@ -41,7 +42,7 @@ class _ProgressWidgetState extends State<ProgressBar> {
     minuteNotifier = ValueNotifier(minute);
     hoursNotifier = ValueNotifier(hour);
     daysNotifier = ValueNotifier(day);
-    Timer.periodic(const Duration(seconds: 1), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (secondNotifier.value < 59) {
           secondNotifier.value = secondNotifier.value + 1;
@@ -69,6 +70,7 @@ class _ProgressWidgetState extends State<ProgressBar> {
     minuteNotifier.dispose();
     hoursNotifier.dispose();
     daysNotifier.dispose();
+    timer.cancel();
     super.dispose();
   }
 
