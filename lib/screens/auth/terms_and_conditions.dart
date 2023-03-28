@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TermAndConditions extends StatelessWidget {
-  const TermAndConditions({Key? key}) : super(key: key);
+class TermsAndConditions extends StatelessWidget {
+  const TermsAndConditions({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,20 +26,25 @@ class TermAndConditions extends StatelessWidget {
     String text10 =
         'These terms and conditions are governed by the laws of [insert country/state here]. Any disputes arising from the use of the app shall be resolved exclusively in the courts of [insert country/state here].';
     return Scaffold(
-      appBar: AppBar(),
-      body: ListView(
-        children: [
-          Text(text1),
-          Text(text2),
-          Text(text3),
-          Text(text4),
-          Text(text5),
-          Text(text6),
-          Text(text7),
-          Text(text8),
-          Text(text9),
-          Text(text10),
-        ],
+      appBar: AppBar(
+        title: const Text("Terms and Conditions"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: ListView(
+          children: [
+            Text(text1),
+            Text(text2),
+            Text(text3),
+            Text(text4),
+            Text(text5),
+            Text(text6),
+            Text(text7),
+            Text(text8),
+            Text(text9),
+            Text(text10),
+          ],
+        ),
       ),
     );
   }
