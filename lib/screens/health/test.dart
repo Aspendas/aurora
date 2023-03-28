@@ -6,6 +6,11 @@ class TestScreen extends StatelessWidget {
   final AsyncSnapshot userData;
   @override
   Widget build(BuildContext context) {
-    return Test();
+    return Column(
+      children: [
+        Test(),
+        Test(),
+      ],
+    );
   }
 }

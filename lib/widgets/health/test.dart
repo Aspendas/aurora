@@ -20,7 +20,7 @@ class Test extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(
         horizontal: 16,
-        vertical: 12,
+        vertical: 6,
       ),
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
@@ -69,6 +69,5 @@ class Test extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }
