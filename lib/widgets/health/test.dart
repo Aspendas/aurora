@@ -27,7 +27,7 @@ class Test extends StatelessWidget {
         vertical: 16,
       ),
       decoration: BoxDecoration(
-        color: const Color.fromRGBO(230, 222, 222, 1),
+        color: const Color(0XFFCFE3E3),
         borderRadius: BorderRadius.circular(16),
       ),
       width: double.maxFinite,

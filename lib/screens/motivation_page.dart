@@ -43,7 +43,9 @@ class _MotivationScreenState extends State<MotivationScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Color(0xffDAF0F0),
+      ),
       body: SafeArea(
           child: FutureBuilder(
               future: userDataget,

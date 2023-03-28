@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-const backgroundcolor = Color(0xffBDD2B6);
+const backgroundcolor = Colors.white;
 
 const yell = Color(0xffFFEEDC);
-const activitycolor = Color(0xffFFF0EB);
+const activitycolor = Color(0xffB7C9C9);
 
 const shadow = [
   BoxShadow(

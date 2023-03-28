@@ -21,7 +21,7 @@ class MainAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: const Color(0xffDAF0F0),
       child: Padding(
         padding: Platform.isIOS
             ? const EdgeInsets.only(top: 0, left: 24.0, right: 24.0)
@@ -43,6 +43,7 @@ class MainAppBar extends StatelessWidget {
               },
               child: Image.asset(
                 './images/care.png',
+                color: const Color.fromRGBO(41, 41, 41, 1),
                 fit: BoxFit.fitHeight,
                 height: 30,
               ),
@@ -68,7 +69,7 @@ class MainAppBar extends StatelessWidget {
                 );
               },
               child: CircleAvatar(
-                backgroundColor: Colors.grey,
+                backgroundColor: Colors.white,
                 radius: 17.5,
                 child: userData.data['imageURL'] != null
                     ? Image.network(
@@ -80,6 +81,7 @@ class MainAppBar extends StatelessWidget {
                     : Text(
                         UserService().getInitials(userData.data['name']),
                         style: const TextStyle(
+                            color: Colors.black,
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
                             fontFamily: 'RobotoMono'),

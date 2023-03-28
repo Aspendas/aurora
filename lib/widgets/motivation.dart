@@ -30,7 +30,7 @@ class Motivation extends StatelessWidget {
             : EdgeInsets.fromLTRB(70, 0, 20, 0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: yell,
+          color: Color(0xffCFE3E3),
           boxShadow: const [
             BoxShadow(
               color: Colors.grey,

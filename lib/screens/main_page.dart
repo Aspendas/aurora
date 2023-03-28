@@ -130,9 +130,8 @@ class _MainScreenState extends State<MainScreen> {
         selectedperson = widget.userData.data['wquotenames'][0];
       }
     }
-    emotionbool = true;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xffDAF0F0),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
@@ -148,26 +147,24 @@ class _MainScreenState extends State<MainScreen> {
                   children: [
                     Container(
                       decoration: const BoxDecoration(
-                        color: backgroundcolor,
+                        color: Colors.white,
                         boxShadow: [
                           BoxShadow(
                             blurRadius: 5,
                             offset: Offset(0.0, -1.0),
                             color: Colors.white,
-                            spreadRadius: 2,
                             inset: true,
                           ),
                           BoxShadow(
-                            color: Colors.grey,
+                            color: Color.fromRGBO(100, 100, 100, 0.7),
                             offset: Offset(0.0, 1.0), //(x,y)
-                            blurRadius: 5,
-                            spreadRadius: 2,
+                            blurRadius: 6,
                             inset: true,
                           ),
                         ],
                         borderRadius: BorderRadius.only(
-                            topLeft: Radius.elliptical(125, 50),
-                            topRight: Radius.elliptical(125, 50)),
+                            topLeft: Radius.elliptical(125, 25),
+                            topRight: Radius.elliptical(125, 25)),
                       ),
                       child: Column(
                         children: [
@@ -250,12 +247,12 @@ class _MainScreenState extends State<MainScreen> {
                                 )
                               : Container(),
                           const SizedBox(
-                            height: 30,
+                            height: 0,
                           ),
                           emotionbool
                               ? Padding(
                                   padding:
-                                      const EdgeInsets.fromLTRB(0, 20, 0, 10),
+                                      const EdgeInsets.fromLTRB(0, 20, 0, 15),
                                   child: StatefulBuilder(builder:
                                       (BuildContext context,
                                           StateSetter setState) {
@@ -588,7 +585,7 @@ class _MainScreenState extends State<MainScreen> {
                                       })
                                   : Container(),
                               const SizedBox(
-                                height: 30,
+                                height: 15,
                               ),
                               FutureBuilder(
                                   future: activities,
@@ -610,7 +607,7 @@ class _MainScreenState extends State<MainScreen> {
                                         children: [
                                           const Padding(
                                             padding: EdgeInsets.only(
-                                                left: 25, right: 16, top: 16),
+                                                left: 25, right: 16, top: 15),
                                             child: Text(
                                               'Need Distraction ?',
                                               style: TextStyle(

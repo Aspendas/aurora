@@ -90,8 +90,8 @@ class _ProgressWidgetState extends State<ProgressBar> {
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    Color.fromARGB(31, 179, 149, 86),
-                    Color.fromARGB(255, 255, 255, 255)
+                    Colors.white,
+                    Colors.grey
                   ],
                   stops: [0.9, 1],
                 ),
@@ -99,17 +99,17 @@ class _ProgressWidgetState extends State<ProgressBar> {
               child: SimpleCircularProgressBar(
                 valueNotifier: daysNotifier,
                 maxValue: 60,
-                progressStrokeWidth: 4,
-                backStrokeWidth: 4,
+                progressStrokeWidth: 7,
+                backStrokeWidth: 7,
                 progressColors: const [
-                  Colors.orangeAccent,
-                  Colors.orange,
-                  Colors.deepOrangeAccent,
-                  Colors.deepOrange
+                  Color(0XFFCFE3E3),
+                  Color(0XFFB7C9C9),
+                  Color(0XFF95A3A3),
+                  Color(0XFF5A6363)
                 ],
-                backColor: const Color.fromARGB(255, 244, 207, 158),
+                backColor: Color(0xfff2f2ff),
                 animationDuration: 2,
-                size: 36,
+                size: 48,
                 onGetText: (double value) {
                   return Text(
                     '${value.toInt()}',
@@ -141,8 +141,8 @@ class _ProgressWidgetState extends State<ProgressBar> {
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    Color.fromARGB(31, 179, 149, 86),
-                    Color.fromARGB(255, 255, 255, 255)
+                    Colors.white,
+                    Colors.grey
                   ],
                   stops: [0.9, 1],
                 ),
@@ -150,17 +150,17 @@ class _ProgressWidgetState extends State<ProgressBar> {
               child: SimpleCircularProgressBar(
                 valueNotifier: hoursNotifier,
                 maxValue: 24,
-                progressStrokeWidth: 4,
-                backStrokeWidth: 4,
+                progressStrokeWidth: 7,
+                backStrokeWidth: 7,
                 progressColors: const [
-                  Colors.orangeAccent,
-                  Colors.orange,
-                  Colors.deepOrangeAccent,
-                  Colors.deepOrange
+                  Color(0XFFCFE3E3),
+                  Color(0XFFB7C9C9),
+                  Color(0XFF95A3A3),
+                  Color(0XFF5A6363)
                 ],
-                backColor: const Color.fromARGB(255, 244, 207, 158),
+                backColor: Color(0xfff2f2ff),
                 animationDuration: 2,
-                size: 36,
+                size: 48,
                 onGetText: (double value) {
                   return Text(
                     '${value.toInt()}',
@@ -192,8 +192,8 @@ class _ProgressWidgetState extends State<ProgressBar> {
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    Color.fromARGB(31, 179, 149, 86),
-                    Color.fromARGB(255, 255, 255, 255)
+                    Colors.white,
+                    Colors.grey
                   ],
                   stops: [0.9, 1],
                 ),
@@ -201,17 +201,17 @@ class _ProgressWidgetState extends State<ProgressBar> {
               child: SimpleCircularProgressBar(
                 valueNotifier: minuteNotifier,
                 maxValue: 60,
-                progressStrokeWidth: 4,
-                backStrokeWidth: 4,
+                progressStrokeWidth: 7,
+                backStrokeWidth: 7,
                 progressColors: const [
-                  Colors.orangeAccent,
-                  Colors.orange,
-                  Colors.deepOrangeAccent,
-                  Colors.deepOrange
+                  Color(0XFFCFE3E3),
+                  Color(0XFFB7C9C9),
+                  Color(0XFF95A3A3),
+                  Color(0XFF5A6363)
                 ],
-                backColor: const Color.fromARGB(255, 244, 207, 158),
+                backColor: Color(0xfff2f2ff),
                 animationDuration: 2,
-                size: 36,
+                size: 48,
                 onGetText: (double value) {
                   return Text(
                     '${value.toInt()}',
@@ -243,8 +243,8 @@ class _ProgressWidgetState extends State<ProgressBar> {
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    Color.fromARGB(31, 179, 149, 86),
-                    Color.fromARGB(255, 255, 255, 255)
+                    Colors.white,
+                    Colors.grey
                   ],
                   stops: [0.9, 1],
                 ),
@@ -252,17 +252,17 @@ class _ProgressWidgetState extends State<ProgressBar> {
               child: SimpleCircularProgressBar(
                 valueNotifier: secondNotifier,
                 maxValue: 60,
-                progressStrokeWidth: 4.5,
-                backStrokeWidth: 3,
+                progressStrokeWidth: 7,
+                backStrokeWidth: 7,
                 progressColors: const [
-                  Colors.orangeAccent,
-                  Colors.orange,
-                  Colors.deepOrangeAccent,
-                  Colors.deepOrange
+                  Color(0XFFCFE3E3),
+                  Color(0XFFB7C9C9),
+                  Color(0XFF95A3A3),
+                  Color(0XFF5A6363)
                 ],
-                backColor: const Color.fromARGB(255, 244, 207, 158),
+                backColor: Color(0xfff2f2ff),
                 animationDuration: 2,
-                size: 36,
+                size: 48,
                 onGetText: (double value) {
                   return Text(
                     '${value.toInt()}',

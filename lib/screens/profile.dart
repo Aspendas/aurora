@@ -42,12 +42,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: backgroundcolor,
       appBar: AppBar(
+        backgroundColor: Color(0xffDAF0F0),
         centerTitle: true,
         title: const Text(
+          style: TextStyle(
+            color: Colors.black
+          ),
           "Profile",
         ),
         actions: [
           IconButton(
+            color: Colors.black,
             iconSize: 35,
             onPressed: () {
               Navigator.push(
@@ -93,6 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             UserService()
                                 .getInitials(widget.userData.data['name']),
                             style: const TextStyle(
+                                color: Colors.black,
                                 fontSize: 50,
                                 fontWeight: FontWeight.w600,
                                 fontFamily: 'RobotoMono'),
