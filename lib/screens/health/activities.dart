@@ -29,10 +29,24 @@ class ActivitiesScreen extends StatelessWidget {
               if (index % 2 == 0) {
                 return Activity(
                   data: snapshot.data.docs[index].data(),
+                  shadow: const [
+                    BoxShadow(
+                      color: Colors.grey,
+                      offset: Offset(0.0, 1.0), //(x,y)
+                      blurRadius: 2.0,
+                    ),
+                  ],
                 );
               } else {
                 return ActivityReverse(
                   data: snapshot.data.docs[index].data(),
+                  shadow: const [
+                    BoxShadow(
+                      color: Colors.grey,
+                      offset: Offset(0.0, 1.0), //(x,y)
+                      blurRadius: 8.0,
+                    ),
+                  ],
                 );
               }
             },

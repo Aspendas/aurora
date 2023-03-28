@@ -115,6 +115,7 @@ class _MotivationScreenState extends State<MotivationScreen>
                                           quote: true,
                                           name: snapshot.data['wquotenames']
                                               [index],
+                                          main: true,
                                         ),
                                       );
                                     },
@@ -146,6 +147,7 @@ class _MotivationScreenState extends State<MotivationScreen>
                                               body: snapshot.data['motivations']
                                                   [index],
                                               height: 500.0,
+                                              quote: false,
                                             ),
                                           );
                                         },

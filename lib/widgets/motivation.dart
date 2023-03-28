@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 class Motivation extends StatelessWidget {
   const Motivation({
     Key? key,
@@ -9,6 +11,7 @@ class Motivation extends StatelessWidget {
     @required this.height,
     @required this.quote,
     this.name,
+    this.main,
   }) : super(key: key);
 
   final image;
@@ -16,74 +19,142 @@ class Motivation extends StatelessWidget {
   final height;
   final quote;
   final name;
+  final main;
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16),
+        margin: quote == false
+            ? EdgeInsets.fromLTRB(20, 0, 70, 0)
+            : EdgeInsets.fromLTRB(70, 0, 20, 0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: const Color.fromRGBO(230, 222, 222, 1),
+          color: yell,
           boxShadow: const [
             BoxShadow(
               color: Colors.grey,
               offset: Offset(0.0, 1.0), //(x,y)
-              blurRadius: 8.0,
+              blurRadius: 2.0,
             ),
           ],
         ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(8),
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(8),
-                bottomRight: Radius.circular(8),
-              ),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(maxHeight: height, maxWidth: 60),
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(5.0, 0, 0, 0),
-                  child: image,
-                ),
-              ),
-            ),
-            const SizedBox(width: 3),
-            Flexible(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 6,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(
-                      body,
-                      maxLines: 10,
-                      overflow: TextOverflow.ellipsis,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
+          child: main == null && quote == false
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(8),
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(8),
+                        bottomRight: Radius.circular(8),
+                      ),
+                      child: ConstrainedBox(
+                        constraints:
+                            BoxConstraints(maxHeight: height, maxWidth: 60),
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(5.0, 0, 0, 0),
+                          child: image,
+                        ),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 6),
-                  quote == true
-                      ? Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Text(
-                            '- $name',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(fontWeight: FontWeight.w600),
+                    const SizedBox(width: 5),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
+                            child: Text(
+                              body,
+                              maxLines: 10,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
-                        )
-                      : Container(),
-                  const SizedBox(height: 10),
-                ],
-              ),
-            ),
-          ],
+                          quote == true
+                              ? Column(
+                                  children: [
+                                    const SizedBox(height: 5),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0),
+                                      child: Text(
+                                        '- $name',
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Container(),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
+                            child: Text(
+                              body,
+                              maxLines: 10,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          quote == true
+                              ? Column(
+                                  children: [
+                                    const SizedBox(height: 5),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0),
+                                      child: Text(
+                                        '- $name',
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 5),
+                                  ],
+                                )
+                              : Container(),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 5),
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(8),
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(8),
+                        bottomRight: Radius.circular(8),
+                      ),
+                      child: ConstrainedBox(
+                        constraints:
+                            BoxConstraints(maxHeight: height, maxWidth: 60),
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                          child: image,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
         ),
       ),
     );

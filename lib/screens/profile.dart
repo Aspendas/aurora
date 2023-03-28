@@ -11,6 +11,8 @@ import 'package:aurora/services/user_info.dart';
 import 'package:intl/intl.dart';
 import 'package:aurora/screens/profile_edit.dart';
 
+import '../constants.dart';
+
 final DateFormat formatter = DateFormat('dd-MM-yyyy HH:mm');
 
 class ProfileScreen extends StatefulWidget {
@@ -38,6 +40,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         : 'You have not started a challenge yet. You can start it on main screen ';
     var imageUrl = widget.userData.data['imageURL'];
     return Scaffold(
+      backgroundColor: backgroundcolor,
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
