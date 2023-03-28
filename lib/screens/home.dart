@@ -1,5 +1,5 @@
 import 'package:aurora/screens/chat/chat.dart';
-import 'package:aurora/screens/health.dart';
+import 'package:aurora/screens/health/health.dart';
 import 'package:aurora/screens/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -140,15 +140,14 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ? animationList[newIndex].animateTo(0.55)
                       : animationList[newIndex].forward();
                 },
-                padding: const EdgeInsets.only(left: 16, right: 16, bottom: 20),
                 cornerRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
                   bottomRight: Radius.circular(24),
                   bottomLeft: Radius.circular(24),
                 ),
-                shadowColor: Colors.orange.shade900,
-                circleShadowColor: Colors.orange.shade800,
+                shadowColor: Color(0xff542C32),
+                circleShadowColor: Color(0xff542C32),
                 elevation: 5,
               ),
             );

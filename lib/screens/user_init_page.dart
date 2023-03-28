@@ -41,7 +41,7 @@ class _userInitScreenState extends State<userInitScreen> {
           ),
       growable: true);
 
-  final addList = <String>['Alcohol', 'Smoking', 'kibritten yaptigim'];
+  final addList = <String>['Alcohol', 'Smoking', 'Substance'];
 
   @override
   Widget build(BuildContext context) {

@@ -3,6 +3,7 @@ import 'package:aurora/screens/chat/comments.dart';
 import 'package:aurora/services/comments.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../constants.dart';
 import '../../widgets/main_app_bar.dart';
 
 import 'stories.dart';
@@ -36,6 +37,7 @@ class _ChatScreenState extends State<ChatScreen> {
       nthDay = DateTime.now().difference(date).inDays;
     }
     return Scaffold(
+      backgroundColor: backgroundcolor,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: SafeArea(
@@ -78,8 +80,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               child: date != null
                                   ? FloatingActionButton(
                                       mini: true,
-                                      backgroundColor:
-                                          Color.fromARGB(255, 6, 5, 5),
+                                      backgroundColor: yell,
                                       foregroundColor: Colors.black,
                                       onPressed: () {},
                                       child: const Icon(Icons.add),
@@ -124,8 +125,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             date != null
                                 ? FloatingActionButton(
                                     mini: true,
-                                    backgroundColor:
-                                        const Color.fromRGBO(222, 222, 222, 1),
+                                    backgroundColor: Colors.white,
                                     foregroundColor: Colors.black,
                                     onPressed: () {
                                       showModalBottomSheet(
