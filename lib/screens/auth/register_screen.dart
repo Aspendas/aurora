@@ -1,4 +1,6 @@
+import 'package:aurora/screens/auth/terms_and_conditions.dart';
 import 'package:aurora/services/auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
 import 'package:aurora/widgets.dart';
@@ -202,13 +204,13 @@ class RegisterScreenState extends State<RegisterScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Transform.scale(
-                    scale: 1,
+                    scale: 1.2,
                     child: SizedBox(
-                      width: 20,
-                      height: 20,
+                      width: 30,
+                      height: 30,
                       child: Checkbox(
                         activeColor: const Color(0xff00C8E8),
-                        splashRadius: 25,
+                        splashRadius: 30,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         ),
@@ -222,20 +224,30 @@ class RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   const SizedBox(width: 5),
-                  const Text(
-                    'I agree the ',
-                    style: TextStyle(fontFamily: 'RobotoMono', fontSize: 12),
-                  ),
-                  GestureDetector(
-                    child: const Text(
-                      'Terms',
-                      style: TextStyle(
-                        fontFamily: 'RobotoMono',
-                        fontSize: 12,
-                        decoration: TextDecoration.underline,
-                      ),
+                  Text.rich(
+                    TextSpan(
+                      text: 'I agree the ',
+                      children: [
+                        TextSpan(
+                          text: 'terms and conditions',
+                          style: const TextStyle(
+                            color: Colors.blue,
+                            decoration: TextDecoration.underline,
+                            fontSize: 14,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return const TermsAndConditions();
+                                  },
+                                ),
+                              );
+                            },
+                        ),
+                      ],
                     ),
-                    onTap: () {},
                   ),
                 ],
               ),
@@ -255,6 +267,35 @@ class RegisterScreenState extends State<RegisterScreen> {
                   await AuthService()
                       .emailRegister(_email.text, _password.text, context);
                 },
+              ),
+              const SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Text('You already have an account?  ',
+                      style: TextStyle(fontFamily: 'RobotoMono', fontSize: 12),
+                      textAlign: TextAlign.left),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const LoginScreen();
+                          },
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'Sign in now ➔',
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                          fontFamily: 'RobotoMono',
+                          fontSize: 12,
+                          fontWeight: FontWeight.w900),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
