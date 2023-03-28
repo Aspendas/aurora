@@ -166,36 +166,7 @@ class LoginScreenState extends State<LoginScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Row(
-                    children: [
-                      Transform.scale(
-                        scale: 1,
-                        child: SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: Checkbox(
-                            activeColor: const Color(0xff00C8E8),
-                            splashRadius: 25,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            value: isChecked,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                isChecked = value!;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      const Text(
-                        'Remember me',
-                        style:
-                            TextStyle(fontFamily: 'RobotoMono', fontSize: 13),
-                      ),
-                    ],
-                  ),
+                  const SizedBox(),
                   InkWell(
                     onTap: () {
                       Navigator.push(
