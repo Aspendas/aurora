@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../constants.dart';
+
 class Activity extends StatelessWidget {
   const Activity({Key? key, this.data, this.shadow}) : super(key: key);
 
@@ -43,7 +45,7 @@ class Activity extends StatelessWidget {
           topLeft: Radius.circular(20),
           bottomRight: Radius.circular(20),
         ),
-        color: Color.fromRGBO(247, 218, 200, 1),
+        color: activitycolor,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

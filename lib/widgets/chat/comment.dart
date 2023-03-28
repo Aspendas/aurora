@@ -1,6 +1,8 @@
 import 'package:aurora/services/comments.dart';
 import 'package:flutter/material.dart';
 
+import '../../constants.dart';
+
 class Comment extends StatelessWidget {
   const Comment({
     Key? key,
@@ -17,7 +19,8 @@ class Comment extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 16.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16.0),
-            color: const Color.fromRGBO(230, 222, 222, 1),
+            boxShadow: shadow,
+            color: yell,
           ),
           width: double.infinity,
           child: Row(
@@ -43,8 +46,8 @@ class Comment extends StatelessWidget {
                             child: Image.network(
                               snapshot.data!.toString(),
                               fit: BoxFit.fitHeight,
-                              height: 110,
-                              width: 90,
+                              height: 60,
+                              width: 50,
                             ),
                           );
                         } else if (snapshot.hasError) {
@@ -65,7 +68,7 @@ class Comment extends StatelessWidget {
                   Text(
                     "Day ${data['nthDay']}",
                     style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
+                        fontSize: 13, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 8,

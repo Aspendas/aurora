@@ -7,6 +7,8 @@ import '../screens/info/info.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../services/user_info.dart';
+
 final user = FirebaseAuth.instance.currentUser;
 
 class MainAppBar extends StatelessWidget {
@@ -18,57 +20,74 @@ class MainAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: Platform.isIOS
-          ? const EdgeInsets.only(top: 0, left: 24.0, right: 24.0)
-          : const EdgeInsets.only(top: 24, left: 24.0, right: 24.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (context) {
-                    return const InfoScreen();
-                  },
-                ),
-              );
-            },
-            child: Image.asset(
-              './images/care.png',
-              fit: BoxFit.fitHeight,
-              height: 30,
-            ),
-          ),
-          Column(
-            children: [
-              Image.asset(
-                "./images/logo_aurora.png",
+    return Container(
+      color: Colors.white,
+      child: Padding(
+        padding: Platform.isIOS
+            ? const EdgeInsets.only(top: 0, left: 24.0, right: 24.0)
+            : const EdgeInsets.only(top: 24, left: 24.0, right: 24.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (context) {
+                      return const InfoScreen();
+                    },
+                  ),
+                );
+              },
+              child: Image.asset(
+                './images/care.png',
                 fit: BoxFit.fitHeight,
-                height: 40,
+                height: 30,
               ),
-            ],
-          ),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (context) {
-                    return ProfileScreen(userData: userData);
-                  },
-                ),
-              );
-            },
-            child: const Icon(
-              Icons.account_circle_rounded,
-              size: 36,
             ),
-          ),
-        ],
+            Column(
+              children: [
+                Image.asset(
+                  "./images/logo_aurora.png",
+                  fit: BoxFit.fitHeight,
+                  height: 40,
+                ),
+              ],
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (context) {
+                      return ProfileScreen(userData: userData);
+                    },
+                  ),
+                );
+              },
+              child: CircleAvatar(
+                backgroundColor: Colors.grey,
+                radius: 17.5,
+                child: userData.data['imageURL'] != null
+                    ? Image.network(
+                        userData.data['imageURL'],
+                        fit: BoxFit.fitHeight,
+                        height: 35,
+                        width: 35,
+                      )
+                    : Text(
+                        UserService().getInitials(userData.data['name']),
+                        style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'RobotoMono'),
+                      ), //Text
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

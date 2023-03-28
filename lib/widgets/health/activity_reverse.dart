@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../constants.dart';
+
 class ActivityReverse extends StatelessWidget {
-  const ActivityReverse({Key? key, this.data}) : super(key: key);
+  const ActivityReverse({Key? key, this.data, this.shadow}) : super(key: key);
 
   final data;
+  final shadow;
   @override
   Widget build(BuildContext context) {
     _launchActivity() async {
@@ -33,14 +36,15 @@ class ActivityReverse extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
       height: 150,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        boxShadow: shadow,
+        borderRadius: const BorderRadius.only(
           topRight: Radius.circular(20),
           bottomLeft: Radius.circular(20),
           topLeft: Radius.circular(20),
           bottomRight: Radius.circular(20),
         ),
-        color: Color.fromRGBO(247, 218, 200, 1),
+        color: yell,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

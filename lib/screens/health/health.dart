@@ -1,13 +1,14 @@
 import 'package:aurora/screens/health/activities.dart';
 import 'package:aurora/screens/health/test.dart';
 import 'package:aurora/services/activities.dart';
-
+import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:aurora/widgets/health/activity_reverse.dart';
 import 'package:aurora/widgets/main_app_bar.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 
+import '../../constants.dart';
 import '../../widgets/health/activity.dart';
 
 class HealthScreen extends StatefulWidget {
@@ -25,69 +26,111 @@ class _HealthScreenState extends State<HealthScreen> {
   Widget build(BuildContext context) {
     var activities = ActivityService().getActivities();
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: SafeArea(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               MainAppBar(userData: widget.userData),
-              SizedBox(
-                height: 60,
-                child: ArchedLine(),
+              const SizedBox(
+                height: 15,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 28.0),
-                child: healthScreenToggle == true
-                    ? Row(
-                        children: [
-                          const Text(
-                            "Activities -",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18),
+              Flexible(
+                flex: 3,
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: backgroundcolor,
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 5,
+                            offset: Offset(0.0, -1.0),
+                            color: Colors.white,
+                            spreadRadius: 2,
+                            inset: true,
                           ),
-                          GestureDetector(
-                            child: const Text(
-                              " Test",
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            onTap: () {
-                              setState(() {
-                                healthScreenToggle = false;
-                              });
-                            },
+                          BoxShadow(
+                            color: Colors.grey,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 5,
+                            spreadRadius: 2,
+                            inset: true,
                           ),
                         ],
-                      )
-                    : Row(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.elliptical(125, 50),
+                            topRight: Radius.elliptical(125, 50)),
+                      ),
+                      child: Column(
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                healthScreenToggle = true;
-                              });
-                            },
-                            child: const Text(
-                              "Activities ",
-                              style: TextStyle(fontSize: 18),
-                            ),
+                          const SizedBox(
+                            height: 40,
                           ),
-                          const Text(
-                            "- Test",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 28.0),
+                            child: healthScreenToggle == true
+                                ? Row(
+                                    children: [
+                                      const Text(
+                                        "Activities -",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18),
+                                      ),
+                                      GestureDetector(
+                                        child: const Text(
+                                          " Test",
+                                          style: TextStyle(fontSize: 18),
+                                        ),
+                                        onTap: () {
+                                          setState(() {
+                                            healthScreenToggle = false;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  )
+                                : Row(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            healthScreenToggle = true;
+                                          });
+                                        },
+                                        child: const Text(
+                                          "Activities ",
+                                          style: TextStyle(fontSize: 18),
+                                        ),
+                                      ),
+                                      const Text(
+                                        "- Test",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18),
+                                      ),
+                                    ],
+                                  ),
+                          ),
+                          const SizedBox(
+                            height: 4.0,
+                          ),
+                          HealthWrapper(
+                              activities: activities,
+                              userData: widget.userData,
+                              toggle: healthScreenToggle),
+                          const SizedBox(
+                            height: 40,
                           ),
                         ],
                       ),
-              ),
-              const SizedBox(
-                height: 4.0,
-              ),
-              HealthWrapper(
-                  activities: activities,
-                  userData: widget.userData,
-                  toggle: healthScreenToggle),
-              const SizedBox(
-                height: 40,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
