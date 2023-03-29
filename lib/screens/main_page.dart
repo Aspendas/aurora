@@ -1,6 +1,7 @@
 import 'package:aurora/screens/home.dart';
 
 import 'package:aurora/services/user_info.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/cupertino.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
@@ -44,7 +45,6 @@ class _MainScreenState extends State<MainScreen> {
     14,
     30,
     90,
-    180,
     360,
   ];
   var milestone = false;
@@ -63,6 +63,7 @@ class _MainScreenState extends State<MainScreen> {
   var randomactivity;
   var visible;
   var emotionbool;
+  var badges;
 
   @override
   void initState() {
@@ -70,12 +71,40 @@ class _MainScreenState extends State<MainScreen> {
         .doc(widget.userData.data['addiction'].toLowerCase())
         .get();
     quotefuture = _motivationdata.doc('quotes').get();
+    int maxbadge = 0;
+    if (widget.userData.data['challengeStartDates'] != null) {
+      final badgeday = daysBetween(
+          (widget.userData.data["challengeStartDates"] as Timestamp).toDate(),
+          DateTime.now());
+      for (var days in milestones) {
+        if (badgeday > days) {
+          maxbadge = days;
+        }
+      }
+      if (maxbadge != 0 && widget.userData.data["badgeDay"] != "DAY$maxbadge") {
+        _showMyDialog(Image.asset('images/DAY$maxbadge.png'));
+        UserService().setBadge(maxbadge);
+        badges = Image.asset(
+          'images/DAY$maxbadge.png',
+          width: 60,
+          height: 60,
+        );
+      } else if (widget.userData.data["badgeDay"] != null) {
+        badges = Image.asset(
+          'images/DAY$maxbadge.png',
+          width: 60,
+          height: 60,
+        );
+      }
+    }
 
     activities = ActivityService().getActivities();
     visible = true;
     feel = 5;
     randomactivity = 0;
+
     emotionbool = false;
+
     super.initState();
   }
 
@@ -96,7 +125,7 @@ class _MainScreenState extends State<MainScreen> {
               date)
           : daynumber;
 
-      if (daynumber >= 1 &&
+      if (daynumber >= 0 &&
           widget.userData.data['wquotes'] == null &&
           widget.userData.data['motivations'] == null) {
         selectedmotivation = 'select';
@@ -104,7 +133,7 @@ class _MainScreenState extends State<MainScreen> {
         selectedquote = 'select';
         motivationday = true;
       }
-      if (emotionday >= 1) {
+      if (emotionday >= 0) {
         emotionbool = true;
         UserService().updateUserEmotion(DateTime(
             DateTime.now().year, DateTime.now().month, DateTime.now().day));
@@ -202,20 +231,9 @@ class _MainScreenState extends State<MainScreen> {
                                       ),
                                     ),
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        './images/1111.png',
-                                        fit: BoxFit.fitHeight,
-                                        height: 30,
-                                      ),
-                                      Image.asset(
-                                        './images/1112.png',
-                                        fit: BoxFit.fitHeight,
-                                        height: 30,
-                                      ),
-                                    ],
+                                  Padding(
+                                    padding: const EdgeInsets.all(0),
+                                    child: badges,
                                   ),
                                   const SizedBox(
                                     height: 5,
@@ -770,5 +788,33 @@ class _MainScreenState extends State<MainScreen> {
       UserService().updateUserQuote(quotelist, quotetimelist, quotenamelist);
     }
     return [selectedquote, selectedperson];
+  }
+
+  Future<void> _showMyDialog(badge) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('CONGRATULATIONS!'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                badge,
+                const Text('You have reached a new milestone'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Okay'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

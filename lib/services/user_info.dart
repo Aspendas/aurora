@@ -34,6 +34,7 @@ class UserService {
       'wquotesday': null,
       'wquotenames': null,
       'dailyemotiondate': null,
+      'badgeDay': null
     });
   }
 
@@ -111,4 +112,9 @@ class UserService {
           .join()
           .toUpperCase()
       : '';
+  setBadge(day) async {
+    await _userdata.doc(user?.uid).update({
+      "badgeDay": day,
+    });
+  }
 }
