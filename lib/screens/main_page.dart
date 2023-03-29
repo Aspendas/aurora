@@ -64,6 +64,7 @@ class _MainScreenState extends State<MainScreen> {
   var visible;
   var emotionbool;
   var badges;
+  var currentbadge ;
 
   @override
   void initState() {
@@ -72,6 +73,7 @@ class _MainScreenState extends State<MainScreen> {
         .get();
     quotefuture = _motivationdata.doc('quotes').get();
     int maxbadge = 0;
+    currentbadge = ;
     if (widget.userData.data['challengeStartDates'] != null) {
       final badgeday = daysBetween(
           (widget.userData.data["challengeStartDates"] as Timestamp).toDate(),
@@ -81,21 +83,30 @@ class _MainScreenState extends State<MainScreen> {
           maxbadge = days;
         }
       }
-      if (maxbadge != 0 && widget.userData.data["badgeDay"] != "DAY$maxbadge") {
-        _showMyDialog(Image.asset('images/DAY$maxbadge.png'));
-        UserService().setBadge(maxbadge);
-        badges = Image.asset(
-          'images/DAY$maxbadge.png',
-          width: 60,
-          height: 60,
-        );
-      } else if (widget.userData.data["badgeDay"] != null) {
-        badges = Image.asset(
-          'images/DAY$maxbadge.png',
-          width: 60,
-          height: 60,
-        );
-      }
+      Future.delayed(Duration.zero, () {
+        if (maxbadge != 0 && widget.userData.data["badgeDay"] != maxbadge) {
+          currentbadge = maxbadge;
+          UserService().setBadge(maxbadge);
+          badges = Image.asset(
+            'images/DAY$maxbadge.png',
+            width: 60,
+            height: 60,
+          );
+          _showDialog(
+              context: context,
+              badge: Image.asset(
+                'images/DAY$maxbadge.png',
+                width: 60,
+                height: 60,
+              ));
+        } else if (widget.userData.data["badgeDay"] != null && maxbadge != 0) {
+          badges = Image.asset(
+            'images/DAY${widget.userData.data["badgeDay"]}.png',
+            width: 60,
+            height: 60,
+          );
+        }
+      });
     }
 
     activities = ActivityService().getActivities();
@@ -790,26 +801,48 @@ class _MainScreenState extends State<MainScreen> {
     return [selectedquote, selectedperson];
   }
 
-  Future<void> _showMyDialog(badge) async {
-    return showDialog<void>(
+  _showDialog({required BuildContext context, badge}) {
+    showCupertinoModalPopup(
       context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
+      builder: (context) {
         return AlertDialog(
-          title: const Text('CONGRATULATIONS!'),
+          title: const Center(
+              child: Text(
+            'CONGRATULATIONS!',
+            style: TextStyle(fontWeight: FontWeight.w900),
+          )),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                badge,
-                const Text('You have reached a new milestone'),
+                Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
+                    child: badge),
+                const Center(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                    child: Text('You have reached a new milestone'),
+                  ),
+                ),
+                const Center(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(10, 8, 10, 0),
+                    child: Text(
+                      '"May the Force be with you"',
+                      style: TextStyle(fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Okay'),
+              child: const Text(
+                'Okay',
+                style: TextStyle(fontSize: 16),
+              ),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(badge);
               },
             ),
           ],
