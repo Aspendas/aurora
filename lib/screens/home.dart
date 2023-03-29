@@ -143,8 +143,6 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 cornerRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
-                  bottomRight: Radius.circular(24),
-                  bottomLeft: Radius.circular(24),
                 ),
                 shadowColor: Color(0xff542C32),
                 circleShadowColor: Color(0xff542C32),

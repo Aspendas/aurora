@@ -10,6 +10,7 @@ import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 
 import '../../constants.dart';
 import '../../widgets/health/activity.dart';
+import '../learn.dart';
 
 class HealthScreen extends StatefulWidget {
   final AsyncSnapshot userData;
@@ -26,7 +27,7 @@ class _HealthScreenState extends State<HealthScreen> {
   Widget build(BuildContext context) {
     var activities = ActivityService().getActivities();
     return Scaffold(
-      backgroundColor: Color(0XFFDAF0F0),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: SafeArea(
@@ -34,28 +35,20 @@ class _HealthScreenState extends State<HealthScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               MainAppBar(userData: widget.userData),
-              const SizedBox(
-                height: 15,
-              ),
-              Flexible(
-                flex: 3,
-                child: Stack(
-                  children: [
-                    Container(
+              Stack(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: Color(0XFFDAF0F0),
+                    ),
+                    child: Container(
                       decoration: const BoxDecoration(
                         color: backgroundcolor,
                         boxShadow: [
                           BoxShadow(
-                            blurRadius: 5,
-                            offset: Offset(0.0, -1.0),
-                            color: Colors.white,
-                            spreadRadius: 2,
-                            inset: true,
-                          ),
-                          BoxShadow(
-                            color: Colors.grey,
-                            offset: Offset(0.0, 1.0), //(x,y)
-                            blurRadius: 6,
+                            color: Color.fromRGBO(100, 100, 100, 0.7),
+                            offset: Offset(0.0, 2.0), //(x,y)
+                            blurRadius: 0.5,
                             inset: true,
                           ),
                         ],
@@ -68,52 +61,55 @@ class _HealthScreenState extends State<HealthScreen> {
                           const SizedBox(
                             height: 40,
                           ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 28.0),
-                            child: healthScreenToggle == true
-                                ? Row(
-                                    children: [
-                                      const Text(
-                                        "Activities -",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18),
-                                      ),
-                                      GestureDetector(
-                                        child: const Text(
-                                          " Test",
-                                          style: TextStyle(fontSize: 18),
+                          Container(
+                            color: Colors.white,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 28.0),
+                              child: healthScreenToggle == true
+                                  ? Row(
+                                      children: [
+                                        const Text(
+                                          "Activities -",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18),
                                         ),
-                                        onTap: () {
-                                          setState(() {
-                                            healthScreenToggle = false;
-                                          });
-                                        },
-                                      ),
-                                    ],
-                                  )
-                                : Row(
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            healthScreenToggle = true;
-                                          });
-                                        },
-                                        child: const Text(
-                                          "Activities ",
-                                          style: TextStyle(fontSize: 18),
+                                        GestureDetector(
+                                          child: const Text(
+                                            " Learn",
+                                            style: TextStyle(fontSize: 18),
+                                          ),
+                                          onTap: () {
+                                            setState(() {
+                                              healthScreenToggle = false;
+                                            });
+                                          },
                                         ),
-                                      ),
-                                      const Text(
-                                        "- Test",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18),
-                                      ),
-                                    ],
-                                  ),
+                                      ],
+                                    )
+                                  : Row(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              healthScreenToggle = true;
+                                            });
+                                          },
+                                          child: const Text(
+                                            "Activities ",
+                                            style: TextStyle(fontSize: 18),
+                                          ),
+                                        ),
+                                        const Text(
+                                          "- Learn",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18),
+                                        ),
+                                      ],
+                                    ),
+                            ),
                           ),
                           const SizedBox(
                             height: 4.0,
@@ -128,8 +124,8 @@ class _HealthScreenState extends State<HealthScreen> {
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -189,9 +185,7 @@ class HealthWrapper extends StatelessWidget {
         userData: userData,
       );
     } else {
-      return TestScreen(
-        userData: userData,
-      );
+      return LearnPage();
     }
   }
 }
