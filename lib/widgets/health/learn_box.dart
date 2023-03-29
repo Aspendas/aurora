@@ -14,7 +14,23 @@ class LearnScreen extends StatelessWidget {
     final body = data['body'];
     final title = data['title'];
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Colors.black,
+          ),
+        ),
+        backgroundColor: Color(0xffDAF0F0),
+        centerTitle: false,
+        title: Text(
+          title,
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
