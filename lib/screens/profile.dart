@@ -1,3 +1,4 @@
+import 'package:aurora/screens/about.dart';
 import 'package:aurora/screens/motivation_page.dart';
 import 'package:aurora/services/auth.dart';
 import 'package:aurora/widgets.dart';
@@ -241,7 +242,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: 25,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) {
+                          return const AboutScreen();
+                        },
+                      ),
+                    );
+                  },
                   child: Center(
                     child: Container(
                       decoration: BoxDecoration(
