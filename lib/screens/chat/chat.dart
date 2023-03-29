@@ -37,7 +37,7 @@ class _ChatScreenState extends State<ChatScreen> {
       nthDay = DateTime.now().difference(date).inDays;
     }
     return Scaffold(
-      backgroundColor: backgroundcolor,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: SafeArea(
@@ -148,6 +148,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                                   height: 8,
                                                 ),
                                                 TextField(
+
                                                   controller:
                                                       _commentController,
                                                   decoration:
@@ -177,8 +178,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                                         ElevatedButton(
                                                           style: ElevatedButton
                                                               .styleFrom(
-                                                            primary:
-                                                                Colors.grey,
+                                                            backgroundColor:
+                                                                Color(0xff5A6363),
                                                             padding:
                                                                 const EdgeInsets
                                                                     .symmetric(
@@ -194,6 +195,9 @@ class _ChatScreenState extends State<ChatScreen> {
                                                             ),
                                                           ),
                                                           child: const Text(
+                                                            style: TextStyle(
+                                                              color: Colors.black,
+                                                          ),
                                                               "Cancel"),
                                                           onPressed: () {
                                                             Navigator.of(
@@ -207,8 +211,9 @@ class _ChatScreenState extends State<ChatScreen> {
                                                         ElevatedButton(
                                                           style: ElevatedButton
                                                               .styleFrom(
-                                                            primary: Colors
-                                                                .lightBlue,
+                                                            backgroundColor: const Color(
+                                                              0xffCFE3E3
+                                                            ),
                                                             padding:
                                                                 const EdgeInsets
                                                                     .symmetric(
@@ -224,6 +229,9 @@ class _ChatScreenState extends State<ChatScreen> {
                                                             ),
                                                           ),
                                                           child: const Text(
+                                                            style: TextStyle(
+                                                              color: Colors.black,
+                                                            ),
                                                               "Send"),
                                                           onPressed: () {
                                                             CommentsService()

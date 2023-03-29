@@ -20,7 +20,7 @@ class Story extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: const Color.fromRGBO(230, 222, 222, 1),
+          color: const Color(0XFFB7C9C9),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,

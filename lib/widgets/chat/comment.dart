@@ -20,7 +20,7 @@ class Comment extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16.0),
             boxShadow: shadow,
-            color: yell,
+            color: Color(0xFFCFE3E3),
           ),
           width: double.infinity,
           child: Row(

@@ -75,8 +75,12 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        backgroundColor: const Color(0xffCFE3E3),
         centerTitle: true,
         title: const Text(
+          style: TextStyle(
+            color: Colors.black,
+          ),
           " Edit Profile",
         ),
       ),
@@ -110,6 +114,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             UserService()
                                 .getInitials(widget.userData.data['name']),
                             style: const TextStyle(
+                                color: Colors.black,
                                 fontSize: 50,
                                 fontWeight: FontWeight.w600,
                                 fontFamily: 'RobotoMono'),
@@ -141,7 +146,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         fontFamily: 'RobotoMono',
                         fontSize: 20,
                         fontWeight: FontWeight.w400,
-                        color: Color(0xFF0057FF)),
+                        color: Color(0xFF5A6363)),
                   ),
                 ),
                 const SizedBox(height: 62),
@@ -360,7 +365,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                     'Save Changes',
                     style: TextStyle(
                       fontSize: 19,
-                      color: Colors.black,
+                      color: Color(0xff5A6363),
                     ),
                   ),
                 )
@@ -408,8 +413,12 @@ class _AvatarChangeScreenState extends State<AvatarChangeScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        backgroundColor: Color(0xffDAF0F0),
         centerTitle: true,
         title: const Text(
+          style: TextStyle(
+            color: Colors.black
+          ),
           "Profile",
         ),
       ),
@@ -443,6 +452,7 @@ class _AvatarChangeScreenState extends State<AvatarChangeScreen> {
                             UserService()
                                 .getInitials(widget.userData.data['name']),
                             style: const TextStyle(
+                                color: Colors.black,
                                 fontSize: 50,
                                 fontWeight: FontWeight.w600,
                                 fontFamily: 'RobotoMono'),

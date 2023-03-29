@@ -13,20 +13,25 @@ class StoryDetail extends StatelessWidget {
     List story = storyData["story"];
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xffDAF0F0),
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: const Icon(
+            color: Colors.black,
             Icons.arrow_back_ios_new_rounded,
             size: 28,
           ),
         ),
-        title: Text(storyData["name"]),
+        title: Text(
+            storyData["name"]
+        ),
       ),
+
       body: Container(
         margin: const EdgeInsets.all(8),
         padding: const EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
-          color: Colors.amber.shade200,
+          color: Color(0xffCFE3E3),
           borderRadius: BorderRadius.circular(16),
         ),
         width: double.maxFinite,
