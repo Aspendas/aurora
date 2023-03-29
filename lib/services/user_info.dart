@@ -49,7 +49,6 @@ class UserService {
       "addiction": addiction,
       'gender': gender,
       'age': age,
-      'challengeStartDates': null,
       'name': name,
     });
   }

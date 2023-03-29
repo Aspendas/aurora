@@ -47,7 +47,7 @@ class _MainScreenState extends State<MainScreen> {
     90,
     360,
   ];
-  var milestone = false;
+
   var quoteday = false;
   var motivationday = false;
   var selectedquote = '';
@@ -55,7 +55,7 @@ class _MainScreenState extends State<MainScreen> {
   var selectedperson = '';
   var motivrandom = 0;
   var quoterandom = 0;
-
+  var badgeDaybool;
   var motivation;
   var quotefuture;
   var activities;
@@ -78,8 +78,6 @@ class _MainScreenState extends State<MainScreen> {
     feel = 5;
     randomactivity = 0;
 
-    emotionbool = false;
-
     super.initState();
   }
 
@@ -92,7 +90,7 @@ class _MainScreenState extends State<MainScreen> {
           (widget.userData.data["challengeStartDates"] as Timestamp).toDate(),
           DateTime.now());
       for (var days in milestones) {
-        if (badgeday > days) {
+        if (badgeday >= days) {
           maxbadge = days;
         }
       }
@@ -104,6 +102,7 @@ class _MainScreenState extends State<MainScreen> {
           width: 40,
           height: 40,
         );
+        badgeDaybool = true;
         Future.delayed(Duration.zero, () {
           _showDialog(
               context: context,
@@ -129,9 +128,6 @@ class _MainScreenState extends State<MainScreen> {
           (widget.userData.data['challengeStartDates'] as Timestamp).toDate();
       final daynumber = daysBetween(dt, date);
 
-      if (milestones.asMap().containsValue(daynumber)) {
-        milestone = true;
-      }
       var emotionday = widget.userData.data['dailyemotiondate'] != null
           ? daysBetween(
               (widget.userData.data['dailyemotiondate'] as Timestamp).toDate(),
@@ -146,7 +142,8 @@ class _MainScreenState extends State<MainScreen> {
         selectedquote = 'select';
         motivationday = true;
       }
-      if (emotionday >= 1) {
+
+      if (emotionday >= 1 && badgeDaybool != true) {
         emotionbool = true;
         UserService().updateUserEmotion(DateTime(
             DateTime.now().year, DateTime.now().month, DateTime.now().day));
@@ -291,7 +288,7 @@ class _MainScreenState extends State<MainScreen> {
                       const SizedBox(
                         height: 0,
                       ),
-                      emotionbool
+                      emotionbool == true
                           ? Padding(
                               padding: const EdgeInsets.fromLTRB(0, 30, 0, 15),
                               child: StatefulBuilder(builder:
