@@ -647,55 +647,62 @@ class _MainScreenState extends State<MainScreen> {
                                 } else if (snapshot.hasError) {
                                   return Text('Error: ${snapshot.error}');
                                 } else {
-                                  return Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 25,
-                                            right: 16,
-                                            top: 15,
-                                            bottom: 15),
-                                        child: Text(
-                                          'Test',
-                                          style: TextStyle(
-                                              fontSize: 22,
-                                              fontFamily: 'robotomono',
-                                              fontWeight: FontWeight.w700),
+                                  return Container(
+                                    height: 180,
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Padding(
+                                          padding: EdgeInsets.only(
+                                              left: 25, right: 16, bottom: 15),
+                                          child: Text(
+                                            'Test',
+                                            style: TextStyle(
+                                                fontSize: 22,
+                                                fontFamily: 'robotomono',
+                                                fontWeight: FontWeight.w700),
+                                          ),
                                         ),
-                                      ),
-                                      Container(
-                                        height: 250,
-                                        child: GridView.builder(
-                                          gridDelegate:
-                                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                                  crossAxisCount: 1),
-                                          primary: false,
-                                          physics: const ScrollPhysics(),
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: snapshot.data.docs.length,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            return Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 12.0),
-                                              child: Test(
-                                                  title: snapshot
-                                                      .data.docs[index]
-                                                      .data()['header'],
-                                                  body: snapshot
-                                                      .data.docs[index]
-                                                      .data()['description'],
-                                                  url: snapshot.data.docs[index]
-                                                      .data()['testURL']),
-                                            );
-                                          },
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8.0),
+                                            child: ListView.builder(
+                                              shrinkWrap: true,
+                                              physics:
+                                                  const BouncingScrollPhysics(),
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount:
+                                                  snapshot.data.docs.length,
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int index) {
+                                                return SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.8,
+                                                  child: Test(
+                                                    title: snapshot
+                                                        .data.docs[index]
+                                                        .data()['header'],
+                                                    body: snapshot
+                                                        .data.docs[index]
+                                                        .data()['description'],
+                                                    url: snapshot
+                                                        .data.docs[index]
+                                                        .data()['testURL'],
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   );
                                 }
                               }),

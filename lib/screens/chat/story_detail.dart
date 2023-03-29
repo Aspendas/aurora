@@ -17,8 +17,8 @@ class StoryDetail extends StatelessWidget {
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: const Icon(
-            color: Colors.black,
             Icons.arrow_back_ios_new_rounded,
+            color: Colors.black,
             size: 28,
           ),
         ),
