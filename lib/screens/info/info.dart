@@ -50,7 +50,21 @@ class _InfoScreenState extends State<InfoScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Colors.black,
+          ),
+        ),
         backgroundColor: Color(0xffDAF0F0),
+        centerTitle: true,
+        title: const Text(
+          "Help Centers",
+          style: TextStyle(color: Colors.black),
+        ),
       ),
       body: SafeArea(
         child: Center(
