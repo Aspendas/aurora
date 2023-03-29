@@ -96,15 +96,15 @@ class _MainScreenState extends State<MainScreen> {
           maxbadge = days;
         }
       }
-      Future.delayed(Duration.zero, () {
-        if (maxbadge != 0 && widget.userData.data["badgeDay"] != maxbadge) {
-          currentbadge = maxbadge;
-          UserService().setBadge(maxbadge);
-          badges = Image.asset(
-            'images/DAY$maxbadge.png',
-            width: 60,
-            height: 60,
-          );
+      if (maxbadge != 0 && widget.userData.data["badgeDay"] != maxbadge) {
+        currentbadge = maxbadge;
+        UserService().setBadge(maxbadge);
+        badges = Image.asset(
+          'images/DAY$maxbadge.png',
+          width: 40,
+          height: 40,
+        );
+        Future.delayed(Duration.zero, () {
           _showDialog(
               context: context,
               badge: Image.asset(
@@ -112,14 +112,15 @@ class _MainScreenState extends State<MainScreen> {
                 width: 60,
                 height: 60,
               ));
-        } else if (widget.userData.data["badgeDay"] != null && maxbadge != 0) {
-          badges = Image.asset(
-            'images/DAY${widget.userData.data["badgeDay"]}.png',
-            width: 60,
-            height: 60,
-          );
-        }
-      });
+        });
+      } else if (widget.userData.data["badgeDay"] != null &&
+          maxbadge == widget.userData.data["badgeDay"]) {
+        badges = Image.asset(
+          'images/DAY${widget.userData.data["badgeDay"]}.png',
+          width: 40,
+          height: 40,
+        );
+      }
     }
 
     var challengeStartDate = data["challengeStartDates"]?.toDate();
@@ -145,7 +146,7 @@ class _MainScreenState extends State<MainScreen> {
         selectedquote = 'select';
         motivationday = true;
       }
-      if (emotionday >= 0) {
+      if (emotionday >= 1) {
         emotionbool = true;
         UserService().updateUserEmotion(DateTime(
             DateTime.now().year, DateTime.now().month, DateTime.now().day));
@@ -223,30 +224,40 @@ class _MainScreenState extends State<MainScreen> {
                                   Padding(
                                     padding:
                                         const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                                    child: RichText(
-                                      text: TextSpan(
-                                        // Note: Styles for TextSpans must be explicitly defined.
-                                        // Child text spans will inherit styles from parent
-                                        style: const TextStyle(
-                                          fontSize: 18.0,
-                                          color: Colors.black,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        RichText(
+                                          text: TextSpan(
+                                            // Note: Styles for TextSpans must be explicitly defined.
+                                            // Child text spans will inherit styles from parent
+                                            style: const TextStyle(
+                                              fontSize: 18.0,
+                                              color: Colors.black,
+                                            ),
+                                            children: <TextSpan>[
+                                              const TextSpan(
+                                                  text: 'You\'ve been '),
+                                              TextSpan(
+                                                  text: addictionstr ==
+                                                          'tobacco'
+                                                      ? 'smoke free'
+                                                      : '$addictionstr free',
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                              const TextSpan(
+                                                  text: ' for exactly'),
+                                            ],
+                                          ),
                                         ),
-                                        children: <TextSpan>[
-                                          const TextSpan(text: 'You\'ve been '),
-                                          TextSpan(
-                                              text: addictionstr == 'tobacco'
-                                                  ? 'smoke free'
-                                                  : '$addictionstr free',
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold)),
-                                          const TextSpan(text: ' for exactly'),
-                                        ],
-                                      ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        badges,
+                                      ],
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(0),
-                                    child: badges,
                                   ),
                                   const SizedBox(
                                     height: 5,
@@ -850,7 +861,10 @@ class _MainScreenState extends State<MainScreen> {
                 style: TextStyle(fontSize: 16),
               ),
               onPressed: () {
-                Navigator.of(context).pop(badge);
+                Navigator.of(context).pushAndRemoveUntil(
+                    CupertinoPageRoute(builder: (context) {
+                  return const HomeScreen();
+                }), (route) => false);
               },
             ),
           ],
