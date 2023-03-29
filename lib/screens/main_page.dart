@@ -255,7 +255,7 @@ class _MainScreenState extends State<MainScreen> {
                                         const SizedBox(
                                           width: 10,
                                         ),
-                                        badges,
+                                        badges ?? SizedBox(),
                                       ],
                                     ),
                                   ),
