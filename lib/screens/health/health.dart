@@ -26,7 +26,7 @@ class _HealthScreenState extends State<HealthScreen> {
   Widget build(BuildContext context) {
     var activities = ActivityService().getActivities();
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0XFFDAF0F0),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: SafeArea(
@@ -55,14 +55,13 @@ class _HealthScreenState extends State<HealthScreen> {
                           BoxShadow(
                             color: Colors.grey,
                             offset: Offset(0.0, 1.0), //(x,y)
-                            blurRadius: 5,
-                            spreadRadius: 2,
+                            blurRadius: 6,
                             inset: true,
                           ),
                         ],
                         borderRadius: BorderRadius.only(
-                            topLeft: Radius.elliptical(125, 50),
-                            topRight: Radius.elliptical(125, 50)),
+                            topLeft: Radius.elliptical(125, 25),
+                            topRight: Radius.elliptical(125, 25)),
                       ),
                       child: Column(
                         children: [
