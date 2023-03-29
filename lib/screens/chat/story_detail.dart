@@ -9,11 +9,10 @@ class StoryDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(storyData);
     List story = storyData["story"];
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xffDAF0F0),
+        backgroundColor: const Color(0xffDAF0F0),
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: const Icon(
@@ -31,22 +30,25 @@ class StoryDetail extends StatelessWidget {
           ),
         ),
       ),
-      body: Container(
-        margin: const EdgeInsets.all(8),
-        padding: const EdgeInsets.only(right: 8),
-        decoration: BoxDecoration(
-          color: Color(0xffCFE3E3),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        width: double.maxFinite,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            StoryDetailFirst(
-              data: storyData,
-            ),
-            StoryDetailNormal(story: story),
-          ],
+      body: Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: Container(
+          margin: const EdgeInsets.all(8),
+          padding: const EdgeInsets.only(right: 8),
+          decoration: BoxDecoration(
+            color: const Color(0xffCFE3E3),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          width: double.maxFinite,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              StoryDetailFirst(
+                data: storyData,
+              ),
+              StoryDetailNormal(story: story),
+            ],
+          ),
         ),
       ),
     );
