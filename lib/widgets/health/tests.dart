@@ -13,6 +13,7 @@ class Test extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var uri = Uri.parse(url);
     return Container(
       margin: const EdgeInsets.symmetric(
         horizontal: 8,
@@ -74,7 +75,7 @@ class Test extends StatelessWidget {
                             const SizedBox(),
                             GestureDetector(
                               onTap: () {
-                                launchUrl(url);
+                                launchUrl(uri);
                               },
                               child: Row(
                                 children: const [
