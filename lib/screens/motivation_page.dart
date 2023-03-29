@@ -45,6 +45,20 @@ class _MotivationScreenState extends State<MotivationScreen>
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xffDAF0F0),
+        leading: GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Colors.black,
+          ),
+        ),
+        centerTitle: true,
+        title: const Text(
+          "Motivation",
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
       ),
       body: SafeArea(
           child: FutureBuilder(
