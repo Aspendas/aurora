@@ -60,6 +60,7 @@ class Test extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Text(
                         body,
+                        maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -82,6 +83,9 @@ class Test extends StatelessWidget {
                               Icon(
                                 Icons.open_in_new_rounded,
                                 color: Colors.blue,
+                              ),
+                              SizedBox(
+                                width: 8,
                               ),
                             ],
                           ),

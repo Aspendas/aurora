@@ -64,7 +64,7 @@ class _MainScreenState extends State<MainScreen> {
   var visible;
   var emotionbool;
   var badges;
-  var currentbadge ;
+  var currentbadge;
 
   @override
   void initState() {
@@ -73,7 +73,7 @@ class _MainScreenState extends State<MainScreen> {
         .get();
     quotefuture = _motivationdata.doc('quotes').get();
     int maxbadge = 0;
-    currentbadge = ;
+    // currentbadge = ;
     if (widget.userData.data['challengeStartDates'] != null) {
       final badgeday = daysBetween(
           (widget.userData.data["challengeStartDates"] as Timestamp).toDate(),
@@ -659,7 +659,7 @@ class _MainScreenState extends State<MainScreen> {
                                   return Text('Error: ${snapshot.error}');
                                 } else {
                                   return Container(
-                                    height: 180,
+                                    height: 190,
                                     width: MediaQuery.of(context).size.width,
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
