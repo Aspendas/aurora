@@ -23,10 +23,14 @@ class StoryDetail extends StatelessWidget {
           ),
         ),
         title: Text(
-            storyData["name"]
+          storyData["name"],
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
-
       body: Container(
         margin: const EdgeInsets.all(8),
         padding: const EdgeInsets.only(right: 8),

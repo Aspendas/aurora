@@ -42,13 +42,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: backgroundcolor,
       appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Colors.black,
+          ),
+        ),
         backgroundColor: Color(0xffDAF0F0),
         centerTitle: true,
         title: const Text(
-          style: TextStyle(
-            color: Colors.black
-          ),
           "Profile",
+          style: TextStyle(color: Colors.black),
         ),
         actions: [
           IconButton(

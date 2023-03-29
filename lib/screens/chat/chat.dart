@@ -148,7 +148,6 @@ class _ChatScreenState extends State<ChatScreen> {
                                                   height: 8,
                                                 ),
                                                 TextField(
-
                                                   controller:
                                                       _commentController,
                                                   decoration:
@@ -178,8 +177,9 @@ class _ChatScreenState extends State<ChatScreen> {
                                                         ElevatedButton(
                                                           style: ElevatedButton
                                                               .styleFrom(
-                                                            backgroundColor:
-                                                                Color(0xff5A6363),
+                                                            primary:
+                                                                const Color(
+                                                                    0xff5A6363),
                                                             padding:
                                                                 const EdgeInsets
                                                                     .symmetric(
@@ -195,10 +195,12 @@ class _ChatScreenState extends State<ChatScreen> {
                                                             ),
                                                           ),
                                                           child: const Text(
+                                                            "Cancel",
                                                             style: TextStyle(
-                                                              color: Colors.black,
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
                                                           ),
-                                                              "Cancel"),
                                                           onPressed: () {
                                                             Navigator.of(
                                                                     context)
@@ -211,9 +213,9 @@ class _ChatScreenState extends State<ChatScreen> {
                                                         ElevatedButton(
                                                           style: ElevatedButton
                                                               .styleFrom(
-                                                            backgroundColor: const Color(
-                                                              0xffCFE3E3
-                                                            ),
+                                                            primary:
+                                                                const Color(
+                                                                    0xffCFE3E3),
                                                             padding:
                                                                 const EdgeInsets
                                                                     .symmetric(
@@ -229,10 +231,12 @@ class _ChatScreenState extends State<ChatScreen> {
                                                             ),
                                                           ),
                                                           child: const Text(
+                                                            "Send",
                                                             style: TextStyle(
-                                                              color: Colors.black,
+                                                              color:
+                                                                  Colors.black,
                                                             ),
-                                                              "Send"),
+                                                          ),
                                                           onPressed: () {
                                                             CommentsService()
                                                                 .addComment(

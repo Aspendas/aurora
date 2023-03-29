@@ -78,10 +78,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         backgroundColor: const Color(0xffCFE3E3),
         centerTitle: true,
         title: const Text(
+          "Edit Profile",
           style: TextStyle(
             color: Colors.black,
           ),
-          " Edit Profile",
         ),
       ),
       body: SingleChildScrollView(
@@ -413,13 +413,11 @@ class _AvatarChangeScreenState extends State<AvatarChangeScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: Color(0xffDAF0F0),
+        backgroundColor: const Color(0xffDAF0F0),
         centerTitle: true,
         title: const Text(
-          style: TextStyle(
-            color: Colors.black
-          ),
           "Profile",
+          style: TextStyle(color: Colors.black),
         ),
       ),
       body: SafeArea(
