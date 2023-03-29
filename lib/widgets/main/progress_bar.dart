@@ -89,36 +89,59 @@ class _ProgressWidgetState extends State<ProgressBar> {
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
-                  colors: [
-                    Colors.white,
-                    Colors.grey
-                  ],
+                  colors: [Colors.white, Colors.grey],
                   stops: [0.9, 1],
                 ),
               ),
-              child: SimpleCircularProgressBar(
-                valueNotifier: daysNotifier,
-                maxValue: 60,
-                progressStrokeWidth: 7,
-                backStrokeWidth: 7,
-                progressColors: const [
-                  Color(0XFFCFE3E3),
-                  Color(0XFFB7C9C9),
-                  Color(0XFF95A3A3),
-                  Color(0XFF5A6363)
-                ],
-                backColor: Color(0xfff2f2ff),
-                animationDuration: 2,
-                size: 48,
-                onGetText: (double value) {
-                  return Text(
-                    '${value.toInt()}',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        color: Colors.blueGrey, fontWeight: FontWeight.w600),
-                  );
-                },
-              ),
+              child: daysNotifier.value > 59
+                  ? SimpleCircularProgressBar(
+                      valueNotifier: daysNotifier,
+                      maxValue: 360,
+                      progressStrokeWidth: 7,
+                      backStrokeWidth: 7,
+                      progressColors: const [
+                        Color(0XFFCFE3E3),
+                        Color(0XFFB7C9C9),
+                        Color(0XFF95A3A3),
+                        Color(0XFF5A6363)
+                      ],
+                      backColor: Color(0xfff2f2ff),
+                      animationDuration: 2,
+                      size: 48,
+                      onGetText: (double value) {
+                        return Text(
+                          '${value.toInt()}',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              color: Colors.blueGrey,
+                              fontWeight: FontWeight.w600),
+                        );
+                      },
+                    )
+                  : SimpleCircularProgressBar(
+                      valueNotifier: daysNotifier,
+                      maxValue: 60,
+                      progressStrokeWidth: 7,
+                      backStrokeWidth: 7,
+                      progressColors: const [
+                        Color(0XFFCFE3E3),
+                        Color(0XFFB7C9C9),
+                        Color(0XFF95A3A3),
+                        Color(0XFF5A6363)
+                      ],
+                      backColor: Color(0xfff2f2ff),
+                      animationDuration: 2,
+                      size: 48,
+                      onGetText: (double value) {
+                        return Text(
+                          '${value.toInt()}',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              color: Colors.blueGrey,
+                              fontWeight: FontWeight.w600),
+                        );
+                      },
+                    ),
             ),
             const Text(
               "Days",
@@ -140,10 +163,7 @@ class _ProgressWidgetState extends State<ProgressBar> {
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
-                  colors: [
-                    Colors.white,
-                    Colors.grey
-                  ],
+                  colors: [Colors.white, Colors.grey],
                   stops: [0.9, 1],
                 ),
               ),
@@ -191,10 +211,7 @@ class _ProgressWidgetState extends State<ProgressBar> {
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
-                  colors: [
-                    Colors.white,
-                    Colors.grey
-                  ],
+                  colors: [Colors.white, Colors.grey],
                   stops: [0.9, 1],
                 ),
               ),
@@ -242,10 +259,7 @@ class _ProgressWidgetState extends State<ProgressBar> {
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
-                  colors: [
-                    Colors.white,
-                    Colors.grey
-                  ],
+                  colors: [Colors.white, Colors.grey],
                   stops: [0.9, 1],
                 ),
               ),
