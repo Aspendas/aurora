@@ -76,6 +76,15 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: const Color(0xffCFE3E3),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Colors.black,
+          ),
+        ),
         centerTitle: true,
         title: const Text(
           "Edit Profile",
