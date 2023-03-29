@@ -1,5 +1,5 @@
 import 'package:aurora/screens/health/activities.dart';
-import 'package:aurora/screens/health/test.dart';
+
 import 'package:aurora/services/activities.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +8,9 @@ import 'package:aurora/widgets/main_app_bar.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-import '../../constants.dart';
-import '../../widgets/health/activity.dart';
-import '../widgets/health/learn_box.dart';
+import '../../../constants.dart';
+import '../../../widgets/health/activity.dart';
+import '../../widgets/health/learn_box.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LearnPage extends StatefulWidget {

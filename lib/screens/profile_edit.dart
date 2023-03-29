@@ -457,7 +457,7 @@ class _AvatarChangeScreenState extends State<AvatarChangeScreen> {
                           ),
                   ),
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 Center(
                   child: SizedBox(
                     height: 350,

@@ -1,5 +1,5 @@
 import 'package:aurora/screens/health/activities.dart';
-import 'package:aurora/screens/health/test.dart';
+
 import 'package:aurora/services/activities.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:aurora/widgets/health/activity_reverse.dart';
@@ -10,7 +10,7 @@ import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 
 import '../../constants.dart';
 import '../../widgets/health/activity.dart';
-import '../learn.dart';
+import 'learn.dart';
 
 class HealthScreen extends StatefulWidget {
   final AsyncSnapshot userData;
@@ -46,10 +46,21 @@ class _HealthScreenState extends State<HealthScreen> {
                         color: backgroundcolor,
                         boxShadow: [
                           BoxShadow(
+                            blurRadius: 2,
+                            offset: Offset(0.0, 2.0),
                             color: Color.fromRGBO(100, 100, 100, 0.7),
-                            offset: Offset(0.0, 2.0), //(x,y)
-                            blurRadius: 0.5,
                             inset: true,
+                          ),
+                          BoxShadow(
+                            blurRadius: 15,
+                            offset: Offset(0.0, -20.0),
+                            color: Colors.white,
+                            inset: true,
+                          ),
+                          BoxShadow(
+                            blurRadius: 3,
+                            offset: Offset(0.0, 2),
+                            color: Colors.white,
                           ),
                         ],
                         borderRadius: BorderRadius.only(

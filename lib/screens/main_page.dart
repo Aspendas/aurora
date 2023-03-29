@@ -8,8 +8,10 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import '../constants.dart';
 import '../services/activities.dart';
+import '../services/test.dart';
 import '../widgets.dart';
 import '../widgets/health/activity.dart';
+import '../widgets/health/tests.dart';
 import '../widgets/main/progress_bar.dart';
 import '../widgets/main_app_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -131,7 +133,7 @@ class _MainScreenState extends State<MainScreen> {
       }
     }
     return Scaffold(
-      backgroundColor: const Color(0xffDAF0F0),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
@@ -142,121 +144,504 @@ class _MainScreenState extends State<MainScreen> {
                 decoration: const BoxDecoration(
                   color: Color(0XFFDAF0F0),
                 ),
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.elliptical(125, 25),
-                      topRight: Radius.elliptical(125, 25)),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromRGBO(100, 100, 100, 0.7),
-                          offset: Offset(0.0, 1), //(x,y)
-                          blurRadius: 0.5,
-                          inset: true,
-                        ),
-                      ],
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.elliptical(125, 25),
-                          topRight: Radius.elliptical(125, 25)),
-                    ),
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Center(
-                          child: challengeStartDate != null
-                              ? Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          15, 5, 15, 5),
-                                      child: RichText(
-                                        text: TextSpan(
-                                          // Note: Styles for TextSpans must be explicitly defined.
-                                          // Child text spans will inherit styles from parent
-                                          style: const TextStyle(
-                                            fontSize: 18.0,
-                                            color: Colors.black,
-                                          ),
-                                          children: <TextSpan>[
-                                            const TextSpan(text: 'I\'ve been '),
-                                            TextSpan(
-                                                text:
-                                                    '${widget.userData.data['addiction'].toLowerCase()} free',
-                                                style: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                            const TextSpan(
-                                                text: ' for exactly'),
-                                          ],
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 2,
+                        offset: Offset(0.0, 2.0),
+                        color: Color.fromRGBO(100, 100, 100, 0.7),
+                        inset: true,
+                      ),
+                      BoxShadow(
+                        blurRadius: 15,
+                        offset: Offset(0.0, -20.0),
+                        color: Colors.white,
+                        inset: true,
+                      ),
+                      BoxShadow(
+                        blurRadius: 3,
+                        offset: Offset(0.0, 2),
+                        color: Colors.white,
+                      ),
+                    ],
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.elliptical(125, 25),
+                        topRight: Radius.elliptical(125, 25)),
+                  ),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Center(
+                        child: challengeStartDate != null
+                            ? Column(
+                                children: [
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                    child: RichText(
+                                      text: TextSpan(
+                                        // Note: Styles for TextSpans must be explicitly defined.
+                                        // Child text spans will inherit styles from parent
+                                        style: const TextStyle(
+                                          fontSize: 18.0,
+                                          color: Colors.black,
                                         ),
+                                        children: <TextSpan>[
+                                          const TextSpan(text: 'I\'ve been '),
+                                          TextSpan(
+                                              text:
+                                                  '${widget.userData.data['addiction'].toLowerCase()} free',
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold)),
+                                          const TextSpan(text: ' for exactly'),
+                                        ],
                                       ),
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                          './images/1111.png',
-                                          fit: BoxFit.fitHeight,
-                                          height: 30,
-                                        ),
-                                        Image.asset(
-                                          './images/1112.png',
-                                          fit: BoxFit.fitHeight,
-                                          height: 30,
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    ProgressBar(
-                                        challengeDate: challengeStartDate,
-                                        width: 75,
-                                        height: 75),
-                                  ],
-                                )
-                              : const SizedBox(),
-                        ),
-                        widget.userData.data['challengeStartDates'] == null
-                            ? RoundedButton(
-                                colour: Colors.white,
-                                onPress: () {
-                                  UserService()
-                                      .startChallenge(Timestamp.fromDate(date));
-                                  Navigator.of(context).push(
-                                    CupertinoPageRoute(
-                                      builder: (context) {
-                                        return const HomeScreen();
-                                      },
-                                    ),
-                                  );
-                                },
-                                paddings: EdgeInsets.zero,
-                                title: const Text('Start Challenge'),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        './images/1111.png',
+                                        fit: BoxFit.fitHeight,
+                                        height: 30,
+                                      ),
+                                      Image.asset(
+                                        './images/1112.png',
+                                        fit: BoxFit.fitHeight,
+                                        height: 30,
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  ProgressBar(
+                                      challengeDate: challengeStartDate,
+                                      width: 75,
+                                      height: 75),
+                                ],
                               )
-                            : Container(),
-                        const SizedBox(
-                          height: 0,
-                        ),
-                        emotionbool
-                            ? Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(0, 20, 0, 15),
-                                child: StatefulBuilder(builder:
-                                    (BuildContext context,
-                                        StateSetter setState) {
+                            : const SizedBox(),
+                      ),
+                      widget.userData.data['challengeStartDates'] == null
+                          ? RoundedButton(
+                              colour: Colors.white,
+                              onPress: () {
+                                UserService()
+                                    .startChallenge(Timestamp.fromDate(date));
+                                Navigator.of(context).push(
+                                  CupertinoPageRoute(
+                                    builder: (context) {
+                                      return const HomeScreen();
+                                    },
+                                  ),
+                                );
+                              },
+                              paddings: EdgeInsets.zero,
+                              title: const Text('Start Challenge'),
+                            )
+                          : Container(),
+                      const SizedBox(
+                        height: 0,
+                      ),
+                      emotionbool
+                          ? Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 20, 0, 15),
+                              child: StatefulBuilder(builder:
+                                  (BuildContext context, StateSetter setState) {
+                                return Column(
+                                  children: [
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.fromLTRB(16, 0, 16, 20),
+                                      child: Text(
+                                        'How are you feeling right now?',
+                                        style: TextStyle(
+                                            fontSize: 22,
+                                            fontFamily: 'robotomono',
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 16),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: visible
+                                            ? const Color.fromRGBO(
+                                                230, 222, 222, 1)
+                                            : Colors.grey,
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            offset: Offset(0.0, 1.0), //(x,y)
+                                            blurRadius: 2.0,
+                                          ),
+                                        ],
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Visibility(
+                                            visible: visible,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          10, 15, 0, 15),
+                                                  child: Image.asset(
+                                                      'images/sos.png',
+                                                      width: 30,
+                                                      height: 30),
+                                                ),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                        .fromLTRB(8, 15, 8, 15),
+                                                    child: SliderTheme(
+                                                      data: SliderTheme.of(
+                                                              context)
+                                                          .copyWith(
+                                                        inactiveTrackColor:
+                                                            const Color(
+                                                                0xFF8D8E98),
+                                                        activeTrackColor:
+                                                            Colors.black,
+                                                        thumbColor: const Color(
+                                                            0xFFEB1555),
+                                                        overlayColor:
+                                                            const Color(
+                                                                0x29EB1555),
+                                                        thumbShape:
+                                                            const RoundSliderThumbShape(
+                                                                enabledThumbRadius:
+                                                                    10.0),
+                                                        overlayShape:
+                                                            const RoundSliderOverlayShape(
+                                                                overlayRadius:
+                                                                    15.0),
+                                                      ),
+                                                      child: Slider(
+                                                          value:
+                                                              feel.toDouble(),
+                                                          min: 0,
+                                                          max: 10,
+                                                          onChangeEnd: (double
+                                                              newValue) {
+                                                            setState(() {
+                                                              visible = false;
+                                                            });
+                                                          },
+                                                          onChanged: (double
+                                                              newValue) {
+                                                            setState(() {
+                                                              feel = newValue
+                                                                  .round();
+                                                            });
+                                                          }),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          0, 15, 10, 15),
+                                                  child: Image.asset(
+                                                    'images/strong.png',
+                                                    width: 30,
+                                                    height: 30,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: visible != true,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Visibility(
+                                                  visible: visible != true &&
+                                                          feel <= 3
+                                                      ? true
+                                                      : false,
+                                                  child: const Padding(
+                                                    padding:
+                                                        EdgeInsets.all(25.0),
+                                                    child: Text(
+                                                      'If you think you are not going to continue your challenging path you can get help from professionals to continue. (You can find the organizations that can help you from top left corner)',
+                                                      style: TextStyle(
+                                                          fontSize: 14),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Center(
+                                                  child: Visibility(
+                                                    visible: visible != true &&
+                                                            feel > 3 &&
+                                                            feel < 8
+                                                        ? true
+                                                        : false,
+                                                    child: const Padding(
+                                                      padding:
+                                                          EdgeInsets.all(25.0),
+                                                      child: Text(
+                                                        'You are doing great! You will definitely succeed. Keep going 👍',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Visibility(
+                                                  visible: visible != true &&
+                                                          feel >= 8
+                                                      ? true
+                                                      : false,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            25),
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: const [
+                                                        Text(
+                                                          'Nothing can stop the man with the right mental attitude from achieving his goal; nothing on earth can help the man with the wrong mental attitude.',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                        ),
+                                                        SizedBox(
+                                                          height: 5,
+                                                        ),
+                                                        Text(
+                                                          '– Thomas Jefferson',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }),
+                            )
+                          : Container(),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          selectedmotivation != ''
+                              ? FutureBuilder(
+                                  future: motivation,
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      return Text('Error: ${snapshot.error}');
+                                    } else {
+                                      motivationday == true
+                                          ? selectedmotivation =
+                                              motivationSelect(snapshot)
+                                          : Container();
+                                      return Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 10),
+                                        child: Center(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              const Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: 25,
+                                                    right: 16,
+                                                    top: 16),
+                                                child: Text(
+                                                  'Daily Motivation',
+                                                  style: TextStyle(
+                                                      fontSize: 22,
+                                                      fontFamily: 'robotomono',
+                                                      fontWeight:
+                                                          FontWeight.w700),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 20,
+                                              ),
+                                              Motivation(
+                                                image: Image.asset(
+                                                  'images/motivation.png',
+                                                  width: 45,
+                                                  height: 45,
+                                                ),
+                                                body: selectedmotivation,
+                                                height: 500.0,
+                                                quote: false,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                )
+                              : Container(),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          selectedquote != ''
+                              ? FutureBuilder(
+                                  future: quotefuture,
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      return Text('Error: ${snapshot.error}');
+                                    } else {
+                                      if (quoteday == true) {
+                                        selectedquote =
+                                            quoteSelect(snapshot)[0];
+                                        selectedperson =
+                                            quoteSelect(snapshot)[1];
+                                      }
+                                      return Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 10),
+                                        child: Column(
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Center(
+                                                  child: Motivation(
+                                                    image: Image.asset(
+                                                      'images/quote.png',
+                                                      width: 45,
+                                                      height: 45,
+                                                    ),
+                                                    body: selectedquote,
+                                                    height: 500.0,
+                                                    quote: true,
+                                                    name: selectedperson,
+                                                    main: true,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    }
+                                  })
+                              : Container(),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          FutureBuilder(
+                              future: activities,
+                              builder: (BuildContext context,
+                                  AsyncSnapshot snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return Text('Error: ${snapshot.error}');
+                                } else {
+                                  randomactivity = randomNumberGenerator(
+                                      snapshot.data.docs.length);
                                   return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       const Padding(
-                                        padding:
-                                            EdgeInsets.fromLTRB(16, 0, 16, 20),
+                                        padding: EdgeInsets.only(
+                                            left: 25, right: 16, top: 15),
                                         child: Text(
-                                          'How are you feeling right now?',
+                                          'Need Distraction ?',
+                                          style: TextStyle(
+                                              fontSize: 22,
+                                              fontFamily: 'robotomono',
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                      ),
+                                      Activity(
+                                        data: snapshot.data.docs[randomactivity]
+                                            .data(),
+                                        shadow: const [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            offset: Offset(0.0, 1.0), //(x,y)
+                                            blurRadius: 2.0,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  );
+                                }
+                              }),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          FutureBuilder(
+                              future: TestService().getTest(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return Text('Error: ${snapshot.error}');
+                                } else {
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Padding(
+                                        padding: EdgeInsets.only(
+                                            left: 25,
+                                            right: 16,
+                                            top: 15,
+                                            bottom: 15),
+                                        child: Text(
+                                          'Test',
                                           style: TextStyle(
                                               fontSize: 22,
                                               fontFamily: 'robotomono',
@@ -264,364 +649,44 @@ class _MainScreenState extends State<MainScreen> {
                                         ),
                                       ),
                                       Container(
-                                        margin: const EdgeInsets.symmetric(
-                                            horizontal: 16),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          color: visible
-                                              ? const Color.fromRGBO(
-                                                  230, 222, 222, 1)
-                                              : Colors.grey,
-                                          boxShadow: const [
-                                            BoxShadow(
-                                              color: Colors.grey,
-                                              offset: Offset(0.0, 1.0), //(x,y)
-                                              blurRadius: 2.0,
-                                            ),
-                                          ],
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Visibility(
-                                              visible: visible,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                            .fromLTRB(
-                                                        10, 15, 0, 15),
-                                                    child: Image.asset(
-                                                        'images/sos.png',
-                                                        width: 30,
-                                                        height: 30),
-                                                  ),
-                                                  Expanded(
-                                                    child: Padding(
-                                                      padding: const EdgeInsets
-                                                              .fromLTRB(
-                                                          8, 15, 8, 15),
-                                                      child: SliderTheme(
-                                                        data: SliderTheme.of(
-                                                                context)
-                                                            .copyWith(
-                                                          inactiveTrackColor:
-                                                              const Color(
-                                                                  0xFF8D8E98),
-                                                          activeTrackColor:
-                                                              Colors.black,
-                                                          thumbColor:
-                                                              const Color(
-                                                                  0xFFEB1555),
-                                                          overlayColor:
-                                                              const Color(
-                                                                  0x29EB1555),
-                                                          thumbShape:
-                                                              const RoundSliderThumbShape(
-                                                                  enabledThumbRadius:
-                                                                      10.0),
-                                                          overlayShape:
-                                                              const RoundSliderOverlayShape(
-                                                                  overlayRadius:
-                                                                      15.0),
-                                                        ),
-                                                        child: Slider(
-                                                            value:
-                                                                feel.toDouble(),
-                                                            min: 0,
-                                                            max: 10,
-                                                            onChangeEnd: (double
-                                                                newValue) {
-                                                              setState(() {
-                                                                visible = false;
-                                                              });
-                                                            },
-                                                            onChanged: (double
-                                                                newValue) {
-                                                              setState(() {
-                                                                feel = newValue
-                                                                    .round();
-                                                              });
-                                                            }),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                            .fromLTRB(
-                                                        0, 15, 10, 15),
-                                                    child: Image.asset(
-                                                      'images/strong.png',
-                                                      width: 30,
-                                                      height: 30,
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                            Visibility(
-                                              visible: visible != true,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Visibility(
-                                                    visible: visible != true &&
-                                                            feel <= 3
-                                                        ? true
-                                                        : false,
-                                                    child: const Padding(
-                                                      padding:
-                                                          EdgeInsets.all(25.0),
-                                                      child: Text(
-                                                        'If you think you are not going to continue your challenging path you can get help from professionals to continue. (You can find the organizations that can help you from top left corner)',
-                                                        style: TextStyle(
-                                                            fontSize: 14),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Center(
-                                                    child: Visibility(
-                                                      visible:
-                                                          visible != true &&
-                                                                  feel > 3 &&
-                                                                  feel < 8
-                                                              ? true
-                                                              : false,
-                                                      child: const Padding(
-                                                        padding: EdgeInsets.all(
-                                                            25.0),
-                                                        child: Text(
-                                                          'You are doing great! You will definitely succeed. Keep going 👍',
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Visibility(
-                                                    visible: visible != true &&
-                                                            feel >= 8
-                                                        ? true
-                                                        : false,
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              25),
-                                                      child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: const [
-                                                          Text(
-                                                            'Nothing can stop the man with the right mental attitude from achieving his goal; nothing on earth can help the man with the wrong mental attitude.',
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                          SizedBox(
-                                                            height: 5,
-                                                          ),
-                                                          Text(
-                                                            '– Thomas Jefferson',
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
+                                        height: 250,
+                                        child: GridView.builder(
+                                          gridDelegate:
+                                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                                  crossAxisCount: 1),
+                                          primary: false,
+                                          physics: const ScrollPhysics(),
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: snapshot.data.docs.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 12.0),
+                                              child: Test(
+                                                  title: snapshot
+                                                      .data.docs[index]
+                                                      .data()['header'],
+                                                  body: snapshot
+                                                      .data.docs[index]
+                                                      .data()['description'],
+                                                  url: snapshot.data.docs[index]
+                                                      .data()['testURL']),
+                                            );
+                                          },
                                         ),
                                       ),
                                     ],
                                   );
-                                }),
-                              )
-                            : Container(),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Column(
-                          children: [
-                            selectedmotivation != ''
-                                ? FutureBuilder(
-                                    future: motivation,
-                                    builder: (BuildContext context,
-                                        AsyncSnapshot snapshot) {
-                                      if (snapshot.connectionState ==
-                                          ConnectionState.waiting) {
-                                        return const Center(
-                                          child: CircularProgressIndicator(),
-                                        );
-                                      } else if (snapshot.hasError) {
-                                        return Text('Error: ${snapshot.error}');
-                                      } else {
-                                        motivationday == true
-                                            ? selectedmotivation =
-                                                motivationSelect(snapshot)
-                                            : Container();
-                                        return Padding(
-                                          padding:
-                                              const EdgeInsets.only(bottom: 10),
-                                          child: Center(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                const Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: 25,
-                                                      right: 16,
-                                                      top: 16),
-                                                  child: Text(
-                                                    'Daily Motivation',
-                                                    style: TextStyle(
-                                                        fontSize: 22,
-                                                        fontFamily:
-                                                            'robotomono',
-                                                        fontWeight:
-                                                            FontWeight.w700),
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  height: 20,
-                                                ),
-                                                Motivation(
-                                                  image: Image.asset(
-                                                    'images/motivation.png',
-                                                    width: 45,
-                                                    height: 45,
-                                                  ),
-                                                  body: selectedmotivation,
-                                                  height: 500.0,
-                                                  quote: false,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                    },
-                                  )
-                                : Container(),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            selectedquote != ''
-                                ? FutureBuilder(
-                                    future: quotefuture,
-                                    builder: (BuildContext context,
-                                        AsyncSnapshot snapshot) {
-                                      if (snapshot.connectionState ==
-                                          ConnectionState.waiting) {
-                                        return const Center(
-                                          child: CircularProgressIndicator(),
-                                        );
-                                      } else if (snapshot.hasError) {
-                                        return Text('Error: ${snapshot.error}');
-                                      } else {
-                                        if (quoteday == true) {
-                                          selectedquote =
-                                              quoteSelect(snapshot)[0];
-                                          selectedperson =
-                                              quoteSelect(snapshot)[1];
-                                        }
-                                        return Padding(
-                                          padding:
-                                              const EdgeInsets.only(bottom: 10),
-                                          child: Column(
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Center(
-                                                    child: Motivation(
-                                                      image: Image.asset(
-                                                        'images/quote.png',
-                                                        width: 45,
-                                                        height: 45,
-                                                      ),
-                                                      body: selectedquote,
-                                                      height: 500.0,
-                                                      quote: true,
-                                                      name: selectedperson,
-                                                      main: true,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      }
-                                    })
-                                : Container(),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            FutureBuilder(
-                                future: activities,
-                                builder: (BuildContext context,
-                                    AsyncSnapshot snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  } else if (snapshot.hasError) {
-                                    return Text('Error: ${snapshot.error}');
-                                  } else {
-                                    randomactivity = randomNumberGenerator(
-                                        snapshot.data.docs.length);
-                                    return Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 25, right: 16, top: 15),
-                                          child: Text(
-                                            'Need Distraction ?',
-                                            style: TextStyle(
-                                                fontSize: 22,
-                                                fontFamily: 'robotomono',
-                                                fontWeight: FontWeight.w700),
-                                          ),
-                                        ),
-                                        Activity(
-                                          data: snapshot
-                                              .data.docs[randomactivity]
-                                              .data(),
-                                          shadow: const [
-                                            BoxShadow(
-                                              color: Colors.grey,
-                                              offset: Offset(0.0, 1.0), //(x,y)
-                                              blurRadius: 2.0,
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    );
-                                  }
-                                }),
-                            const SizedBox(
-                              height: 40,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                                }
+                              }),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),

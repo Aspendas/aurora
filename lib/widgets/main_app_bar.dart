@@ -24,8 +24,9 @@ class MainAppBar extends StatelessWidget {
       color: const Color(0xffDAF0F0),
       child: Padding(
         padding: Platform.isIOS
-            ? const EdgeInsets.only(top: 0, left: 24.0, right: 24.0)
-            : const EdgeInsets.only(top: 24, left: 24.0, right: 24.0),
+            ? const EdgeInsets.only(top: 0, left: 24.0, right: 24.0, bottom: 15)
+            : const EdgeInsets.only(
+                top: 24, left: 24.0, right: 24.0, bottom: 15),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

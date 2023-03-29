@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ActivityService {
+class TestService {
   CollectionReference activities =
       FirebaseFirestore.instance.collection('tests');
 
