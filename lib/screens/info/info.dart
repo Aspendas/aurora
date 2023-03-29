@@ -20,7 +20,7 @@ class _InfoScreenState extends State<InfoScreen> with TickerProviderStateMixin {
 
   final countryList = <String>[
     'Please Select',
-    'US',
+    'USA',
     'Turkey',
     'Spain',
     'Europe',

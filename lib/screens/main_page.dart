@@ -72,8 +72,21 @@ class _MainScreenState extends State<MainScreen> {
         .doc(widget.userData.data['addiction'].toLowerCase())
         .get();
     quotefuture = _motivationdata.doc('quotes').get();
+
+    activities = ActivityService().getActivities();
+    visible = true;
+    feel = 5;
+    randomactivity = 0;
+
+    emotionbool = false;
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final addictionstr = widget.userData.data['addiction'].toLowerCase();
     int maxbadge = 0;
-    // currentbadge = ;
     if (widget.userData.data['challengeStartDates'] != null) {
       final badgeday = daysBetween(
           (widget.userData.data["challengeStartDates"] as Timestamp).toDate(),
@@ -109,18 +122,6 @@ class _MainScreenState extends State<MainScreen> {
       });
     }
 
-    activities = ActivityService().getActivities();
-    visible = true;
-    feel = 5;
-    randomactivity = 0;
-
-    emotionbool = false;
-
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     var challengeStartDate = data["challengeStartDates"]?.toDate();
     if (widget.userData.data['challengeStartDates'] != null) {
       final dt =
@@ -231,10 +232,11 @@ class _MainScreenState extends State<MainScreen> {
                                           color: Colors.black,
                                         ),
                                         children: <TextSpan>[
-                                          const TextSpan(text: 'I\'ve been '),
+                                          const TextSpan(text: 'You\'ve been '),
                                           TextSpan(
-                                              text:
-                                                  '${widget.userData.data['addiction'].toLowerCase()} free',
+                                              text: addictionstr == 'tobacco'
+                                                  ? 'smoke free'
+                                                  : '$addictionstr free',
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.bold)),
                                           const TextSpan(text: ' for exactly'),
@@ -280,7 +282,7 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                       emotionbool
                           ? Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 20, 0, 15),
+                              padding: const EdgeInsets.fromLTRB(0, 30, 0, 15),
                               child: StatefulBuilder(builder:
                                   (BuildContext context, StateSetter setState) {
                                 return Column(
@@ -302,9 +304,8 @@ class _MainScreenState extends State<MainScreen> {
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
                                         color: visible
-                                            ? const Color.fromRGBO(
-                                                230, 222, 222, 1)
-                                            : Colors.grey,
+                                            ? const Color(0xffCFE3E3)
+                                            : activitycolor,
                                         boxShadow: const [
                                           BoxShadow(
                                             color: Colors.grey,

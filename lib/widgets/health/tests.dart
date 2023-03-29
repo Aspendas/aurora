@@ -19,7 +19,7 @@ class Test extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: const Color.fromRGBO(230, 222, 222, 1),
+        color: Color(0xFFCFE3E3),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,48 +52,53 @@ class Test extends StatelessWidget {
                 const Divider(
                   thickness: 2,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Text(
-                        body,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          body,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const SizedBox(),
-                        GestureDetector(
-                          onTap: () {
-                            launchUrl(url);
-                          },
-                          child: Row(
-                            children: const [
-                              Text(
-                                "Take the test",
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 5, right: 3),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const SizedBox(),
+                            GestureDetector(
+                              onTap: () {
+                                launchUrl(url);
+                              },
+                              child: Row(
+                                children: const [
+                                  Text(
+                                    "Take the test",
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.open_in_new_rounded,
+                                    color: Colors.blue,
+                                  ),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                ],
                               ),
-                              Icon(
-                                Icons.open_in_new_rounded,
-                                color: Colors.blue,
-                              ),
-                              SizedBox(
-                                width: 8,
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

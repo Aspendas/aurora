@@ -2,6 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../constants.dart';
+
 class Organization extends StatelessWidget {
   const Organization(
       {Key? key, @required this.title, @required this.body, @required this.url})
@@ -18,7 +20,7 @@ class Organization extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: const Color.fromRGBO(230, 222, 222, 1),
+          color: activitycolor,
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -60,7 +60,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             ),
         growable: true);
 
-    final addList = <String>['Alcohol', 'Smoking', 'Substance'];
+    final addList = <String>['Alcohol', 'Tobacco', 'Substance'];
 
     var dt = widget.userData.data['challengeStartDates'] != null
         ? (widget.userData.data['challengeStartDates'] as Timestamp).toDate()
@@ -155,7 +155,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         fontFamily: 'RobotoMono',
                         fontSize: 20,
                         fontWeight: FontWeight.w400,
-                        color: Color(0xFF5A6363)),
+                        color: Color(0xFF886EE5)),
                   ),
                 ),
                 const SizedBox(height: 62),
@@ -374,7 +374,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                     'Save Changes',
                     style: TextStyle(
                       fontSize: 19,
-                      color: Color(0xff5A6363),
+                      color: Colors.black,
                     ),
                   ),
                 )
