@@ -424,8 +424,17 @@ class _AvatarChangeScreenState extends State<AvatarChangeScreen> {
       appBar: AppBar(
         backgroundColor: const Color(0xffDAF0F0),
         centerTitle: true,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Colors.black,
+          ),
+        ),
         title: const Text(
-          "Profile",
+          "Avatar Change",
           style: TextStyle(color: Colors.black),
         ),
       ),
