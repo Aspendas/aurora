@@ -26,6 +26,7 @@ class Stories extends StatelessWidget {
               return Text('Error: ${snapshot.error}');
             } else {
               return ListView.builder(
+                padding: EdgeInsets.zero,
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: snapshot.data.docs.length,
