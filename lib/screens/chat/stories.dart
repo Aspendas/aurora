@@ -52,6 +52,7 @@ class Stories extends StatelessWidget {
               return ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
+                padding: const EdgeInsets.only(),
                 itemCount: snapshot.data.docs.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(

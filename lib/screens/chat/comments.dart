@@ -31,6 +31,7 @@ class Comments extends StatelessWidget {
         }
 
         return ListView(
+          padding: const EdgeInsets.only(),
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           children: snapshot.data!.docs.map(
