@@ -669,7 +669,7 @@ class _MainScreenState extends State<MainScreen> {
                                   return Text('Error: ${snapshot.error}');
                                 } else {
                                   return Container(
-                                    height: 190,
+                                    height: 200,
                                     width: MediaQuery.of(context).size.width,
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
