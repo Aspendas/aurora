@@ -680,7 +680,7 @@ class _MainScreenState extends State<MainScreen> {
                                           padding: EdgeInsets.only(
                                               left: 25, right: 16, bottom: 15),
                                           child: Text(
-                                            'Test',
+                                            'Test Yourself',
                                             style: TextStyle(
                                                 fontSize: 22,
                                                 fontFamily: 'robotomono',
