@@ -175,6 +175,7 @@ class _MainScreenState extends State<MainScreen> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: SafeArea(
+          top: false,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
