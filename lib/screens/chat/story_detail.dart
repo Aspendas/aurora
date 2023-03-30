@@ -30,24 +30,27 @@ class StoryDetail extends StatelessWidget {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 8.0),
-        child: Container(
-          margin: const EdgeInsets.all(8),
-          padding: const EdgeInsets.only(right: 8),
-          decoration: BoxDecoration(
-            color: const Color(0xffCFE3E3),
-            borderRadius: BorderRadius.circular(16),
-          ),
-          width: double.maxFinite,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              StoryDetailFirst(
-                data: storyData,
-              ),
-              StoryDetailNormal(story: story),
-            ],
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Container(
+            margin: const EdgeInsets.all(8),
+            padding: const EdgeInsets.only(right: 8),
+            decoration: BoxDecoration(
+              color: const Color(0xffCFE3E3),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            width: double.maxFinite,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                StoryDetailFirst(
+                  data: storyData,
+                ),
+                StoryDetailNormal(story: story),
+              ],
+            ),
           ),
         ),
       ),
