@@ -35,8 +35,9 @@ class _LearnPageState extends State<LearnPage> {
             return Text('Error: ${snapshot.error}');
           } else {
             return Padding(
-              padding: const EdgeInsets.fromLTRB(15, 20, 15, 10),
+              padding: const EdgeInsets.fromLTRB(15, 6, 15, 10),
               child: GridView.builder(
+                padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2),

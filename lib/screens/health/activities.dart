@@ -24,6 +24,7 @@ class ActivitiesScreen extends StatelessWidget {
           return ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
+            padding: EdgeInsets.zero,
             itemCount: snapshot.data.docs.length,
             itemBuilder: (BuildContext context, int index) {
               if (index % 2 == 0) {
