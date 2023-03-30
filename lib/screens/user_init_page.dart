@@ -47,7 +47,7 @@ class _userInitScreenState extends State<userInitScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: const Color(0xFFCFE3E3),
+      backgroundColor: const Color(0xFFDAF0F0),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 34),
         child: SafeArea(

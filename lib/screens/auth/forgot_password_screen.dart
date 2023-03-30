@@ -31,7 +31,7 @@ class ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: const Color(0xFFCFE3E3),
+      backgroundColor: const Color(0xFFDAF0F0),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

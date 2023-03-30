@@ -38,7 +38,7 @@ class LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: const Color(0xFFCFE3E3),
+      backgroundColor: const Color(0xFFDAF0F0),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(50, 100, 50, 50),
