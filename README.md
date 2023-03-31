@@ -18,7 +18,7 @@ Step 4: run pub get command in the terminal.
 pub get
 ```
 
-Step 5: Under the lib folder open the main.dart file and run the app with emulator.
+Step 5: Under the lib folder open the main.dart file and run the app with emulator, simulator or real device.
 
 
 ## Contributing
