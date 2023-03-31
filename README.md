@@ -1,5 +1,5 @@
 # What is Aurora?
-A project that supports people suffering from addictions for Google's Solution Challenge
+A project that supports people suffering from addictions for GDSC Solution Challenge
 
 ## Installation
 
