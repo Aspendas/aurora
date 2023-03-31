@@ -2,14 +2,10 @@ import 'package:aurora/screens/health/activities.dart';
 
 import 'package:aurora/services/activities.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
-import 'package:aurora/widgets/health/activity_reverse.dart';
 import 'package:aurora/widgets/main_app_bar.dart';
 import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
-
 import '../../constants.dart';
-import '../../widgets/health/activity.dart';
 import 'learn.dart';
 
 class HealthScreen extends StatefulWidget {
@@ -65,8 +61,9 @@ class _HealthScreenState extends State<HealthScreen> {
                           ),
                         ],
                         borderRadius: BorderRadius.only(
-                            topLeft: Radius.elliptical(125, 25),
-                            topRight: Radius.elliptical(125, 25)),
+                          topLeft: Radius.elliptical(125, 25),
+                          topRight: Radius.elliptical(125, 25),
+                        ),
                       ),
                       child: Column(
                         children: [
@@ -84,18 +81,23 @@ class _HealthScreenState extends State<HealthScreen> {
                                         const Text(
                                           "Activities -",
                                           style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                          ),
                                         ),
                                         GestureDetector(
                                           child: const Text(
                                             " Learn",
-                                            style: TextStyle(fontSize: 18),
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                            ),
                                           ),
                                           onTap: () {
-                                            setState(() {
-                                              healthScreenToggle = false;
-                                            });
+                                            setState(
+                                              () {
+                                                healthScreenToggle = false;
+                                              },
+                                            );
                                           },
                                         ),
                                       ],
@@ -104,9 +106,11 @@ class _HealthScreenState extends State<HealthScreen> {
                                       children: [
                                         GestureDetector(
                                           onTap: () {
-                                            setState(() {
-                                              healthScreenToggle = true;
-                                            });
+                                            setState(
+                                              () {
+                                                healthScreenToggle = true;
+                                              },
+                                            );
                                           },
                                           child: const Text(
                                             "Activities ",
@@ -116,8 +120,9 @@ class _HealthScreenState extends State<HealthScreen> {
                                         const Text(
                                           "- Learn",
                                           style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -127,9 +132,10 @@ class _HealthScreenState extends State<HealthScreen> {
                             height: 4.0,
                           ),
                           HealthWrapper(
-                              activities: activities,
-                              userData: widget.userData,
-                              toggle: healthScreenToggle),
+                            activities: activities,
+                            userData: widget.userData,
+                            toggle: healthScreenToggle,
+                          ),
                           const SizedBox(
                             height: 40,
                           ),
@@ -148,6 +154,8 @@ class _HealthScreenState extends State<HealthScreen> {
 }
 
 class ArchedLine extends StatelessWidget {
+  const ArchedLine({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
