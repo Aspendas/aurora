@@ -59,7 +59,7 @@ class _InfoScreenState extends State<InfoScreen> with TickerProviderStateMixin {
             color: Colors.black,
           ),
         ),
-        backgroundColor: Color(0xffDAF0F0),
+        backgroundColor: const Color(0xffDAF0F0),
         centerTitle: true,
         title: const Text(
           "Help Centers",
@@ -91,8 +91,10 @@ class _InfoScreenState extends State<InfoScreen> with TickerProviderStateMixin {
                   height: 40,
                   width: double.infinity,
                   child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 8.0, horizontal: 15),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8.0,
+                      horizontal: 15,
+                    ),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
                         borderRadius: BorderRadius.circular(10),

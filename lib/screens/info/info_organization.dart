@@ -49,7 +49,9 @@ class Organization extends StatelessWidget {
                         Text(
                           title,
                           style: const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ],
                     ),
