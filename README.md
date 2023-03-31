@@ -1,16 +1,33 @@
-# aurora
+# What is Aurora?
+A project that supports people suffering from addictions for GDSC Solution Challenge
 
-A new Flutter project.
+## Installation
 
-## Getting Started
+This installation guide assumes that you already have Flutter installed on your computer if not install [Flutter](https://docs.flutter.dev/get-started/install) here.
 
-This project is a starting point for a Flutter application.
+Open [Aurora](https://github.com/Aspendas/aurora) project on GitHub.
 
-A few resources to get you started if this is your first Flutter project:
+Step 1: Click the Code button and then click Download ZIP. 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Step 2: After downloading the zip file, extract it using Winrar or ZIP.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Step 3: Go to your preferred code editor and open the file you extracted before.
+
+Step 4: run pub get command in the terminal.
+```bash
+pub get
+```
+
+Step 5: Under the lib folder open the main.dart file and run the app with emulator, simulator or real device.
+
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
