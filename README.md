@@ -13,7 +13,12 @@ Step 2: After downloading the zip file, extract it using Winrar or ZIP.
 
 Step 3: Go to your preferred code editor and open the file you extracted before.
 
-Step 4: Under the lib folder open the main.dart file and run the app with emulator.
+Step 4: run pub get command in the terminal.
+```bash
+pub get
+```
+
+Step 5: Under the lib folder open the main.dart file and run the app with emulator.
 
 
 ## Contributing
