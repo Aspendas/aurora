@@ -123,10 +123,11 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             UserService()
                                 .getInitials(widget.userData.data['name']),
                             style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 50,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'RobotoMono'),
+                              color: Colors.black,
+                              fontSize: 50,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'RobotoMono',
+                            ),
                           ), //Text
                   ),
                 ),
@@ -142,8 +143,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                       CupertinoPageRoute(
                         builder: (context) {
                           return AvatarChangeScreen(
-                              userData: widget.userData,
-                              avatarURLs: avatarURLs);
+                            userData: widget.userData,
+                            avatarURLs: avatarURLs,
+                          );
                         },
                       ),
                     );
@@ -152,10 +154,11 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                     'Change the avatar',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'RobotoMono',
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xFF886EE5)),
+                      fontFamily: 'RobotoMono',
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFF886EE5),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 62),
@@ -272,9 +275,11 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                   initialval: gender,
                   onChanged: (String? value) {
                     // This is called when the user selects an item.
-                    setState(() {
-                      gender = "$value";
-                    });
+                    setState(
+                      () {
+                        gender = "$value";
+                      },
+                    );
                   },
                 ),
                 const SizedBox(height: 9),
@@ -319,10 +324,12 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                               ).then((value) {
                                 dt = value;
                               });
-                              setState(() {
-                                formattedStartDate =
-                                    formatter.format(dt as DateTime);
-                              });
+                              setState(
+                                () {
+                                  formattedStartDate =
+                                      formatter.format(dt as DateTime);
+                                },
+                              );
                             }
                           : () {},
                       child: Container(

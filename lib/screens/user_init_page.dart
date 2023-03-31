@@ -86,9 +86,10 @@ class _userInitScreenState extends State<userInitScreen> {
                         fontWeight: FontWeight.w600),
                     decoration: const InputDecoration(
                       hintStyle: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontFamily: "Robotomono",
-                          fontSize: 18.0),
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Robotomono",
+                        fontSize: 18.0,
+                      ),
                       contentPadding:
                           EdgeInsets.symmetric(vertical: 8, horizontal: 15),
                       hintText: "Name Surname",
@@ -160,9 +161,10 @@ class _userInitScreenState extends State<userInitScreen> {
                         child: Text(
                           '$age',
                           style: const TextStyle(
-                              fontSize: 18,
-                              fontFamily: "Robotomono",
-                              fontWeight: FontWeight.w600),
+                            fontSize: 18,
+                            fontFamily: "Robotomono",
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                     ),
@@ -293,13 +295,13 @@ class _userInitScreenState extends State<userInitScreen> {
                         color: Colors.redAccent,
                       ),
                     ),
-                    paddings: EdgeInsets.fromLTRB(0, 35, 15, 0),
+                    paddings: const EdgeInsets.fromLTRB(0, 35, 15, 0),
                     onPress: () => showDialog<String>(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
                         shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20.0))),
+                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        ),
                         title: const Text('Are you sure you want to sign out?'),
                         actions: <Widget>[
                           TextButton(
@@ -329,7 +331,7 @@ class _userInitScreenState extends State<userInitScreen> {
                           color: Colors.black,
                         ),
                       ),
-                      paddings: EdgeInsets.fromLTRB(15, 35, 0, 0),
+                      paddings: const EdgeInsets.fromLTRB(15, 35, 0, 0),
                       onPress: () async {
                         if (bioGender != null &&
                             age != null &&

@@ -44,7 +44,7 @@ class _MotivationScreenState extends State<MotivationScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xffDAF0F0),
+        backgroundColor: const Color(0xffDAF0F0),
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: const Icon(
@@ -61,60 +61,88 @@ class _MotivationScreenState extends State<MotivationScreen>
         ),
       ),
       body: SafeArea(
-          child: FutureBuilder(
-              future: userDataget,
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  return Stack(
+        child: FutureBuilder(
+          future: userDataget,
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              return Stack(
+                children: [
+                  Column(
                     children: [
-                      Column(
-                        children: [
-                          const SizedBox(
-                            height: 50,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Opacity(
-                              opacity: 0.3,
-                              child: Lottie.asset(
-                                'images/motivation_illustration.json',
-                                controller: _guitarController,
-                                width: 600,
-                                height: 600,
-                              ),
-                            ),
-                          ),
-                        ],
+                      const SizedBox(
+                        height: 50,
                       ),
-                      Container(
-                        child: snapshot.data['motivations'] != null &&
-                                snapshot.data['wquotes'] != null
-                            ? ListView(
-                                children: [
-                                  const Padding(
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Opacity(
+                          opacity: 0.3,
+                          child: Lottie.asset(
+                            'images/motivation_illustration.json',
+                            controller: _guitarController,
+                            width: 600,
+                            height: 600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    child: snapshot.data['motivations'] != null &&
+                            snapshot.data['wquotes'] != null
+                        ? ListView(
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.fromLTRB(20, 30, 20, 30),
+                                child: Text(
+                                  "Your past motivation phrases and weekly quotes",
+                                  style: TextStyle(fontSize: 18),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount: snapshot.data['wquotes'].length < 2
+                                    ? snapshot.data['wquotes'].length
+                                    : 2,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Padding(
                                     padding:
-                                        EdgeInsets.fromLTRB(20, 30, 20, 30),
-                                    child: Text(
-                                      "Your past motivation phrases and weekly quotes",
-                                      style: TextStyle(fontSize: 18),
-                                      textAlign: TextAlign.center,
+                                        const EdgeInsets.only(bottom: 12.0),
+                                    child: Motivation(
+                                      image: Image.asset(
+                                        'images/quote.png',
+                                        width: 45,
+                                        height: 45,
+                                      ),
+                                      body: snapshot.data['wquotes'][index],
+                                      height: 500.0,
+                                      quote: true,
+                                      name: snapshot.data['wquotenames'][index],
+                                      main: true,
                                     ),
-                                  ),
+                                  );
+                                },
+                              ),
+                              Column(
+                                children: [
                                   ListView.builder(
                                     physics:
                                         const NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
                                     scrollDirection: Axis.vertical,
                                     itemCount:
-                                        snapshot.data['wquotes'].length < 2
-                                            ? snapshot.data['wquotes'].length
-                                            : 2,
+                                        snapshot.data['motivations'].length < 3
+                                            ? snapshot
+                                                .data['motivations'].length
+                                            : 3,
                                     itemBuilder:
                                         (BuildContext context, int index) {
                                       return Padding(
@@ -122,77 +150,44 @@ class _MotivationScreenState extends State<MotivationScreen>
                                             const EdgeInsets.only(bottom: 12.0),
                                         child: Motivation(
                                           image: Image.asset(
-                                            'images/quote.png',
+                                            'images/motivation.png',
                                             width: 45,
                                             height: 45,
                                           ),
-                                          body: snapshot.data['wquotes'][index],
-                                          height: 500.0,
-                                          quote: true,
-                                          name: snapshot.data['wquotenames']
+                                          body: snapshot.data['motivations']
                                               [index],
-                                          main: true,
+                                          height: 500.0,
+                                          quote: false,
                                         ),
                                       );
                                     },
                                   ),
-                                  Column(
-                                    children: [
-                                      ListView.builder(
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.vertical,
-                                        itemCount: snapshot.data['motivations']
-                                                    .length <
-                                                3
-                                            ? snapshot
-                                                .data['motivations'].length
-                                            : 3,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 12.0),
-                                            child: Motivation(
-                                              image: Image.asset(
-                                                'images/motivation.png',
-                                                width: 45,
-                                                height: 45,
-                                              ),
-                                              body: snapshot.data['motivations']
-                                                  [index],
-                                              height: 500.0,
-                                              quote: false,
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                      const SizedBox(height: 32),
-                                    ],
-                                  )
+                                  const SizedBox(height: 32),
                                 ],
                               )
-                            : Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: const [
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  Text(
-                                    'You have no past motivation phrases or quotes right now',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 30),
-                                  ),
-                                ],
+                            ],
+                          )
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: const [
+                              SizedBox(
+                                height: 30,
                               ),
-                      ),
-                    ],
-                  );
-                }
-              })),
+                              Text(
+                                'You have no past motivation phrases or quotes right now',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 30),
+                              ),
+                            ],
+                          ),
+                  ),
+                ],
+              );
+            }
+          },
+        ),
+      ),
     );
   }
 }

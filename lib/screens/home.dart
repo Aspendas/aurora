@@ -2,8 +2,6 @@ import 'package:aurora/screens/chat/chat.dart';
 import 'package:aurora/screens/health/health.dart';
 import 'package:aurora/screens/main_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:lottie/lottie.dart';
 import 'package:circle_nav_bar/circle_nav_bar.dart';
 import 'package:aurora/services/user_info.dart';
@@ -56,100 +54,103 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: userData,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          } else {
-            final List<Widget> bottomBarPages = [
-              ChatScreen(userData: snapshot),
-              MainScreen(userData: snapshot),
-              HealthScreen(userData: snapshot),
-            ];
-            return Scaffold(
-              body: PageView(
-                controller: _pageController,
-                onPageChanged: (newIndex) {
-                  setState(() {
+      future: userData,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          final List<Widget> bottomBarPages = [
+            ChatScreen(userData: snapshot),
+            MainScreen(userData: snapshot),
+            HealthScreen(userData: snapshot),
+          ];
+          return Scaffold(
+            body: PageView(
+              controller: _pageController,
+              onPageChanged: (newIndex) {
+                setState(
+                  () {
                     _currentIndex = newIndex;
-                  });
-                  animationList[newIndex].reset();
-                  newIndex == 0
-                      ? animationList[newIndex].animateTo(0.55)
-                      : animationList[newIndex].forward();
-                },
-                children: List.generate(
-                    bottomBarPages.length, (index) => bottomBarPages[index]),
-              ),
-              extendBody: true,
-              bottomNavigationBar: CircleNavBar(
-                activeIcons: [
-                  Lottie.asset(
-                    'images/blog_active.json',
-                    controller: animationList[0],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Lottie.asset(
-                      'images/home_active.json',
-                      controller: animationList[1],
-                      width: 20,
-                      height: 20,
-                    ),
-                  ),
-                  Lottie.asset(
-                    'images/activity_active.json',
-                    controller: animationList[2],
-                  ),
-                ],
-                inactiveIcons: [
-                  Lottie.asset(
-                    'images/blog_inactive.json',
-                    controller: animationList[0],
-                  ),
-                  Lottie.asset(
-                    'images/home_inactive.json',
-                    controller: animationList[1],
-                    width: 40,
-                    height: 40,
-                  ),
-                  Lottie.asset(
-                    'images/activity_inactive.json',
-                    controller: animationList[2],
-                    width: 200,
-                    height: 200,
-                  ),
-                ],
-                color: Colors.white,
-                circleColor: Colors.white,
-                height: 70,
-                circleWidth: 70,
-                activeIndex: _currentIndex,
-                onTap: (newIndex) async {
-                  await _pageController.animateToPage(
-                    newIndex,
-                    duration: const Duration(milliseconds: 400),
-                    curve: Curves.easeIn,
-                  );
-                  animationList[newIndex].reset();
-                  newIndex == 0
-                      ? animationList[newIndex].animateTo(0.55)
-                      : animationList[newIndex].forward();
-                },
-                cornerRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
+                  },
+                );
+                animationList[newIndex].reset();
+                newIndex == 0
+                    ? animationList[newIndex].animateTo(0.55)
+                    : animationList[newIndex].forward();
+              },
+              children: List.generate(
+                  bottomBarPages.length, (index) => bottomBarPages[index]),
+            ),
+            extendBody: true,
+            bottomNavigationBar: CircleNavBar(
+              activeIcons: [
+                Lottie.asset(
+                  'images/blog_active.json',
+                  controller: animationList[0],
                 ),
-                shadowColor: Color.fromRGBO(100, 100, 100, 0.7),
-                circleShadowColor: Color.fromRGBO(100, 100, 100, 0.7),
-                elevation: 5,
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Lottie.asset(
+                    'images/home_active.json',
+                    controller: animationList[1],
+                    width: 20,
+                    height: 20,
+                  ),
+                ),
+                Lottie.asset(
+                  'images/activity_active.json',
+                  controller: animationList[2],
+                ),
+              ],
+              inactiveIcons: [
+                Lottie.asset(
+                  'images/blog_inactive.json',
+                  controller: animationList[0],
+                ),
+                Lottie.asset(
+                  'images/home_inactive.json',
+                  controller: animationList[1],
+                  width: 40,
+                  height: 40,
+                ),
+                Lottie.asset(
+                  'images/activity_inactive.json',
+                  controller: animationList[2],
+                  width: 200,
+                  height: 200,
+                ),
+              ],
+              color: Colors.white,
+              circleColor: Colors.white,
+              height: 70,
+              circleWidth: 70,
+              activeIndex: _currentIndex,
+              onTap: (newIndex) async {
+                await _pageController.animateToPage(
+                  newIndex,
+                  duration: const Duration(milliseconds: 400),
+                  curve: Curves.easeIn,
+                );
+                animationList[newIndex].reset();
+                newIndex == 0
+                    ? animationList[newIndex].animateTo(0.55)
+                    : animationList[newIndex].forward();
+              },
+              cornerRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
               ),
-            );
-          }
-        });
+              shadowColor: const Color.fromRGBO(100, 100, 100, 0.7),
+              circleShadowColor: const Color.fromRGBO(100, 100, 100, 0.7),
+              elevation: 5,
+            ),
+          );
+        }
+      },
+    );
   }
 }

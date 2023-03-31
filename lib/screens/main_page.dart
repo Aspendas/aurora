@@ -1,12 +1,8 @@
 import 'package:aurora/screens/home.dart';
-
 import 'package:aurora/services/user_info.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/cupertino.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import '../constants.dart';
 import '../services/activities.dart';
 import '../services/test.dart';
@@ -19,8 +15,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../widgets/motivation.dart';
 import 'dart:math';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
-
-import 'health/health.dart';
 
 Random random = Random();
 
@@ -105,12 +99,13 @@ class _MainScreenState extends State<MainScreen> {
         badgeDaybool = true;
         Future.delayed(Duration.zero, () {
           _showDialog(
-              context: context,
-              badge: Image.asset(
-                'images/DAY$maxbadge.png',
-                width: 60,
-                height: 60,
-              ));
+            context: context,
+            badge: Image.asset(
+              'images/DAY$maxbadge.png',
+              width: 60,
+              height: 60,
+            ),
+          );
         });
       } else if (widget.userData.data["badgeDay"] != null &&
           maxbadge == widget.userData.data["badgeDay"]) {
@@ -207,8 +202,9 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                     ],
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.elliptical(125, 25),
-                        topRight: Radius.elliptical(125, 25)),
+                      topLeft: Radius.elliptical(125, 25),
+                      topRight: Radius.elliptical(125, 25),
+                    ),
                   ),
                   child: Column(
                     children: [
@@ -253,7 +249,7 @@ class _MainScreenState extends State<MainScreen> {
                                         const SizedBox(
                                           width: 10,
                                         ),
-                                        badges ?? SizedBox(),
+                                        badges ?? const SizedBox(),
                                       ],
                                     ),
                                   ),
@@ -302,9 +298,10 @@ class _MainScreenState extends State<MainScreen> {
                                       child: Text(
                                         'How are you feeling right now?',
                                         style: TextStyle(
-                                            fontSize: 22,
-                                            fontFamily: 'robotomono',
-                                            fontWeight: FontWeight.w700),
+                                          fontSize: 22,
+                                          fontFamily: 'robotomono',
+                                          fontWeight: FontWeight.w700,
+                                        ),
                                       ),
                                     ),
                                     Container(
@@ -668,7 +665,7 @@ class _MainScreenState extends State<MainScreen> {
                                 } else if (snapshot.hasError) {
                                   return Text('Error: ${snapshot.error}');
                                 } else {
-                                  return Container(
+                                  return SizedBox(
                                     height: 200,
                                     width: MediaQuery.of(context).size.width,
                                     child: Column(

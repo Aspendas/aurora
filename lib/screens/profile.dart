@@ -52,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             color: Colors.black,
           ),
         ),
-        backgroundColor: Color(0xffDAF0F0),
+        backgroundColor: const Color(0xffDAF0F0),
         centerTitle: true,
         title: const Text(
           "Profile",
@@ -106,10 +106,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             UserService()
                                 .getInitials(widget.userData.data['name']),
                             style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 50,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'RobotoMono'),
+                              color: Colors.black,
+                              fontSize: 50,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'RobotoMono',
+                            ),
                           ), //Text
                   ),
                 ),
@@ -161,8 +162,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 size: 15,
                               )),
                               TextSpan(
-                                  text: " Edit Profile",
-                                  style: TextStyle(fontSize: 13)),
+                                text: " Edit Profile",
+                                style: TextStyle(fontSize: 13),
+                              ),
                             ],
                           ),
                         ),
@@ -192,9 +194,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   title: Text(
                     widget.userData.data['gender'],
                     style: const TextStyle(
-                        fontSize: 18,
-                        fontFamily: "Robotomono",
-                        fontWeight: FontWeight.w600),
+                      fontSize: 18,
+                      fontFamily: "Robotomono",
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   editstatus: false,
                 ),
@@ -206,9 +209,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   title: Text(
                     widget.userData.data['addiction'],
                     style: const TextStyle(
-                        fontSize: 18,
-                        fontFamily: "Robotomono",
-                        fontWeight: FontWeight.w600),
+                      fontSize: 18,
+                      fontFamily: "Robotomono",
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   editstatus: false,
                 ),
@@ -278,9 +282,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               TextSpan(
                                 text: "  About",
                                 style: TextStyle(
-                                    fontSize: 18,
-                                    fontFamily: "Robotomono",
-                                    fontWeight: FontWeight.w500),
+                                  fontSize: 18,
+                                  fontFamily: "Robotomono",
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ],
                           ),
@@ -305,7 +310,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       color: Colors.red,
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
