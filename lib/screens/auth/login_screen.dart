@@ -62,9 +62,10 @@ class LoginScreenState extends State<LoginScreen> {
                       'Sign in',
                       textAlign: TextAlign.right,
                       style: TextStyle(
-                          fontFamily: 'RobotoMono',
-                          fontSize: 15,
-                          fontWeight: FontWeight.w900),
+                        fontFamily: 'RobotoMono',
+                        fontSize: 15,
+                        fontWeight: FontWeight.w900,
+                      ),
                     ),
                   ),
                   const Text(
@@ -206,38 +207,15 @@ class LoginScreenState extends State<LoginScreen> {
                       .emailSignIn(_email.text, _password.text, context);
                 },
               ),
-              /*GestureDetector(
-                onTap: () async {
-                  FocusManager.instance.primaryFocus?.unfocus();
-                  await AuthService()
-                      .emailSignIn(_email.text, _password.text, context);
-                },
-                child: Center(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        width: 1,
-                      ),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 12, horizontal: 50),
-                    child: const Text(
-                      "Sign-In",
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                ),
-              ),*/
               const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const Text('Don\'t have an account yet?  ',
-                      style: TextStyle(fontFamily: 'RobotoMono', fontSize: 12),
+                      style: TextStyle(
+                        fontFamily: 'RobotoMono',
+                        fontSize: 12,
+                      ),
                       textAlign: TextAlign.left),
                   InkWell(
                     onTap: () {
@@ -254,9 +232,10 @@ class LoginScreenState extends State<LoginScreen> {
                       'Sign up now ➔',
                       textAlign: TextAlign.right,
                       style: TextStyle(
-                          fontFamily: 'RobotoMono',
-                          fontSize: 12,
-                          fontWeight: FontWeight.w900),
+                        fontFamily: 'RobotoMono',
+                        fontSize: 12,
+                        fontWeight: FontWeight.w900,
+                      ),
                     ),
                   ),
                 ],
@@ -272,7 +251,10 @@ class LoginScreenState extends State<LoginScreen> {
                   ),
                   Text(
                     "      or login      ",
-                    style: TextStyle(fontFamily: 'RobotoMono', fontSize: 15),
+                    style: TextStyle(
+                      fontFamily: 'RobotoMono',
+                      fontSize: 15,
+                    ),
                   ),
                   Expanded(
                     child: Divider(
@@ -294,7 +276,10 @@ class LoginScreenState extends State<LoginScreen> {
                       color: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
-                        side: const BorderSide(color: Colors.black, width: 1.5),
+                        side: const BorderSide(
+                          color: Colors.black,
+                          width: 1.5,
+                        ),
                       ),
                       child: MaterialButton(
                         shape: const RoundedRectangleBorder(
@@ -319,7 +304,10 @@ class LoginScreenState extends State<LoginScreen> {
                       color: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
-                        side: const BorderSide(color: Colors.black, width: 1.5),
+                        side: const BorderSide(
+                          color: Colors.black,
+                          width: 1.5,
+                        ),
                       ),
                       child: MaterialButton(
                         shape: const RoundedRectangleBorder(

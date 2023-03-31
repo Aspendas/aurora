@@ -129,7 +129,10 @@ class RegisterScreenState extends State<RegisterScreen> {
                     borderRadius: BorderRadius.all(
                       Radius.circular(12.0),
                     ),
-                    borderSide: BorderSide(width: 1, color: Colors.black54),
+                    borderSide: BorderSide(
+                      width: 1,
+                      color: Colors.black54,
+                    ),
                   ),
                 ),
               ),
@@ -273,7 +276,10 @@ class RegisterScreenState extends State<RegisterScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const Text('You already have an account?  ',
-                      style: TextStyle(fontFamily: 'RobotoMono', fontSize: 12),
+                      style: TextStyle(
+                        fontFamily: 'RobotoMono',
+                        fontSize: 12,
+                      ),
                       textAlign: TextAlign.left),
                   InkWell(
                     onTap: () {
@@ -290,9 +296,10 @@ class RegisterScreenState extends State<RegisterScreen> {
                       'Sign in now ➔',
                       textAlign: TextAlign.right,
                       style: TextStyle(
-                          fontFamily: 'RobotoMono',
-                          fontSize: 12,
-                          fontWeight: FontWeight.w900),
+                        fontFamily: 'RobotoMono',
+                        fontSize: 12,
+                        fontWeight: FontWeight.w900,
+                      ),
                     ),
                   ),
                 ],

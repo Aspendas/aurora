@@ -89,7 +89,10 @@ class ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       borderRadius: BorderRadius.all(
                         Radius.circular(12.0),
                       ),
-                      borderSide: BorderSide(width: 1, color: Colors.black54),
+                      borderSide: BorderSide(
+                        width: 1,
+                        color: Colors.black54,
+                      ),
                     ),
                   ),
                 ),
@@ -112,7 +115,7 @@ class ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               ],
             ),
           ),
-          SizedBox(),
+          const SizedBox(),
         ],
       ),
     );
@@ -121,6 +124,8 @@ class ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
 class MailCheckScreen extends StatefulWidget {
   static const String id = 'mail_check_screen';
+
+  const MailCheckScreen({Key? key}) : super(key: key);
 
   @override
   MailCheckScreenState createState() => MailCheckScreenState();
@@ -137,54 +142,61 @@ class MailCheckScreenState extends State<MailCheckScreen> {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(50, 60, 50, 300),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Image.asset(
-                height: 100,
-                width: 100,
-                'images/logo.png',
-              ),
-              const SizedBox(height: 40),
-              const Text(
-                'Check your mail',
-                textAlign: TextAlign.center,
-                style: TextStyle(
+          child: SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Image.asset(
+                  height: 100,
+                  width: 100,
+                  'images/logo.png',
+                ),
+                const SizedBox(height: 40),
+                const Text(
+                  'Check your mail',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
                     fontFamily: 'RobotoMono',
                     fontSize: 25,
-                    fontWeight: FontWeight.w900),
-              ),
-              const SizedBox(height: 40),
-              const Text(
-                'We have sent a password recover instructions to your email',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontFamily: 'RobotoMono', fontSize: 20),
-              ),
-              const SizedBox(height: 40),
-              RoundedButton(
-                title: const Text(
-                  'Return',
-                  style: TextStyle(
-                    fontSize: 19,
-                    color: Colors.black,
+                    fontWeight: FontWeight.w900,
                   ),
                 ),
-                colour: Colors.white,
-                paddings:
-                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 85),
-                onPress: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const LoginScreen();
-                      },
+                const SizedBox(height: 40),
+                const Text(
+                  'We have sent a password recover instructions to your email',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'RobotoMono',
+                    fontSize: 20,
+                  ),
+                ),
+                const SizedBox(height: 40),
+                RoundedButton(
+                  title: const Text(
+                    'Return',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
                     ),
-                  );
-                },
-              ),
-            ],
+                  ),
+                  colour: Colors.white,
+                  paddings: const EdgeInsets.symmetric(
+                      vertical: 16.0, horizontal: 85),
+                  onPress: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const LoginScreen();
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
