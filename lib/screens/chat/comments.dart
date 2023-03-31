@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../../services/comments.dart';
 import '../../widgets/chat/comment.dart';
 
 class Comments extends StatelessWidget {
@@ -46,26 +45,5 @@ class Comments extends StatelessWidget {
         );
       },
     );
-    /*FutureBuilder(
-      future: CommentsService().getComments(userData.data["addiction"]),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else {
-          return ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: snapshot.data.docs.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Comment(data: snapshot.data.docs[index].data());
-            },
-          );
-        }
-      },
-    );*/
   }
 }

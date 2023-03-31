@@ -80,7 +80,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   child: Column(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       chatScreenToggle
@@ -103,14 +103,16 @@ class _ChatScreenState extends State<ChatScreen> {
                                   const Text(
                                     " - ",
                                     style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
                                   ),
                                   const Text(
                                     "Stories",
                                     style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
                                   ),
                                   Opacity(
                                     opacity: 0,
@@ -139,14 +141,16 @@ class _ChatScreenState extends State<ChatScreen> {
                                       const Text(
                                         "Comments",
                                         style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                        ),
                                       ),
                                       const Text(
                                         " - ",
                                         style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                        ),
                                       ),
                                       GestureDetector(
                                         onTap: () {
@@ -168,157 +172,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                           backgroundColor: Colors.white,
                                           foregroundColor: Colors.black,
                                           onPressed: () {
-                                            showModalBottomSheet(
-                                              context: context,
-                                              builder: (context) {
-                                                return Container(
-                                                  padding: const EdgeInsets.all(
-                                                      16.0),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      const Text(
-                                                        "Write Your Comment",
-                                                        style: TextStyle(
-                                                            fontSize: 18,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 8,
-                                                      ),
-                                                      TextField(
-                                                        controller:
-                                                            _commentController,
-                                                        decoration:
-                                                            const InputDecoration(
-                                                          border:
-                                                              OutlineInputBorder(),
-                                                          contentPadding:
-                                                              EdgeInsets
-                                                                  .symmetric(
-                                                                      horizontal:
-                                                                          8,
-                                                                      vertical:
-                                                                          8),
-                                                        ),
-                                                        maxLength: 260,
-                                                        minLines: 1,
-                                                        maxLines: 8,
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 8,
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          const SizedBox(),
-                                                          Row(
-                                                            children: [
-                                                              ElevatedButton(
-                                                                style: ElevatedButton
-                                                                    .styleFrom(
-                                                                  primary:
-                                                                      const Color(
-                                                                          0xff5A6363),
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .symmetric(
-                                                                    horizontal:
-                                                                        20,
-                                                                    vertical:
-                                                                        12,
-                                                                  ),
-                                                                  textStyle:
-                                                                      const TextStyle(
-                                                                    fontSize:
-                                                                        16,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                  ),
-                                                                ),
-                                                                child:
-                                                                    const Text(
-                                                                  "Cancel",
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: Colors
-                                                                        .black,
-                                                                  ),
-                                                                ),
-                                                                onPressed: () {
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop();
-                                                                },
-                                                              ),
-                                                              const SizedBox(
-                                                                width: 8,
-                                                              ),
-                                                              ElevatedButton(
-                                                                style: ElevatedButton
-                                                                    .styleFrom(
-                                                                  primary:
-                                                                      const Color(
-                                                                          0xffCFE3E3),
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .symmetric(
-                                                                    horizontal:
-                                                                        20,
-                                                                    vertical:
-                                                                        12,
-                                                                  ),
-                                                                  textStyle:
-                                                                      const TextStyle(
-                                                                    fontSize:
-                                                                        16,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                  ),
-                                                                ),
-                                                                child:
-                                                                    const Text(
-                                                                  "Send",
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: Colors
-                                                                        .black,
-                                                                  ),
-                                                                ),
-                                                                onPressed: () {
-                                                                  CommentsService()
-                                                                      .addComment(
-                                                                    userData.data[
-                                                                        'addiction'],
-                                                                    _commentController
-                                                                        .text,
-                                                                    nthDay, // must change
-                                                                    DateTime
-                                                                        .now(),
-                                                                    userId,
-                                                                  );
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop();
-                                                                },
-                                                              ),
-                                                            ],
-                                                          )
-                                                        ],
-                                                      )
-                                                    ],
-                                                  ),
-                                                );
-                                              },
-                                            );
+                                            commentBottomSheet(
+                                                context, userData, nthDay);
                                           },
                                           child: const Icon(Icons.add),
                                         )
@@ -341,6 +196,108 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<dynamic> commentBottomSheet(
+      BuildContext context, AsyncSnapshot<dynamic> userData, int nthDay) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Write Your Comment",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              TextField(
+                controller: _commentController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                ),
+                maxLength: 260,
+                minLines: 1,
+                maxLines: 8,
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const SizedBox(),
+                  Row(
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: const Color(0xff5A6363),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 12,
+                          ),
+                          textStyle: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        child: const Text(
+                          "Cancel",
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: const Color(0xffCFE3E3),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 12,
+                          ),
+                          textStyle: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        child: const Text(
+                          "Send",
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                        onPressed: () {
+                          CommentsService().addComment(
+                            userData.data['addiction'],
+                            _commentController.text,
+                            nthDay, // must change
+                            DateTime.now(),
+                            userId,
+                          );
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  )
+                ],
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }
