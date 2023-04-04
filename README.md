@@ -38,12 +38,12 @@ Aurora has a wide range of features. A chat screen where they can see what chall
 
 ## App Showcase
 <div style="display: flex;">
-<img src="https://github.com/Aspendas/aurora/blob/master/images/app/1.jpeg?raw=true" >
-<img src="https://github.com/Aspendas/aurora/blob/master/images/app/2.jpeg?raw=true" >
-<img src="https://github.com/Aspendas/aurora/blob/master/images/app/3.jpeg?raw=true" >
-<img src="https://github.com/Aspendas/aurora/blob/master/images/app/4.jpeg?raw=true" >
-<img src="https://github.com/Aspendas/aurora/blob/master/images/app/5.jpeg?raw=true" >
-<img src="https://github.com/Aspendas/aurora/blob/master/images/app/6.jpeg?raw=true" >
+<img src="https://github.com/Aspendas/aurora/blob/master/images/app/1.jpeg?raw=true" alt="app showcase 1" width="250" >
+<img src="https://github.com/Aspendas/aurora/blob/master/images/app/2.jpeg?raw=true" alt="app showcase 2" width="250" >
+<img src="https://github.com/Aspendas/aurora/blob/master/images/app/3.jpeg?raw=true" alt="app showcase 3" width="250" >
+<img src="https://github.com/Aspendas/aurora/blob/master/images/app/4.jpeg?raw=true" alt="app showcase 4" width="250" >
+<img src="https://github.com/Aspendas/aurora/blob/master/images/app/5.jpeg?raw=true" alt="app showcase 5" width="250" >
+<img src="https://github.com/Aspendas/aurora/blob/master/images/app/6.jpeg?raw=true" alt="app showcase 6" width="250" >
 </div>
 
 
