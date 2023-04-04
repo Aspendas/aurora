@@ -36,6 +36,17 @@ The aim of the application designed to help those with addiction is to provide a
 
 Aurora has a wide range of features. A chat screen where they can see what challenges others are going through and their successes, motivational items, suggestions on how to deal with challenges, official organization information they can consult when needed, and a screen about how well-known celebrities overcame their addiction and what they have experienced, essential information about addictions. With the help of these features, Aurora aims to reduce the lack of motivation as much as possible and prove that those who wish to overcome addictions are not alone in this challenging path.
 
+## App Showcase
+<div style="display: flex;">
+<img src="https://github.com/Aspendas/aurora/blob/master/images/app/1.jpeg?raw=true" >
+<img src="https://github.com/Aspendas/aurora/blob/master/images/app/2.jpeg?raw=true" >
+<img src="https://github.com/Aspendas/aurora/blob/master/images/app/3.jpeg?raw=true" >
+<img src="https://github.com/Aspendas/aurora/blob/master/images/app/4.jpeg?raw=true" >
+<img src="https://github.com/Aspendas/aurora/blob/master/images/app/5.jpeg?raw=true" >
+<img src="https://github.com/Aspendas/aurora/blob/master/images/app/6.jpeg?raw=true" >
+</div>
+
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first
