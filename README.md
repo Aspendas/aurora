@@ -27,8 +27,8 @@ The aim of the application designed to help those with addiction is to provide a
 
 ## 🎯 Targeted UN SDG’s
 
-![SDG 3](https://github.com/Aspendas/aurora/blob/master/images/SDG3.png?raw=true)
-![SDG 17](https://github.com/Aspendas/aurora/blob/master/images/SDG17.png?raw=true)
+![SDG 3](https://github.com/Aspendas/aurora/blob/master/images/SDG3.svg?raw=true)
+![SDG 17](https://github.com/Aspendas/aurora/blob/master/images/SDG17.svg?raw=true)
 
 
 ## Features
